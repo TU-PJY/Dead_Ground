@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="buffer.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="gl_header.h" />
@@ -146,7 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework.cpp" />
+    <ClCompile Include="global.cpp" />
     <ClCompile Include="keyboard.cpp" />
+    <ClCompile Include="mouse.cpp" />
     <ClCompile Include="play_mode.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="main.cpp" />

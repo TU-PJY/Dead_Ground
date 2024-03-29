@@ -13,8 +13,8 @@ uniform float transparency;
 void main() {
     vec4 texColor = texture(outTexture, TexCoord);
 
-    // 텍스처의 알파 값이 0.5보다 작으면 (거의 투명한 부분)
-    if (texColor.a < 0.5)
+    // 텍스처의 알파 값이 0.6보다 작으면 (거의 투명한 부분)
+    if (texColor.a < 0.6)
         discard;  // 해당 픽셀을 출력하지 않음
 
     else

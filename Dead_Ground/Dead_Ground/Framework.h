@@ -1,6 +1,6 @@
 #pragma once
 #include "header.h"
-#define LAYER 7
+#define LAYER 6
 
 // 모드 열거형 모음
 enum Mods {
@@ -8,6 +8,16 @@ enum Mods {
 	_play_,
 	_pause_,
 	_gameover_,
+};
+
+// 오브젝트 종류 별로 레이어를 분리하도록 한다. 순서를 바꿀시 출력 순서가 달라진다.
+enum LAYERS {
+	layer_ground,
+	layer_map_object,
+	layer_player,
+	layer_bullet,
+	layer_monster,
+	layer_ui,
 };
 
 class Framework {

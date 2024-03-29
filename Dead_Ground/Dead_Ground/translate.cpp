@@ -19,17 +19,17 @@ void setWindowView() {  // 시점 세팅
     view = mat4(1.0f);
 
     cameraPos = vec3(0.0f, 0.0f, 1.0f);
-    cameraDirection = vec3(0.0f, 0.0f, 0.0f);
+    cameraDirection = -normalize(cameraPos);
     cameraUp = vec3(0.0f, 1.0f, 0.0f);
 
     projection = mat4(1.0f);
 
-    ratio = 1.0 * WIDTH / HEIGHT;  // 화면 비율을 구하여 모델이 제대로 나오도록 함
-    // X축 변환에 곱해야함.
+    view = lookAt(cameraPos, cameraPos + cameraDirection, cameraUp);
+    view = translate(view, vec3(0.0, -0.45, 0.0));
+    view = rotate(view, radians(map_rotation), vec3(0.0, 0.0, 1.0));
+    view = translate(view, vec3(-player_x, -player_y, 0.0));
 
-    view = lookAt(cameraPos, cameraDirection, cameraUp);
-    view = translate(view, vec3(0.0, 0.0, 0.0));
-    view = rotate(view, radians(0.0f), vec3(0.0, 0.0, 1.0));
+    ratio = 1.0 * WIDTH / HEIGHT;
 
     projection = ortho(-1.0 * ratio, 1.0 * ratio, -1.0, 1.0, -100.0, 100.0);
 }

@@ -1,25 +1,24 @@
 #include "gl_header.h"
+#include "object_header.h"
 
 
 std::array<std::vector<Framework*>, LAYER> framework;
 
-clock_t start_time, end_time; 
+
+double delta_time, last_delta_time;
 double ft;
 
 int mode = START_MODE;
 
-
 void fw_routine() {
-	start_time = clock();  	
-
-	for(int i = 0; i < framework.size(); i ++) {
+	for(int i = 0; i < framework.size(); i++) {
 		for (auto it = framework[i].begin(); it != framework[i].end();) {
 			auto& ptr = *it;
 
 			if (ptr != nullptr) {
 				ptr->render();
 				ptr->check_collision();
-				ptr->update();	
+				ptr->update();
 
 				++it; 
 			}
@@ -29,9 +28,9 @@ void fw_routine() {
 		}
 	}
 
-	end_time = clock();  
-
-	ft = (double)(end_time - start_time) / 1000;
+	delta_time = glutGet(GLUT_ELAPSED_TIME);
+	ft = (delta_time - last_delta_time) / 1000.0;
+	last_delta_time = delta_time;
 }
 
 

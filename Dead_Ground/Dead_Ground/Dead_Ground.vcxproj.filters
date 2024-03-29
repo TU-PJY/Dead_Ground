@@ -26,10 +26,10 @@
       <Filter>[7] headers\%282%29 headers</Filter>
     </ClInclude>
     <ClInclude Include="object_header.h">
-      <Filter>[7] headers\%283%29 Object_headers</Filter>
+      <Filter>%280%29 Objects</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>[7] headers\%283%29 Object_headers\%281%29 Player</Filter>
+      <Filter>%280%29 Objects\%281%29 Player</Filter>
     </ClInclude>
     <ClInclude Include="play_mode.h">
       <Filter>[7] headers\%284%29 play_mode_headers</Filter>
@@ -37,13 +37,16 @@
     <ClInclude Include="mode_header.h">
       <Filter>[7] headers\%284%29 play_mode_headers</Filter>
     </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>%280%29 Objects\%282%29 Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="translate.cpp">
-      <Filter>[5] Image</Filter>
+      <Filter>[5] Translate</Filter>
     </ClCompile>
     <ClCompile Include="buffer.cpp">
-      <Filter>[5] Image</Filter>
+      <Filter>[5] Translate</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>[1] Main</Filter>
@@ -62,6 +65,12 @@
     </ClCompile>
     <ClCompile Include="play_mode.cpp">
       <Filter>[2] Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="mouse.cpp">
+      <Filter>[3] Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="global.cpp">
+      <Filter>[1] Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,9 +97,6 @@
     <Filter Include="[4] Timer">
       <UniqueIdentifier>{35f89516-0dcf-478f-94ea-0632ae33d5d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5] Image">
-      <UniqueIdentifier>{619373fd-2f52-460e-86eb-22c6fe9200a2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[6] Shader">
       <UniqueIdentifier>{efef5ce8-dac5-45ff-ad98-efc7bdd7e611}</UniqueIdentifier>
     </Filter>
@@ -100,12 +106,6 @@
     <Filter Include="[7] headers\%281%29 global">
       <UniqueIdentifier>{b3bf4b0c-d00f-4694-9411-cb7e320d0e48}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[7] headers\%283%29 Object_headers">
-      <UniqueIdentifier>{650beecf-963b-4fce-b8f1-4797053d3e31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[7] headers\%283%29 Object_headers\%281%29 Player">
-      <UniqueIdentifier>{50a3105e-5ce3-42cf-b74a-c79cc73a2158}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[7] headers\%282%29 headers">
       <UniqueIdentifier>{3feb5cb3-55f3-45a4-a0e2-8f780f4d8440}</UniqueIdentifier>
     </Filter>
@@ -114,6 +114,18 @@
     </Filter>
     <Filter Include="[8] GLSL">
       <UniqueIdentifier>{64074ec2-6aa6-49bb-992a-1db783b19155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5] Translate">
+      <UniqueIdentifier>{619373fd-2f52-460e-86eb-22c6fe9200a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%280%29 Objects">
+      <UniqueIdentifier>{650beecf-963b-4fce-b8f1-4797053d3e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%280%29 Objects\%281%29 Player">
+      <UniqueIdentifier>{50a3105e-5ce3-42cf-b74a-c79cc73a2158}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%280%29 Objects\%282%29 Map">
+      <UniqueIdentifier>{5ce5836b-88da-4174-a972-e748b3e5b915}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

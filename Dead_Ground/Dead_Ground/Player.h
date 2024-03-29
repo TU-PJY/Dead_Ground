@@ -14,19 +14,45 @@ private:
 
 
 public:
-	GLfloat x = 0.0, y = 0.0;  // player position
+	GLfloat x = 0.0, y = 0.0;  // 충돌처리를 위한 변수
 
 	void translate_image() {
 		using namespace glm;
 
 		initTransform();
-
-		translateMatrix = translate(translateMatrix, vec3(x, y, 0.0));
+		translateMatrix = translate(translateMatrix, vec3(x, y, 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
+		translateMatrix = rotate(translateMatrix, radians(-map_rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
 
 		transformMatrix = rotateMatrix * translateMatrix * scaleMatrix;  // 최종 변환
 
 		transmit();
 	}
+
+	void move() {
+		GLfloat degree = map_rotation * 3.14 / 180;
+		GLfloat degree_vertical = (map_rotation + 90) * 3.14 / 180;
+
+		if (player_move_up) {
+			x += 0.005 * ft * 150 * sin(degree);
+			y += 0.005 * ft * 150 * cos(degree);
+		}
+		if (player_move_down) {
+			x -= 0.005 * ft * 150 * sin(degree);
+			y -= 0.005 * ft * 150 * cos(degree);
+		}
+		if (player_move_right) {
+			x += 0.005 * ft * 150 * sin(degree_vertical);
+			y += 0.005 * ft * 150 * cos(degree_vertical);
+		}
+		if (player_move_left) {
+			x -= 0.005 * ft * 150 * sin(degree_vertical);
+			y -= 0.005 * ft * 150 * cos(degree_vertical);
+		}
+	}
+
+
+	GLfloat get_x() const { return x; }
+	GLfloat get_y() const { return y; }
 
 
 	void render() {
@@ -42,9 +68,8 @@ public:
 
 	}
 
-
 	void update() {
-
+		move();
 	}
 
 

@@ -31,12 +31,16 @@ void main(int argc, char** argv) {
 	{  // fold here
 		glutInit(&argc, argv);
 		glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GL_MULTISAMPLE);
+
 		glutInitWindowPosition(0, 0);
 		glutInitWindowSize(WIDTH, HEIGHT);
+
 		glutCreateWindow("Dead Ground");
-		glewExperimental = GL_TRUE;
+
+		glutSetCursor(GLUT_CURSOR_NONE);
 		glutFullScreen();  // 전체화면으로 전환한다
 
+		glewExperimental = GL_TRUE;
 		if (glewInit() != GLEW_OK) {
 			std::cerr << "Unable to initialize GLEW" << std::endl;  exit(EXIT_FAILURE);
 		}
@@ -50,13 +54,24 @@ void main(int argc, char** argv) {
 		set_shader();
 	}
 
-	if (START_MODE == _play_)
+	// 설정한 모드부터 실행, gl_header.h에 정의되어있음
+	switch (START_MODE) {
+	case _play_:
 		play_mode();
+		break;
+	}
 	
 	glutDisplayFunc(displayOutput);
 	glutReshapeFunc(displayReshape);
+
 	glutKeyboardFunc(keyDown);
 	glutKeyboardUpFunc(keyUp);
+
+	glutMouseFunc(Mouse);
+	glutMotionFunc(Motion);
+	glutPassiveMotionFunc(pMotion);
+
 	glutTimerFunc(10, timerOperation, 1);
+
 	glutMainLoop();
 }
