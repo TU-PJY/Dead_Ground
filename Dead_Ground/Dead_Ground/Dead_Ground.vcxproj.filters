@@ -2,133 +2,133 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="header.h">
-      <Filter>[7] headers\%281%29 global</Filter>
+      <Filter>[7]___________________headers\1%29 global</Filter>
     </ClInclude>
     <ClInclude Include="gl_header.h">
-      <Filter>[7] headers\%281%29 global</Filter>
+      <Filter>[7]___________________headers\1%29 global</Filter>
     </ClInclude>
     <ClInclude Include="buffer.h">
-      <Filter>[7] headers\%282%29 headers</Filter>
+      <Filter>[7]___________________headers\2%29 headers</Filter>
     </ClInclude>
     <ClInclude Include="gl_func.h">
-      <Filter>[7] headers\%282%29 headers</Filter>
+      <Filter>[7]___________________headers\2%29 headers</Filter>
     </ClInclude>
     <ClInclude Include="shader.h">
-      <Filter>[7] headers\%282%29 headers</Filter>
+      <Filter>[7]___________________headers\2%29 headers</Filter>
     </ClInclude>
     <ClInclude Include="translate.h">
-      <Filter>[7] headers\%282%29 headers</Filter>
+      <Filter>[7]___________________headers\2%29 headers</Filter>
     </ClInclude>
     <ClInclude Include="texture.h">
-      <Filter>[7] headers\%282%29 headers</Filter>
+      <Filter>[7]___________________headers\2%29 headers</Filter>
     </ClInclude>
     <ClInclude Include="object_header.h">
-      <Filter>%280%29 Objects</Filter>
+      <Filter>%280%29___________________Objects</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>%280%29 Objects\%281%29 Player</Filter>
+      <Filter>%280%29___________________Objects\1%29 Player</Filter>
     </ClInclude>
     <ClInclude Include="play_mode.h">
-      <Filter>[7] headers\%284%29 play_mode_headers</Filter>
+      <Filter>[7]___________________headers\3%29 mode_headers</Filter>
     </ClInclude>
     <ClInclude Include="mode_header.h">
-      <Filter>[7] headers\%284%29 play_mode_headers</Filter>
+      <Filter>[7]___________________headers\3%29 mode_headers</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
-      <Filter>%280%29 Objects\%282%29 Map</Filter>
+      <Filter>%280%29___________________Objects\2%29 Map</Filter>
     </ClInclude>
     <ClInclude Include="Framework.h">
-      <Filter>[0] Framework</Filter>
+      <Filter>[0]___________________Framework</Filter>
     </ClInclude>
     <ClInclude Include="Center.h">
-      <Filter>%280%29 Objects\%282%29 Map</Filter>
+      <Filter>%280%29___________________Objects\2%29 Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="view.cpp">
-      <Filter>[5] view</Filter>
+      <Filter>[5]___________________view</Filter>
     </ClCompile>
     <ClCompile Include="buffer.cpp">
-      <Filter>[5] view</Filter>
+      <Filter>[5]___________________view</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>[1] Main</Filter>
+      <Filter>[1]___________________Main</Filter>
     </ClCompile>
     <ClCompile Include="shader_config.cpp">
-      <Filter>[6] Shader</Filter>
+      <Filter>[6]___________________Shader</Filter>
     </ClCompile>
     <ClCompile Include="timer.cpp">
-      <Filter>[4] Timer</Filter>
+      <Filter>[4]___________________Timer</Filter>
     </ClCompile>
     <ClCompile Include="keyboard.cpp">
-      <Filter>[3] Controller</Filter>
+      <Filter>[3]___________________Controller</Filter>
     </ClCompile>
     <ClCompile Include="Framework.cpp">
-      <Filter>[0] Framework</Filter>
+      <Filter>[0]___________________Framework</Filter>
     </ClCompile>
     <ClCompile Include="play_mode.cpp">
-      <Filter>[2] Mode</Filter>
+      <Filter>[2]___________________Mode</Filter>
     </ClCompile>
     <ClCompile Include="mouse.cpp">
-      <Filter>[3] Controller</Filter>
+      <Filter>[3]___________________Controller</Filter>
     </ClCompile>
     <ClCompile Include="global.cpp">
-      <Filter>[1] Main</Filter>
+      <Filter>[1]___________________Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="GLSL_vertex.glsl">
-      <Filter>[8] GLSL</Filter>
+      <Filter>[8]___________________GLSL</Filter>
     </None>
     <None Include="GLSL_fragment.glsl">
-      <Filter>[8] GLSL</Filter>
+      <Filter>[8]___________________GLSL</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="[1] Main">
-      <UniqueIdentifier>{512386e3-e8d5-45c3-ba99-b8292654e1b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[0] Framework">
-      <UniqueIdentifier>{26be2737-1f58-42b5-bf60-f9e0c9a6b515}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[2] Mode">
-      <UniqueIdentifier>{5b7d3e65-1cb9-483f-974d-a64445fc7fa8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[3] Controller">
-      <UniqueIdentifier>{710ce888-d265-4dc1-bdf5-00386ca0876b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4] Timer">
-      <UniqueIdentifier>{35f89516-0dcf-478f-94ea-0632ae33d5d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[6] Shader">
-      <UniqueIdentifier>{efef5ce8-dac5-45ff-ad98-efc7bdd7e611}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[7] headers">
-      <UniqueIdentifier>{b1f4b19d-3716-4e80-9fcd-36a2b87b3887}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[7] headers\%281%29 global">
-      <UniqueIdentifier>{b3bf4b0c-d00f-4694-9411-cb7e320d0e48}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[7] headers\%282%29 headers">
-      <UniqueIdentifier>{3feb5cb3-55f3-45a4-a0e2-8f780f4d8440}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[7] headers\%284%29 play_mode_headers">
-      <UniqueIdentifier>{c5ee588c-2076-439c-8587-7896a094b0dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[8] GLSL">
-      <UniqueIdentifier>{64074ec2-6aa6-49bb-992a-1db783b19155}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="%280%29 Objects">
+    <Filter Include="%280%29___________________Objects">
       <UniqueIdentifier>{650beecf-963b-4fce-b8f1-4797053d3e31}</UniqueIdentifier>
     </Filter>
-    <Filter Include="%280%29 Objects\%281%29 Player">
+    <Filter Include="%280%29___________________Objects\1%29 Player">
       <UniqueIdentifier>{50a3105e-5ce3-42cf-b74a-c79cc73a2158}</UniqueIdentifier>
     </Filter>
-    <Filter Include="%280%29 Objects\%282%29 Map">
+    <Filter Include="%280%29___________________Objects\2%29 Map">
       <UniqueIdentifier>{5ce5836b-88da-4174-a972-e748b3e5b915}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5] view">
+    <Filter Include="[0]___________________Framework">
+      <UniqueIdentifier>{26be2737-1f58-42b5-bf60-f9e0c9a6b515}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________________Main">
+      <UniqueIdentifier>{512386e3-e8d5-45c3-ba99-b8292654e1b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[2]___________________Mode">
+      <UniqueIdentifier>{5b7d3e65-1cb9-483f-974d-a64445fc7fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[3]___________________Controller">
+      <UniqueIdentifier>{710ce888-d265-4dc1-bdf5-00386ca0876b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________________Timer">
+      <UniqueIdentifier>{35f89516-0dcf-478f-94ea-0632ae33d5d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________________view">
       <UniqueIdentifier>{619373fd-2f52-460e-86eb-22c6fe9200a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[6]___________________Shader">
+      <UniqueIdentifier>{efef5ce8-dac5-45ff-ad98-efc7bdd7e611}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[7]___________________headers">
+      <UniqueIdentifier>{b1f4b19d-3716-4e80-9fcd-36a2b87b3887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[7]___________________headers\1%29 global">
+      <UniqueIdentifier>{b3bf4b0c-d00f-4694-9411-cb7e320d0e48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[7]___________________headers\2%29 headers">
+      <UniqueIdentifier>{3feb5cb3-55f3-45a4-a0e2-8f780f4d8440}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[7]___________________headers\3%29 mode_headers">
+      <UniqueIdentifier>{c5ee588c-2076-439c-8587-7896a094b0dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[8]___________________GLSL">
+      <UniqueIdentifier>{64074ec2-6aa6-49bb-992a-1db783b19155}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

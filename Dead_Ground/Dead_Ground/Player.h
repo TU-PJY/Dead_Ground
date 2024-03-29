@@ -80,6 +80,7 @@ public:
 		}
 
 		// 플레이어 걷기 애니메이션
+		// 걷기를 멈추면 각도를 다시 복구한다
 		if (player_move_up || player_move_down || player_move_right || player_move_left) {
 			num += ft * 8;
 			rotation = -sin(num) * 10;
@@ -88,12 +89,12 @@ public:
 		else {
 			num = 0;
 			if (rotation > 0) {
-				rotation -= ft * 20;
+				rotation -= ft * 30;
 				if (rotation < 0)
 					rotation = 0;
 			}
 			else if (rotation < 0) {
-				rotation += ft * 20;
+				rotation += ft * 30;
 				if (rotation > 0)
 					rotation = 0;
 			}
@@ -207,12 +208,12 @@ public:
 			else {
 				num = 0;
 				if (y > 0) {
-					y -= ft;
+					y -= ft / 2;
 					if (y < 0)
 						y = 0;
 				}
 				else if (y < 0) {
-					y += ft;
+					y += ft / 2;
 					if (y > 0)
 						y = 0;
 				}
