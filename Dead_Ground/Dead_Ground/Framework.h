@@ -24,6 +24,9 @@ class Framework {
 private:
 	GLfloat x, y;
 public:
+	// 플레이어 움직임 여부, Player 클래스로 상속
+	bool player_move_up, player_move_down, player_move_right, player_move_left;
+
 	virtual void render() {}
 	virtual void check_collision() {}
 	virtual void update() {}

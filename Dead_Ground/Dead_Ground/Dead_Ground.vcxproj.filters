@@ -40,6 +40,9 @@
     <ClInclude Include="Framework.h">
       <Filter>[0] Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Center.h">
+      <Filter>%280%29 Objects\%282%29 Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="view.cpp">

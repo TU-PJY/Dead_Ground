@@ -1,6 +1,8 @@
 ﻿// 외부라이브러리 및 c++ 헤더파일 모음
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
+#pragma warning(disable: 4244)
+#pragma warning(disable: 4326)
 #include <gl/glm/glm.hpp>
 #include <gl/glm/ext.hpp> 
 #include <gl/glm/gtc/matrix_transform.hpp>

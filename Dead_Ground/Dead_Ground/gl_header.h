@@ -14,8 +14,4 @@
 extern int WIDTH, HEIGHT;  // 윈도우 사이즈
 
 extern GLfloat ratio;  // 윈도우 종횡비
-extern GLfloat mx, my, map_rotation;  // 마우스 위치, 회면 회전 각도
-
-// 플레이어 움직임 여부
-extern GLfloat player_move_up, player_move_down, player_move_right, player_move_left;
-extern GLfloat player_x, player_y;
+extern GLfloat mx, my, map_rotation;  // 마우스 위치, 화면 회전 각도

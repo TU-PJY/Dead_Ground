@@ -4,6 +4,8 @@
 
 
 void keyDown(unsigned char KEY, int x, int y) {
+	auto ptr = framework[layer_player][0];
+
 	switch (KEY) {
 	case 27:  // ESC
 		glutDestroyWindow(1);
@@ -11,19 +13,23 @@ void keyDown(unsigned char KEY, int x, int y) {
 	
 	// 플레이어 움직임
 	case 'w':
-		player_move_up = true;
+		if(ptr != nullptr)
+			ptr->player_move_up = true;
 		break;
 
 	case 's':
-		player_move_down = true;
+		if (ptr != nullptr)
+			ptr->player_move_down = true;
 		break;
 
 	case 'd':
-		player_move_right = true;
+		if (ptr != nullptr)
+			ptr->player_move_right = true;
 		break;
 
 	case 'a':
-		player_move_left = true;
+		if (ptr != nullptr)
+			ptr->player_move_left = true;
 		break;
 	///////////
 
@@ -35,22 +41,28 @@ void keyDown(unsigned char KEY, int x, int y) {
 
 
 void keyUp(unsigned char KEY, int x, int y) {
+	auto ptr = framework[layer_player][0];
+
 	switch (KEY) {
 		// 플레이어 움직임
 	case 'w':
-		player_move_up = false;
+		if (ptr != nullptr)
+			ptr->player_move_up = false;
 		break;
 
 	case 's':
-		player_move_down = false;
+		if (ptr != nullptr)
+			ptr->player_move_down = false;
 		break;
 
 	case 'd':
-		player_move_right = false;
+		if (ptr != nullptr)
+			ptr->player_move_right = false;
 		break;
 
 	case 'a':
-		player_move_left = false;
+		if (ptr != nullptr)
+			ptr->player_move_left = false;
 		break;
 		///////////
 	}
