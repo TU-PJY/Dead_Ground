@@ -21,14 +21,20 @@ enum LAYERS {
 };
 
 class Framework {
+private:
+	GLfloat x, y;
 public:
 	virtual void render() {}
 	virtual void check_collision() {}
 	virtual void update() {}
+
+	virtual GLfloat get_x() const { return x; }
+	virtual  GLfloat get_y() const { return y; }
 };
 
+extern std::array<std::vector<Framework*>, LAYER> framework;
 
-extern clock_t start_time, end_time;
+
 extern double ft;
 extern int mode;
 

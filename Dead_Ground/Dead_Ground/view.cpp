@@ -27,7 +27,10 @@ void setWindowView() {  // 시점 세팅
     view = lookAt(cameraPos, cameraPos + cameraDirection, cameraUp);
     view = translate(view, vec3(0.0, -0.45, 0.0));
     view = rotate(view, radians(map_rotation), vec3(0.0, 0.0, 1.0));
-    view = translate(view, vec3(-player_x, -player_y, 0.0));
+
+    auto ptr = framework[layer_player][0];  // 플레이어는 항상 플레이어 레이어의 가장 첫 번째 인덱스
+    if(ptr != nullptr)  // 플레이어 클래스로부터 위치를 받아 카메라 위치 업데이트
+        view = translate(view, vec3(-(ptr->get_x()), -(ptr->get_y()), 0.0));
 
     ratio = 1.0 * WIDTH / HEIGHT;
 

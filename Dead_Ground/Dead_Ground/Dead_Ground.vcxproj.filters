@@ -22,9 +22,6 @@
     <ClInclude Include="texture.h">
       <Filter>[7] headers\%282%29 headers</Filter>
     </ClInclude>
-    <ClInclude Include="Framework.h">
-      <Filter>[7] headers\%282%29 headers</Filter>
-    </ClInclude>
     <ClInclude Include="object_header.h">
       <Filter>%280%29 Objects</Filter>
     </ClInclude>
@@ -40,13 +37,16 @@
     <ClInclude Include="Ground.h">
       <Filter>%280%29 Objects\%282%29 Map</Filter>
     </ClInclude>
+    <ClInclude Include="Framework.h">
+      <Filter>[0] Framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="translate.cpp">
-      <Filter>[5] Translate</Filter>
+    <ClCompile Include="view.cpp">
+      <Filter>[5] view</Filter>
     </ClCompile>
     <ClCompile Include="buffer.cpp">
-      <Filter>[5] Translate</Filter>
+      <Filter>[5] view</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>[1] Main</Filter>
@@ -115,9 +115,6 @@
     <Filter Include="[8] GLSL">
       <UniqueIdentifier>{64074ec2-6aa6-49bb-992a-1db783b19155}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5] Translate">
-      <UniqueIdentifier>{619373fd-2f52-460e-86eb-22c6fe9200a2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="%280%29 Objects">
       <UniqueIdentifier>{650beecf-963b-4fce-b8f1-4797053d3e31}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,9 @@
     </Filter>
     <Filter Include="%280%29 Objects\%282%29 Map">
       <UniqueIdentifier>{5ce5836b-88da-4174-a972-e748b3e5b915}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5] view">
+      <UniqueIdentifier>{619373fd-2f52-460e-86eb-22c6fe9200a2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

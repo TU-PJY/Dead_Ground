@@ -155,7 +155,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="shader_config.cpp" />
     <ClCompile Include="buffer.cpp" />
-    <ClCompile Include="translate.cpp" />
+    <ClCompile Include="view.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GLSL_fragment.glsl" />
