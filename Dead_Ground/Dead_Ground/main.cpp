@@ -4,8 +4,8 @@
 #include "object_header.h"
 
 
-int WIDTH = 800;//GetSystemMetrics(SM_CXSCREEN);  // 화면 사이즈에 맞추어 창을 출력한다
-int HEIGHT = 600;//GetSystemMetrics(SM_CYSCREEN);
+int WIDTH = GetSystemMetrics(SM_CXSCREEN);  // 화면 사이즈에 맞추어 창을 출력한다
+int HEIGHT = GetSystemMetrics(SM_CYSCREEN);
 
 
 GLvoid displayOutput() {
@@ -38,7 +38,7 @@ void main(int argc, char** argv) {
 		glutCreateWindow("Dead Ground");
 
 		glutSetCursor(GLUT_CURSOR_NONE);
-		//glutFullScreen();  // 전체화면으로 전환한다
+		glutFullScreen();  // 전체화면으로 전환한다
 
 		glewExperimental = GL_TRUE;
 		if (glewInit() != GLEW_OK) {

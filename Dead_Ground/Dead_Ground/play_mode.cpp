@@ -4,6 +4,7 @@
 
 void play_mode() {
 	// play_mode에 해당하는 객체 추가
+
 	// 몬스터 스포너
 	fw_add(new Spawner(layer_ground), layer_ground);  // 몬스터 스포너는 가장 아래쪽 레이어에서 구동
 

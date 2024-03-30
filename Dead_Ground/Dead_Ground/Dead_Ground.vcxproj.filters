@@ -49,6 +49,9 @@
     <ClInclude Include="Regular.h">
       <Filter>%280%29___________________Objects\3%29 Monster</Filter>
     </ClInclude>
+    <ClInclude Include="math_util.h">
+      <Filter>[9]___________________Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="view.cpp">
@@ -138,6 +141,9 @@
     </Filter>
     <Filter Include="%280%29___________________Objects\3%29 Monster">
       <UniqueIdentifier>{5747826e-4a82-4b9e-b391-69bb940a068e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[9]___________________Math">
+      <UniqueIdentifier>{108aa363-e9dd-4bd1-894e-4530ac20ba19}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@
 #include <gl/glew.h>
 #include <gl/freeglut.h>
 #include <gl/freeglut_ext.h>
+#include "stb_image.h"
 
 #include <windows.h>
 #include <iostream>

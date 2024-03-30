@@ -11,6 +11,7 @@ private:
 
 	GLfloat x, y;
 	GLfloat direction = 0, rotation = 0;
+	GLfloat direction2 = 0, rotation2 = 0;
 	GLfloat speed = 0.3;
 
 	int hp = 100;
@@ -27,7 +28,7 @@ public:
 
 		initTransform();
 		translateMatrix = translate(translateMatrix, vec3(x, y, 0.0));
-		translateMatrix = rotate(translateMatrix, radians(rotation), vec3(0.0, 0.0, 1.0)); 
+		translateMatrix = rotate(translateMatrix, radians(rotation2), vec3(0.0, 0.0, 1.0)); 
 
 		transformMatrix = rotateMatrix * translateMatrix * scaleMatrix;  // 최종 변환
 
@@ -43,25 +44,46 @@ public:
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
 
-	GLfloat convert_to_360(GLfloat rad) {
-		GLfloat angle = 0;
-		if (rotation < 180) {
-			GLfloat angle = rotation;
-		}
-		if (rotation < 0) {
-			GLfloat angle = 360 - fabs(rotation);
-		}
-		
+
+	// 회전하는 방향 결정
+	GLfloat calc_min_rotation(GLfloat from, GLfloat to) {
+		GLfloat distance = to - from;
+		if (distance > 180.0f)
+			return distance - 360.0f;
+
+		else if (distance < -180.0f)
+			return distance + 360.0f;
+
+		else
+			return distance;
+
+	}
+
+
+	// 각도를 -180 ~ 180으로 매핑
+	GLfloat normalizeAngle(GLfloat angle) {
+		while (angle <= -180.0f)
+			angle += 360.0f;
+
+		while (angle > 180.0f)
+			angle -= 360.0f;
+
 		return angle;
 	}
 
 
-	void set_move_direction() {
+	// 두 오브젝트 간의 거리 계산
+	GLfloat calc_distance(GLfloat x1, GLfloat x2, GLfloat y1, GLfloat y2) {
+		return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
+	}
+
+
+	void set_move_direction_and_rotation() {
 		auto ptr = framework[layer_player][0];
 
 		if (ptr != nullptr) {
 			// 플레이어가 근처에 있으면 플레이어를 추격
-			if (sqrt(pow(ptr->get_x() - x, 2) + pow(ptr->get_y() - y, 2)) < 0.8)
+			if (calc_distance(ptr->get_x(), x, ptr->get_y(), y) < 0.8)
 				direction = atan2(ptr->get_y() - y, ptr->get_x() - x);
 
 			// 아니라면 센터로 이동
@@ -69,7 +91,28 @@ public:
 				direction = atan2(0.0 - y, 0.0 - x);
 		}
 
+		// 이동 방향의 기울기로 오브젝트 회전 각도를 구한다
 		rotation = direction * 180 / 3.14;
+
+		// 플레이어 감지 또는 플레이어 추격 해제 시 오브젝트를 회전시킨다.
+		if (rotation2 != rotation) {
+			GLfloat min_rotation_distance = calc_min_rotation(rotation2, rotation);
+			GLfloat rotationSpeed = ft * 150;
+
+			if (min_rotation_distance < -180.0f) 
+				rotation2 += ft * 150;
+			else if (min_rotation_distance > 180.0f) 
+				rotation2 -= ft * 150;
+			
+			else {
+				if (min_rotation_distance < 0) 
+					rotation2 += ft * 150;
+				else 
+					rotation2 -= ft * 150;
+			}
+		}
+
+		rotation2 = normalizeAngle(rotation2);
 	}
 
 
@@ -80,7 +123,7 @@ public:
 
 
 	void update() {
-		set_move_direction();
+		set_move_direction_and_rotation();
 		move();
 	}
 
