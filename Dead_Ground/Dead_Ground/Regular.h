@@ -6,13 +6,17 @@ class Regular : public Framework {
 private:
 	GLuint VAO;
 	int W = 47, H = 47;
-	unsigned int tex;
-	int channel = 1;
+	std::array<unsigned int, 3> tex{};
+	int channel = 1; 
 
 	GLfloat x, y;
 	GLfloat direction = 0, rotation = 0;
 	GLfloat direction2 = 0, rotation2 = 0;
+	GLfloat body_rotation = 0;
 	GLfloat speed = 0;
+
+	GLfloat foot_x = 0, foot_y = 0;
+	GLfloat num = 0;
 
 	int hp = 100;
 	int damage = 10;
@@ -39,11 +43,32 @@ public:
 	void render() {
 		using namespace glm;
 
+		// left foot
+		init_transform();
+		scale_matrix = scale(scale_matrix, vec3(0.3, 0.3, 0.0));
+		translate_matrix = translate(translate_matrix, vec3(x, y, 0.0)); 
+		translate_matrix = rotate(translate_matrix, radians(rotation2 + 90), vec3(0.0, 0.0, 1.0)); 
+		translate_matrix = translate(translate_matrix, vec3(-0.02, -0.03 + foot_y, 0.0)); 
+
+		draw_image(tex[0], VAO);
+
+
+		// right foot
+		init_transform();
+		scale_matrix = scale(scale_matrix, vec3(0.3, 0.3, 0.0));
+		translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
+		translate_matrix = rotate(translate_matrix, radians(rotation2 + 90), vec3(0.0, 0.0, 1.0));
+		translate_matrix = translate(translate_matrix, vec3(0.02, -0.03 - foot_y, 0.0)); 
+
+		draw_image(tex[1], VAO);
+
+
+		// body
 		init_transform();
 		translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
-		translate_matrix = rotate(translate_matrix, radians(rotation2), vec3(0.0, 0.0, 1.0));
+		translate_matrix = rotate(translate_matrix, radians(rotation2 + body_rotation), vec3(0.0, 0.0, 1.0));
 
-		draw_image(tex, VAO);
+		draw_image(tex[2], VAO);
 	}
 
 	
@@ -90,6 +115,7 @@ public:
 		direction = (rotation2 - 180) * 3.14 / 180;
 	}
 
+
 	void check_collision() {
 		auto ptr = framework[layer_player][0];
 
@@ -111,6 +137,40 @@ public:
 	}
 
 
+	void animation_walk() {
+		if (!hit_center && !hit_player) {
+			num += ft * speed * 10;
+			body_rotation = -sin(num) * 10;
+			foot_y = sin(num) / 20;
+		}
+
+		else {
+			num = 0;
+			if (body_rotation > 0) {
+				body_rotation -= ft * 30;
+				if (body_rotation < 0)
+					body_rotation = 0;
+			}
+			else if (body_rotation < 0) {
+				body_rotation += ft * 30;
+				if (body_rotation > 0)
+					body_rotation = 0;
+			}
+
+
+			if (foot_y > 0) {
+				foot_y -= ft / 2;
+				if (foot_y < 0)
+					foot_y = 0;
+			}
+			else if (foot_y < 0) {
+				foot_y += ft / 2;
+				if (foot_y > 0)
+					foot_y = 0;
+			}
+		}
+	}
+
 	void move() {
 		if (!hit_player && !hit_center) {
 			x += cos(direction) * ft * speed;
@@ -122,6 +182,7 @@ public:
 	void update() {
 		if(!hit_center)
 			set_move_direction_and_rotation();
+		animation_walk();
 		move();
 		check_collision();
 	}
@@ -135,10 +196,12 @@ public:
 
 		std::random_device rd;
 		std::mt19937 gen(rd());
-		// 0번에서 5번 이미지 경로 중 하나를 랜덤으로 선택한다
 		std::uniform_int_distribution<int> tex_type(0, 5);
 
 		set_canvas(VAO);
-		set_texture(tex, directory[tex_type(gen)], W, H, channel);
+		set_texture(tex[0], "res//monster//spr_zombie_foot_left.png", 18, 18, channel);
+		set_texture(tex[1], "res//monster//spr_zombie_foot_right.png", 18, 18, channel);
+		// 0번에서 5번 이미지 경로 중 하나를 랜덤으로 선택한다
+		set_texture(tex[2], directory[tex_type(gen)], W, H, channel);
 	}
 };
