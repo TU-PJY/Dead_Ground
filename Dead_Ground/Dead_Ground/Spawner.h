@@ -2,6 +2,7 @@
 //#include <random>
 #include "gl_header.h"
 #include "Regular.h"
+#include "Small.h"
 
 
 class Spawner : public Framework {
@@ -26,17 +27,30 @@ public:
 
 			std::random_device rd;
 			std::mt19937 gen(rd());
-			std::uniform_real_distribution<GLfloat> rand_position(-1.0, 1.0);
-			std::uniform_int_distribution<int> rand_speed(2, 5);
+			std::uniform_int_distribution<int> rand_type(1, 2);
+			std::uniform_real_distribution<GLfloat> rand_position(-2.0, 2.0);
+
+			type = rand_type(gen);
 
 			x = rand_position(gen);
 			y = rand_position(gen);
-			speed = rand_speed(gen) * 0.1;  // 좀비 속도를 모두 다르게 설정한다 -> 완전 겹침 방지
-
+				
+			// 랜덤 타입 몬스터 추가
 			switch (type) {
 			case 1:
+			{
+				std::uniform_int_distribution<int> rand_speed(2, 5);
+				speed = rand_speed(gen) * 0.1;
 				fw_add(new Regular(x, y, speed, layer_monster), layer_monster);
+			}
 				break;
+			case 2:
+			{
+				std::uniform_int_distribution<int> rand_speed(5, 7);
+				speed = rand_speed(gen) * 0.1;
+				fw_add(new Small(x, y, speed, layer_monster), layer_monster);
+				break;
+			}
 			}
 
 			timer = 0;

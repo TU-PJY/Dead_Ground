@@ -52,6 +52,9 @@
     <ClInclude Include="math_util.h">
       <Filter>[9]___________________Math</Filter>
     </ClInclude>
+    <ClInclude Include="Small.h">
+      <Filter>%280%29___________________Objects\3%29 Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="view.cpp">

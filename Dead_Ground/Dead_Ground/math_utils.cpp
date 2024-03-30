@@ -17,7 +17,7 @@ GLfloat calc_min_rotation(GLfloat from, GLfloat to) {
 
 
 // 각도를 -180 ~ 180으로 매핑
-GLfloat normalizeAngle(GLfloat angle) {
+GLfloat normalize_angle(GLfloat angle) {
 	while (angle <= -180.0f)
 		angle += 360.0f;
 

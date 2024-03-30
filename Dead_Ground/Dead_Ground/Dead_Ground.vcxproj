@@ -146,6 +146,7 @@
     <ClInclude Include="play_mode.h" />
     <ClInclude Include="Regular.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="Small.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="translate.h" />

@@ -1,8 +1,7 @@
 #pragma once
 #include "gl_header.h"
 
-
-class Regular : public Framework {
+class Small : public Framework {
 private:
 	GLuint VAO;
 	int W = 47, H = 47;
@@ -14,22 +13,23 @@ private:
 	GLfloat direction2 = 0, rotation2 = 0;
 	GLfloat speed = 0;
 
-	int hp = 100;
-	int damage = 10;
+	int hp = 60;
+	int damage = 5;
 	int layer;
 
 	bool hit_player = false;  // 충돌 처리
-	bool hit_center = false;  // 충돌 처리
-	bool track_player = false; // 플레이어 추격 여부
+	bool hit_center = false;
+	bool track_player = false;  // 플레이어 추격 여부
 
 	// 랜덤으로 이미지 중 하나를 선택하여 텍스처 매핑
-	const char* directory[6] = {
-		"res//monster//regular//spr_zombie_0.png",
-		"res//monster//regular//spr_zombie_1.png",
-		"res//monster//regular//spr_zombie_2.png",
-		"res//monster//regular//spr_zombie_3.png",
-		"res//monster//regular//spr_zombie_4.png",
-		"res//monster//regular//spr_zombie_5.png",
+	const char* directory[7] = {
+		"res//monster//small//spr_zombie_0.png",
+		"res//monster//small//spr_zombie_1.png",
+		"res//monster//small//spr_zombie_2.png",
+		"res//monster//small//spr_zombie_3.png",
+		"res//monster//small//spr_zombie_4.png",
+		"res//monster//small//spr_zombie_5.png",
+		"res//monster//small//spr_zombie_6.png",
 	};
 
 public:
@@ -42,7 +42,7 @@ public:
 
 		init_transform();
 		translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
-		translate_matrix = rotate(translate_matrix, radians(rotation2), vec3(0.0, 0.0, 1.0)); 
+		translate_matrix = rotate(translate_matrix, radians(rotation2), vec3(0.0, 0.0, 1.0));
 
 		result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
 
@@ -58,7 +58,7 @@ public:
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
 
-	
+
 	// 좀비 이동 방향 및 좁비 회전 각도 설정
 	void set_move_direction_and_rotation() {
 		auto ptr = framework[layer_player][0];
@@ -84,15 +84,15 @@ public:
 		if (rotation2 != rotation) {
 			GLfloat min_rotation_distance = calc_min_rotation(rotation2, rotation);
 
-			if (min_rotation_distance < -180.0f) 
+			if (min_rotation_distance < -180.0f)
 				rotation2 += ft * 150;
-			else if (min_rotation_distance > 180.0f) 
+			else if (min_rotation_distance > 180.0f)
 				rotation2 -= ft * 150;
-			
+
 			else {
-				if (min_rotation_distance < 0) 
+				if (min_rotation_distance < 0)
 					rotation2 += ft * 150;
-				else 
+				else
 					rotation2 -= ft * 150;
 			}
 		}
@@ -101,6 +101,7 @@ public:
 
 		direction = (rotation2 - 180) * 3.14 / 180;
 	}
+
 
 	void check_collision() {
 		auto ptr = framework[layer_player][0];
@@ -139,7 +140,7 @@ public:
 	}
 
 
-	Regular(GLfloat rand_x, GLfloat rand_y, GLfloat rand_speed, int l) {
+	Small (GLfloat rand_x, GLfloat rand_y, GLfloat rand_speed, int l) {
 		x = rand_x;
 		y = rand_y;
 		speed = rand_speed;
@@ -148,7 +149,7 @@ public:
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		// 0번에서 5번 이미지 경로 중 하나를 랜덤으로 선택한다
-		std::uniform_int_distribution<int> tex_type(0, 5);
+		std::uniform_int_distribution<int> tex_type(0, 6);
 
 		set_canvas(VAO);
 		set_texture(tex, directory[tex_type(gen)], W, H, channel);
