@@ -5,5 +5,5 @@
 
 extern GLuint VBO;
 
-void vertexInput();
-void parameteri();
+void input_vertex();
+void set_parameteri();

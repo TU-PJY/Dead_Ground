@@ -161,6 +161,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="shader_config.cpp" />
     <ClCompile Include="buffer.cpp" />
+    <ClCompile Include="math_utils.cpp" />
     <ClCompile Include="view.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -3,8 +3,8 @@
 #include "header.h"
 
 
-extern GLchar* vertexSource, * fragmentSource;
-extern GLuint vertexShader, fragmentShader;
+extern GLchar* vertex_source, * fragment_source;
+extern GLuint vertex_shader, fragment_shader;
 extern GLuint ID;
 
 

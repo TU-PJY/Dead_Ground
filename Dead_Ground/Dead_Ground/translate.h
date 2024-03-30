@@ -3,17 +3,13 @@
 #include "header.h"
 
 
-extern glm::vec3 cameraPos, cameraDirection, cameraUp, lightPos, objColor;
-extern glm::mat4 transformMatrix, view, projection, lightMatrix, scaleMatrix, rotateMatrix, translateMatrix, camMaxtrix;
-extern glm::vec3 selectedColor, threshold;
+extern glm::vec3 cam_pos, cam_dir, cam_up;
+extern glm::mat4 result_matrix, view, projection, scale_matrix, rotate_matrix, translate_matrix, cam_matrix;
 extern GLfloat transparent, ratio;
 
-extern unsigned int projectionLocation, viewLocation, modelLocation, viewPosLocation;
-extern unsigned int lightPosLocation, lightColorLocation, objColorLocation;
-extern unsigned int colorLocation, thresholdLocation;
-extern unsigned int transparencyLocation;
+extern unsigned int projection_location, view_location, model_location, viewpos_location, transperancy_location;
 
 
-void setWindowView();
-void initTransform();
+void set_view();
+void init_transform();
 void transmit();

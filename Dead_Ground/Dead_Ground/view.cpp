@@ -2,29 +2,25 @@
 
 
 // 변환 관련 변수들을 여기에 선언 및 사용
-glm::vec3 cameraPos, cameraDirection, cameraUp, lightPos, objColor;
-glm::mat4 transformMatrix, view, projection, lightMatrix, scaleMatrix, rotateMatrix, translateMatrix, camMaxtrix;
-glm::vec3 selectedColor, threshold;
+glm::vec3 cam_pos, cam_dir, cam_up;
+glm::mat4 result_matrix, view, projection, scale_matrix, rotate_matrix, translate_matrix, cam_matrix;
 GLfloat transparent, ratio;
 
-unsigned int projectionLocation, viewLocation, modelLocation, viewPosLocation;
-unsigned int lightPosLocation, lightColorLocation, objColorLocation;
-unsigned int colorLocation, thresholdLocation;
-unsigned int transparencyLocation;
+unsigned int projection_location, view_location, model_location, viewpos_location, transperancy_location;
 
 
-void setWindowView() {  // 시점 세팅
+void set_view() {  // 시점 세팅
     using namespace glm;
 
     view = mat4(1.0f);
 
-    cameraPos = vec3(0.0f, 0.0f, 1.0f);
-    cameraDirection = -normalize(cameraPos);
-    cameraUp = vec3(0.0f, 1.0f, 0.0f);
+    cam_pos = vec3(0.0f, 0.0f, 1.0f);
+    cam_dir = -normalize(cam_pos);
+    cam_up = vec3(0.0f, 1.0f, 0.0f);
 
     projection = mat4(1.0f);
 
-    view = lookAt(cameraPos, cameraPos + cameraDirection, cameraUp);
+    view = lookAt(cam_pos, cam_pos + cam_dir, cam_up);
     view = translate(view, vec3(0.0, -0.4, 0.0));
    
     auto ptr = framework[layer_player][0];  // 플레이어는 항상 플레이어 레이어의 가장 첫 번째 인덱스
@@ -39,35 +35,32 @@ void setWindowView() {  // 시점 세팅
 }
 
 
-void initTransform() {  // 변환 초기화
+void init_transform() {  // 변환 초기화
     using namespace glm;
 
-    transformMatrix = mat4(1.0f);  // 최종 행렬
+    result_matrix = mat4(1.0f);  // 최종 행렬
 
-    scaleMatrix = mat4(1.0f);  // 신축 행렬
-    rotateMatrix = mat4(1.0f);  // 회전 행렬
-    translateMatrix = mat4(1.0f);  // 이동 행렬
+    scale_matrix = mat4(1.0f);  // 신축 행렬
+    rotate_matrix = mat4(1.0f);  // 회전 행렬
+    translate_matrix = mat4(1.0f);  // 이동 행렬
 
     transparent = 1.0f;
 }
 
 
 void transmit() {  // glsl 코드로 변환 데이터 전달
-    transparencyLocation = glGetUniformLocation(ID, "transparency");
-    glUniform1f(transparencyLocation, transparent);
+    transperancy_location = glGetUniformLocation(ID, "transparency");
+    glUniform1f(transperancy_location, transparent);
 
-    projectionLocation = glGetUniformLocation(ID, "projection");
-    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, &projection[0][0]);
+    projection_location = glGetUniformLocation(ID, "projection");
+    glUniformMatrix4fv(projection_location, 1, GL_FALSE, &projection[0][0]);
 
-    viewLocation = glGetUniformLocation(ID, "view");
-    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &view[0][0]);
+    view_location = glGetUniformLocation(ID, "view");
+    glUniformMatrix4fv(view_location, 1, GL_FALSE, &view[0][0]);
 
-    objColorLocation = glGetUniformLocation(ID, "objectColor");
-    glUniform3f(objColorLocation, 1.0, 1.0, 1.0);
+    viewpos_location = glGetUniformLocation(ID, "viewPos"); // viewPos 값 전달: 카메라 위치
+    glUniform3f(viewpos_location, cam_pos.x, cam_pos.y, cam_pos.z);
 
-    viewPosLocation = glGetUniformLocation(ID, "viewPos"); // viewPos 값 전달: 카메라 위치
-    glUniform3f(viewPosLocation, cameraPos.x, cameraPos.y, cameraPos.z);
-
-    modelLocation = glGetUniformLocation(ID, "model"); // 버텍스 세이더에서 모델링 변환 위치 가져오기
-    glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(transformMatrix)); // 변환 값 적용하기
+    model_location = glGetUniformLocation(ID, "model"); // 버텍스 세이더에서 모델링 변환 위치 가져오기
+    glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(result_matrix)); // 변환 값 적용하기
 }

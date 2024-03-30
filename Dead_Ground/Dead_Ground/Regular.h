@@ -26,11 +26,11 @@ public:
 	void translate_image() {
 		using namespace glm;
 
-		initTransform();
-		translateMatrix = translate(translateMatrix, vec3(x, y, 0.0));
-		translateMatrix = rotate(translateMatrix, radians(rotation2), vec3(0.0, 0.0, 1.0)); 
+		init_transform();
+		translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
+		translate_matrix = rotate(translate_matrix, radians(rotation2), vec3(0.0, 0.0, 1.0)); 
 
-		transformMatrix = rotateMatrix * translateMatrix * scaleMatrix;  // 최종 변환
+		result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
 
 		transmit();
 	}
@@ -42,39 +42,6 @@ public:
 		glBindVertexArray(VAO);
 		glBindTexture(GL_TEXTURE_2D, tex);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
-	}
-
-
-	// 회전하는 방향 결정
-	GLfloat calc_min_rotation(GLfloat from, GLfloat to) {
-		GLfloat distance = to - from;
-		if (distance > 180.0f)
-			return distance - 360.0f;
-
-		else if (distance < -180.0f)
-			return distance + 360.0f;
-
-		else
-			return distance;
-
-	}
-
-
-	// 각도를 -180 ~ 180으로 매핑
-	GLfloat normalizeAngle(GLfloat angle) {
-		while (angle <= -180.0f)
-			angle += 360.0f;
-
-		while (angle > 180.0f)
-			angle -= 360.0f;
-
-		return angle;
-	}
-
-
-	// 두 오브젝트 간의 거리 계산
-	GLfloat calc_distance(GLfloat x1, GLfloat x2, GLfloat y1, GLfloat y2) {
-		return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
 	}
 
 
@@ -138,7 +105,7 @@ public:
 		glBindVertexArray(VAO);
 		glGenBuffers(1, &VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		vertexInput();
+		input_vertex();
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)0); // 위치 속성
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat))); // 텍스처 좌표 속성 
@@ -147,7 +114,7 @@ public:
 		// texture set
 		glGenTextures(1, &tex);
 		glBindTexture(GL_TEXTURE_2D, tex);
-		parameteri();
+		set_parameteri();
 		texture_data = stbi_load("res//monster//spr_zombie_0.png", &W, &H, &channel, 4);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, W, H, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
 	}

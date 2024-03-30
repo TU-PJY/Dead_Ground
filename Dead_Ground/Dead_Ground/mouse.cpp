@@ -20,7 +20,7 @@ void convert_cursor_position(int x, int y) {  //GL좌표계로 변환
 }
 
 
-void Mouse(int button, int state, int x, int y) {  // 마우스 클릭
+void mouse_button(int button, int state, int x, int y) {  // 마우스 클릭
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 
 	}
@@ -33,7 +33,7 @@ void Mouse(int button, int state, int x, int y) {  // 마우스 클릭
 
 
 // 클릭 안할 때의 모션
-void pMotion(int x, int y) { 
+void mouse_passive_motion(int x, int y) { 
 	convert_cursor_position(x, y);
 
 	rotate_camera(x);
@@ -43,7 +43,7 @@ void pMotion(int x, int y) {
 
 
 // 클릭 할 때의 모션
-void Motion(int x, int y) {  
+void mouse_motion(int x, int y) {  
 	convert_cursor_position(x, y);
 
 	rotate_camera(x);

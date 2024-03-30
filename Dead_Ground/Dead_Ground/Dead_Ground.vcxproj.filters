@@ -84,6 +84,9 @@
     <ClCompile Include="global.cpp">
       <Filter>[1]___________________Main</Filter>
     </ClCompile>
+    <ClCompile Include="math_utils.cpp">
+      <Filter>[9]___________________Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="GLSL_vertex.glsl">

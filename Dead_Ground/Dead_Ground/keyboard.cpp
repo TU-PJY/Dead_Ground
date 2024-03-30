@@ -3,7 +3,7 @@
 #include "object_header.h"
 
 
-void keyDown(unsigned char KEY, int x, int y) {
+void key_down(unsigned char KEY, int x, int y) {
 	auto ptr = framework[layer_player][0];
 
 	switch (KEY) {
@@ -40,7 +40,7 @@ void keyDown(unsigned char KEY, int x, int y) {
 }
 
 
-void keyUp(unsigned char KEY, int x, int y) {
+void key_up(unsigned char KEY, int x, int y) {
 	auto ptr = framework[layer_player][0];
 
 	switch (KEY) {

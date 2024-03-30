@@ -2,5 +2,5 @@
 #include "gl_header.h"
 
 
-void timerOperation(int value) {
+void timer_operation(int value) {
 }

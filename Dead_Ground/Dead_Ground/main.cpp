@@ -8,12 +8,12 @@ int WIDTH = GetSystemMetrics(SM_CXSCREEN);  // 화면 사이즈에 맞추어 창
 int HEIGHT = GetSystemMetrics(SM_CYSCREEN);
 
 
-GLvoid displayOutput() {
+GLvoid gl_main() {
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
 	glUseProgram(ID);
 	
-	setWindowView();
+	set_view();
 
 	// 프레임워크 루프
 	fw_routine();
@@ -22,7 +22,7 @@ GLvoid displayOutput() {
 }
 
 
-GLvoid displayReshape(int w, int h) {
+GLvoid display_reshape(int w, int h) {
 	glViewport(0, 0, w, h);
 }
 
@@ -61,17 +61,17 @@ void main(int argc, char** argv) {
 		break;
 	}
 	
-	glutDisplayFunc(displayOutput);
-	glutReshapeFunc(displayReshape);
+	glutDisplayFunc(gl_main);
+	glutReshapeFunc(display_reshape);
 
-	glutKeyboardFunc(keyDown);
-	glutKeyboardUpFunc(keyUp);
+	glutKeyboardFunc(key_down);
+	glutKeyboardUpFunc(key_up);
 
-	glutMouseFunc(Mouse);
-	glutMotionFunc(Motion);
-	glutPassiveMotionFunc(pMotion);
+	glutMouseFunc(mouse_button);
+	glutMotionFunc(mouse_motion);
+	glutPassiveMotionFunc(mouse_passive_motion);
 
-	glutTimerFunc(10, timerOperation, 1);
+	glutTimerFunc(10, timer_operation, 1);
 
 	glutMainLoop();
 }

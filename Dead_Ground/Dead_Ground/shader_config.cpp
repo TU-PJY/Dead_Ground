@@ -2,8 +2,8 @@
 #include "gl_header.h"
 
 
-GLchar* vertexSource, * fragmentSource;
-GLuint vertexShader, fragmentShader;
+GLchar* vertex_source, * fragment_source;
+GLuint vertex_shader, fragment_shader;
 GLuint ID;
 
 
@@ -25,16 +25,16 @@ char* load_buffer(const char* file) {
 
 
 void set_vertex_shader() {
-	vertexSource = load_buffer("GLSL_vertex.glsl");
-	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, (const GLchar**)&vertexSource, 0);
-	glCompileShader(vertexShader);
+	vertex_source = load_buffer("GLSL_vertex.glsl");
+	vertex_shader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertex_shader, 1, (const GLchar**)&vertex_source, 0);
+	glCompileShader(vertex_shader);
 	GLint result;
 	GLchar errorLog[512];
 
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &result);
+	glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &result);
 	if (!result) {
-		glGetShaderInfoLog(vertexShader, 512, NULL, errorLog);
+		glGetShaderInfoLog(vertex_shader, 512, NULL, errorLog);
 		std::cerr << "ERROR: vertex shader err\n" << errorLog << std::endl;
 		return;
 	}
@@ -42,16 +42,16 @@ void set_vertex_shader() {
 
 
 void set_fragment() {
-	fragmentSource = load_buffer("GLSL_fragment.glsl");
-	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, (const GLchar**)&fragmentSource, 0);
-	glCompileShader(fragmentShader);
+	fragment_source = load_buffer("GLSL_fragment.glsl");
+	fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragment_shader, 1, (const GLchar**)&fragment_source, 0);
+	glCompileShader(fragment_shader);
 	GLint result;
 	GLchar errorLog[512];
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &result);
+	glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, &result);
 
 	if (!result) {
-		glGetShaderInfoLog(fragmentShader, 512, NULL, errorLog);
+		glGetShaderInfoLog(fragment_shader, 512, NULL, errorLog);
 		std::cerr << "ERROR: fragment shader err\n" << errorLog << std::endl;
 		return;
 	}
@@ -61,10 +61,10 @@ void set_shader() {
 	set_vertex_shader();
 	set_fragment();
 	ID = glCreateProgram();
-	glAttachShader(ID, vertexShader);
-	glAttachShader(ID, fragmentShader);
+	glAttachShader(ID, vertex_shader);
+	glAttachShader(ID, fragment_shader);
 	glLinkProgram(ID);
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	glDeleteShader(vertex_shader);
+	glDeleteShader(fragment_shader);
 	glUseProgram(ID);
 }
