@@ -6,7 +6,7 @@ glm::vec3 cam_pos, cam_dir, cam_up;
 glm::mat4 result_matrix, view, projection, scale_matrix, rotate_matrix, translate_matrix, cam_matrix;
 GLfloat transparent, ratio;
 
-unsigned int projection_location, view_location, model_location, viewpos_location, transperancy_location;
+unsigned int projection_location, view_location, model_location, viewpos_location, transperancy_location, object_color_location;
 
 
 void set_view() {  // 시점 세팅
@@ -35,6 +35,16 @@ void set_view() {  // 시점 세팅
 }
 
 
+void get_player_position() {
+    auto ptr = framework[layer_player][0];  // 플레이어는 항상 플레이어 레이어의 가장 첫 번째 인덱스
+
+    if (ptr != nullptr) {
+        cam_x = ptr->get_x();
+        cam_y = ptr->get_y();
+    }
+}
+
+
 void init_transform() {  // 변환 초기화
     using namespace glm;
 
@@ -45,22 +55,4 @@ void init_transform() {  // 변환 초기화
     translate_matrix = mat4(1.0f);  // 이동 행렬
 
     transparent = 1.0f;
-}
-
-
-void transmit() {  // glsl 코드로 변환 데이터 전달
-    transperancy_location = glGetUniformLocation(ID, "transparency");
-    glUniform1f(transperancy_location, transparent);
-
-    projection_location = glGetUniformLocation(ID, "projection");
-    glUniformMatrix4fv(projection_location, 1, GL_FALSE, &projection[0][0]);
-
-    view_location = glGetUniformLocation(ID, "view");
-    glUniformMatrix4fv(view_location, 1, GL_FALSE, &view[0][0]);
-
-    viewpos_location = glGetUniformLocation(ID, "viewPos"); // viewPos 값 전달: 카메라 위치
-    glUniform3f(viewpos_location, cam_pos.x, cam_pos.y, cam_pos.z);
-
-    model_location = glGetUniformLocation(ID, "model"); // 버텍스 세이더에서 모델링 변환 위치 가져오기
-    glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(result_matrix)); // 변환 값 적용하기
 }

@@ -23,7 +23,7 @@ private:
 	bool track_player = false; // 플레이어 추격 여부
 
 	// 랜덤으로 이미지 중 하나를 선택하여 텍스처 매핑
-	const char* directory[6] = {
+	std::array<const char*, 6> directory = {
 		"res//monster//regular//spr_zombie_0.png",
 		"res//monster//regular//spr_zombie_1.png",
 		"res//monster//regular//spr_zombie_2.png",
@@ -36,26 +36,14 @@ public:
 	GLfloat get_x() const { return x; }
 	GLfloat get_y() const { return y; }
 
-
-	void translate_image() {
+	void render() {
 		using namespace glm;
 
 		init_transform();
 		translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
-		translate_matrix = rotate(translate_matrix, radians(rotation2), vec3(0.0, 0.0, 1.0)); 
+		translate_matrix = rotate(translate_matrix, radians(rotation2), vec3(0.0, 0.0, 1.0));
 
-		result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
-
-		transmit();
-	}
-
-
-	void render() {
-		translate_image();
-
-		glBindVertexArray(VAO);
-		glBindTexture(GL_TEXTURE_2D, tex);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		draw_image(tex, VAO);
 	}
 
 	
@@ -85,15 +73,15 @@ public:
 			GLfloat min_rotation_distance = calc_min_rotation(rotation2, rotation);
 
 			if (min_rotation_distance < -180.0f) 
-				rotation2 += ft * 150;
+				rotation2 += ft * 250;
 			else if (min_rotation_distance > 180.0f) 
-				rotation2 -= ft * 150;
+				rotation2 -= ft * 250;
 			
 			else {
 				if (min_rotation_distance < 0) 
-					rotation2 += ft * 150;
+					rotation2 += ft * 250;
 				else 
-					rotation2 -= ft * 150;
+					rotation2 -= ft * 250;
 			}
 		}
 
@@ -109,7 +97,7 @@ public:
 		// 대미지를 입히는 동안에는 움직이지 않음
 		if (track_player && !hit_center) {
 			if (ptr != nullptr) {
-				if (calc_distance(ptr->get_x(), x, ptr->get_y(), y) < 0.08)
+				if (calc_distance(ptr->get_x(), x, ptr->get_y(), y) < 0.1)
 					hit_player = true;
 				else
 					hit_player = false;

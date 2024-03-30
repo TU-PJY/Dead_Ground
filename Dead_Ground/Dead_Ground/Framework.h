@@ -15,7 +15,7 @@ enum LAYERS {
 	layer_ground,
 	layer_map_object,
 	layer_player,
-	layer_bullet,
+	layer_particle,
 	layer_monster,
 	layer_ui,
 };

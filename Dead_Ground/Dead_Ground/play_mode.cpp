@@ -18,4 +18,7 @@ void play_mode() {
 	// 플레이어 레이어
 	fw_add(new Foot(layer_map_object), layer_map_object);  // 플레이어 발은 맵 오브젝트 레이어에서 랜더림
 	fw_add(new Player(layer_player), layer_player);  // 클라이언트 플레이어는 반드시 laper_player 레이어의 0번째에 위치시킬것
+	
+	// ui 레이어
+	fw_add(new Compass(layer_ui), layer_ui);
 }

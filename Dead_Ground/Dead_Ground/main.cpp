@@ -14,6 +14,7 @@ GLvoid gl_main() {
 	glUseProgram(ID);
 	
 	set_view();
+	get_player_position();
 
 	// 프레임워크 루프
 	fw_routine();
@@ -47,7 +48,9 @@ void main(int argc, char** argv) {
 
 		else std::cout << "GLEW Initialized" << std::endl;
 
-		glEnable(GL_DEPTH_TEST | GL_MULTISAMPLE | GL_ALPHA_TEST | GL_BLEND);
+		glEnable(GL_MULTISAMPLE);
+		glEnable(GL_ALPHA_TEST);
+		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		stbi_set_flip_vertically_on_load(true);  // 이미지 뒤집힘 방지
 

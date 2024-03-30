@@ -19,18 +19,14 @@ private:
 	GLfloat x = 0.0, y = -0.2;  // 충돌처리를 위한 변수
 
 public:
-
-
-	void translate_image() {
+	void render() {
 		using namespace glm;
 
 		init_transform();
 		translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
 		translate_matrix = rotate(translate_matrix, radians(-cam_rotation + rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
 
-		result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
-
-		transmit();
+		draw_image(tex, VAO);
 	}
 
 
@@ -113,16 +109,6 @@ public:
 	GLfloat get_x() const { return x; }
 	GLfloat get_y() const { return y; }
 
-
-	void render() {
-		translate_image();
-
-		glBindVertexArray(VAO);
-		glBindTexture(GL_TEXTURE_2D, tex);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-	}
-
-
 	void update() {
 		move();
 		animation_walk();
@@ -148,7 +134,7 @@ class Foot : public Framework {
 private:
 	GLuint VAO;
 	int W = 18, H = 18;
-	unsigned tex[2];
+	std::array<unsigned int, 2> tex{};
 	int channel = 1;
 	int layer;
 
@@ -167,12 +153,8 @@ public:
 			translate_matrix = translate(translate_matrix, vec3(ptr->get_x(), ptr->get_y(), 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
 			translate_matrix = rotate(translate_matrix, radians(-cam_rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
 			translate_matrix = translate(translate_matrix, vec3(-0.02, -0.03 + y, 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
-			result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
-			transmit();
 
-			glBindVertexArray(VAO);
-			glBindTexture(GL_TEXTURE_2D, tex[0]);
-			glDrawArrays(GL_TRIANGLES, 0, 6);
+			draw_image(tex[0], VAO);
 
 
 			init_transform();
@@ -180,12 +162,8 @@ public:
 			translate_matrix = translate(translate_matrix, vec3(ptr->get_x(), ptr->get_y(), 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
 			translate_matrix = rotate(translate_matrix, radians(-cam_rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
 			translate_matrix = translate(translate_matrix, vec3(0.02, -0.03 - y, 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
-			result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
-			transmit();
 
-			glBindVertexArray(VAO);
-			glBindTexture(GL_TEXTURE_2D, tex[1]);
-			glDrawArrays(GL_TRIANGLES, 0, 6);
+			draw_image(tex[1], VAO);
 		}
 	}
 	
@@ -220,30 +198,9 @@ public:
 
 	Foot(int l) {
 		layer = l;
-
-		//buffer set
-		glGenVertexArrays(1, &VAO);
-		glBindVertexArray(VAO);
-		glGenBuffers(1, &VBO);
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		input_canvas();
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)0); // 위치 속성
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat))); // 텍스처 좌표 속성 
-		glEnableVertexAttribArray(2);
-
-		// texture set
-		glGenTextures(1, &tex[0]);
-		glBindTexture(GL_TEXTURE_2D, tex[0]);
-		set_parameteri();
-		texture_data = stbi_load("res//player//spr_foot_left.png", &W, &H, &channel, 4);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, W, H, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
-
-		// texture set2
-		glGenTextures(1, &tex[1]);
-		glBindTexture(GL_TEXTURE_2D, tex[1]);
-		set_parameteri();
-		texture_data = stbi_load("res//player//spr_foot_right.png", &W, &H, &channel, 4);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, W, H, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
+		
+		set_canvas(VAO);
+		set_texture(tex[0], "res//player//spr_foot_left.png", W, H, channel);
+		set_texture(tex[1], "res//player//spr_foot_right.png", W, H, channel);
 	}
 };

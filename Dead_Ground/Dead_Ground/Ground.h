@@ -13,26 +13,14 @@ private:
 	int layer;
 
 public:
-	void translate_image() {
+	void render() {
 		using namespace glm;
 
 		init_transform();
-
 		scale_matrix = scale(scale_matrix, vec3(40.0, 40.0, 0.0));
 		translate_matrix = translate(translate_matrix, vec3(0.0, 0.0, 0.0));
 
-		result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
-
-		transmit();
-	}
-
-
-	void render() {
-		translate_image();
-
-		glBindVertexArray(VAO);
-		glBindTexture(GL_TEXTURE_2D, tex);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		draw_image(tex, VAO);
 	}
 
 	void update() {}
@@ -57,26 +45,14 @@ private:
 	int layer;
 
 public:
-	void translate_image() {
+	void render() {
 		using namespace glm;
 
 		init_transform();
-
 		scale_matrix = scale(scale_matrix, vec3(5.0, 5.0, 0.0));
 		translate_matrix = translate(translate_matrix, vec3(0.0, 0.0, 0.0));
 
-		result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
-
-		transmit();
-	}
-
-
-	void render() {
-		translate_image();
-
-		glBindVertexArray(VAO);
-		glBindTexture(GL_TEXTURE_2D, tex);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		draw_image(tex, VAO);
 	}
 
 

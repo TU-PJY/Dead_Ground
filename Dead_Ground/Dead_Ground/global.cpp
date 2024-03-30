@@ -1,5 +1,4 @@
 // 전역 변수 선언
 #include "gl_header.h"
 
-GLfloat mx, my; // 커서 좌표
-GLfloat cam_rotation;  // 맵 회전 각도
+GLfloat mx, my, cam_rotation, cam_x, cam_y;  // 마우스 위치, 화면 회전 각도, 카메라 위치

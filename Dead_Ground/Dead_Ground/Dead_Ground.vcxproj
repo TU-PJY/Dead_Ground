@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Compass.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="buffer.h" />
     <ClInclude Include="Framework.h" />

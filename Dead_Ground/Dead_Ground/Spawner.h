@@ -39,14 +39,14 @@ public:
 			switch (type) {
 			case 1:
 			{
-				std::uniform_int_distribution<int> rand_speed(2, 5);
+				std::uniform_real_distribution<GLfloat> rand_speed(2.0, 5.0);
 				speed = rand_speed(gen) * 0.1;
 				fw_add(new Regular(x, y, speed, layer_monster), layer_monster);
 			}
 				break;
 			case 2:
 			{
-				std::uniform_int_distribution<int> rand_speed(5, 7);
+				std::uniform_real_distribution<GLfloat> rand_speed(5.0, 7.0);
 				speed = rand_speed(gen) * 0.1;
 				fw_add(new Small(x, y, speed, layer_monster), layer_monster);
 				break;
