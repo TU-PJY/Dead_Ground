@@ -3,6 +3,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable: 4244)
 #pragma warning(disable: 4326)
+#pragma warning(disable: 4305)
 #include <gl/glm/glm.hpp>
 #include <gl/glm/ext.hpp> 
 #include <gl/glm/gtc/matrix_transform.hpp>
@@ -16,3 +17,4 @@
 #include <array>
 #include <algorithm>
 #include <cmath>
+#include <random>

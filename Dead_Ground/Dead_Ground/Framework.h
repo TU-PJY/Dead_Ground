@@ -22,10 +22,10 @@ enum LAYERS {
 
 class Framework {
 private:
-	GLfloat x, y;
+	GLfloat x = 0, y = 0;
 public:
 	// 플레이어 움직임 여부, Player 클래스로 상속
-	bool player_move_up, player_move_down, player_move_right, player_move_left;
+	bool player_move_up = false , player_move_down = false, player_move_right = false, player_move_left = false;
 
 	virtual void render() {}
 	virtual void check_collision() {}

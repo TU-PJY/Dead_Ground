@@ -141,7 +141,9 @@
     <ClInclude Include="object_header.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="play_mode.h" />
+    <ClInclude Include="Regular.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="Spawner.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="translate.h" />
     <ClInclude Include="Center.h" />

@@ -43,6 +43,12 @@
     <ClInclude Include="Center.h">
       <Filter>%280%29___________________Objects\2%29 Map</Filter>
     </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>%280%29___________________Objects\3%29 Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Regular.h">
+      <Filter>%280%29___________________Objects\3%29 Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="view.cpp">
@@ -129,6 +135,9 @@
     </Filter>
     <Filter Include="[8]___________________GLSL">
       <UniqueIdentifier>{64074ec2-6aa6-49bb-992a-1db783b19155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%280%29___________________Objects\3%29 Monster">
+      <UniqueIdentifier>{5747826e-4a82-4b9e-b391-69bb940a068e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

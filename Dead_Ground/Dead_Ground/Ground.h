@@ -18,7 +18,7 @@ public:
 
 		initTransform();
 
-		scaleMatrix = scale(scaleMatrix, vec3(30.0, 30.0, 0.0));
+		scaleMatrix = scale(scaleMatrix, vec3(40.0, 40.0, 0.0));
 		translateMatrix = translate(translateMatrix, vec3(0.0, 0.0, 0.0));
 
 		transformMatrix = rotateMatrix * translateMatrix * scaleMatrix;  // 최종 변환

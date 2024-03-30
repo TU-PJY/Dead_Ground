@@ -12,75 +12,31 @@ private:
 	int channel = 1;
 	int layer;  // framework layer number
 
-	GLfloat num;
-	GLfloat rotation;
+	GLfloat walk_speed = 0.75;
+	GLfloat num = 0;
+	GLfloat rotation = 0;
+
+	GLfloat x = 0.0, y = -0.2;  // 충돌처리를 위한 변수
 
 public:
-	GLfloat x = 0.0, y = 0.0;  // 충돌처리를 위한 변수
+
 
 	void translate_image() {
 		using namespace glm;
 
 		initTransform();
 		translateMatrix = translate(translateMatrix, vec3(x, y, 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
-		translateMatrix = rotate(translateMatrix, radians(-map_rotation + rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
+		translateMatrix = rotate(translateMatrix, radians(-cam_rotation + rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
 
 		transformMatrix = rotateMatrix * translateMatrix * scaleMatrix;  // 최종 변환
 
 		transmit();
 	}
 
-	void move() {
-		GLfloat degree = map_rotation * 3.14 / 180;
-		GLfloat degree_vertical = (map_rotation + 90) * 3.14 / 180;
 
-		// 플레이어 이동
-		if (player_move_up) {
-			if (player_move_right || player_move_left) {
-				x += 0.005 * ft * 150 * sin(degree) / 1.414;
-				y += 0.005 * ft * 150 * cos(degree) / 1.414;
-			}
-			else {
-				x += 0.005 * ft * 150 * sin(degree);
-				y += 0.005 * ft * 150 * cos(degree);
-			}
-		}
-
-		if (player_move_down) {
-			if (player_move_right || player_move_left) {
-				x -= 0.005 * ft * 150 * sin(degree) / 1.414;
-				y -= 0.005 * ft * 150 * cos(degree) / 1.414;
-			}
-			else {
-				x -= 0.005 * ft * 150 * sin(degree);
-				y -= 0.005 * ft * 150 * cos(degree);
-			}
-		}
-
-		if (player_move_right) {
-			if (player_move_up || player_move_down) {
-				x += 0.005 * ft * 150 * sin(degree_vertical) / 1.414;
-				y += 0.005 * ft * 150 * cos(degree_vertical) / 1.414;
-			}
-			else {
-				x += 0.005 * ft * 150 * sin(degree_vertical);
-				y += 0.005 * ft * 150 * cos(degree_vertical);
-			}
-		}
-
-		if (player_move_left) {
-			if (player_move_up || player_move_down) {
-				x -= 0.005 * ft * 150 * sin(degree_vertical) / 1.414;
-				y -= 0.005 * ft * 150 * cos(degree_vertical) / 1.414;
-			}
-			else {
-				x -= 0.005 * ft * 150 * sin(degree_vertical);
-				y -= 0.005 * ft * 150 * cos(degree_vertical);
-			}
-		}
-
-		// 플레이어 걷기 애니메이션
-		// 걷기를 멈추면 각도를 다시 복구한다
+	// 플레이어 걷기 애니메이션
+	// 걷기를 멈추면 각도를 다시 복구한다
+	void animation_walk() {
 		if (player_move_up || player_move_down || player_move_right || player_move_left) {
 			num += ft * 8;
 			rotation = -sin(num) * 10;
@@ -101,6 +57,58 @@ public:
 		}
 	}
 
+
+	void move() {
+		GLfloat degree = cam_rotation * 3.14 / 180;
+		GLfloat degree_vertical = (cam_rotation + 90) * 3.14 / 180;
+
+		// 플레이어 이동
+		if (player_move_up) {
+			if (player_move_right || player_move_left) {
+				x += walk_speed * ft * sin(degree) / 1.414;
+				y += walk_speed * ft * cos(degree) / 1.414;
+			}
+			else {
+				x += walk_speed * ft * sin(degree);
+				y += walk_speed * ft * cos(degree);
+			}
+		}
+
+		if (player_move_down) {
+			if (player_move_right || player_move_left) {
+				x -= walk_speed * ft * sin(degree) / 1.414;
+				y -= walk_speed * ft * cos(degree) / 1.414;
+			}
+			else {
+				x -= walk_speed * ft * sin(degree);
+				y -= walk_speed * ft * cos(degree);
+			}
+		}
+
+		if (player_move_right) {
+			if (player_move_up || player_move_down) {
+				x += walk_speed * ft * sin(degree_vertical) / 1.414;
+				y += walk_speed * ft * cos(degree_vertical) / 1.414;
+			}
+			else {
+				x += walk_speed * ft * sin(degree_vertical);
+				y += walk_speed * ft * cos(degree_vertical);
+			}
+		}
+
+		if (player_move_left) {
+			if (player_move_up || player_move_down) {
+				x -= walk_speed * ft * sin(degree_vertical) / 1.414;
+				y -= walk_speed * ft * cos(degree_vertical) / 1.414;
+			}
+			else {
+				x -= walk_speed * ft * sin(degree_vertical);
+				y -= walk_speed * ft * cos(degree_vertical);
+			}
+		}
+	}
+
+
 	// 플레이어 현재 위치 리턴
 	GLfloat get_x() const { return x; }
 	GLfloat get_y() const { return y; }
@@ -117,7 +125,8 @@ public:
 
 	void update() {
 		move();
-		
+		animation_walk();
+
 	}
 
 
@@ -149,6 +158,7 @@ public:
 	}
 };
 
+
 class Foot : public Framework {
 private:
 	GLuint VAO;
@@ -157,8 +167,8 @@ private:
 	int channel = 1;
 	int layer;
 
-	GLfloat num, degree;
-	GLfloat y;
+	GLfloat num = 0, degree = 0;
+	GLfloat y = 0;
 
 public:
 	void render() {
@@ -170,7 +180,7 @@ public:
 			initTransform();
 			scaleMatrix = scale(scaleMatrix, vec3(0.3, 0.3, 0.0));
 			translateMatrix = translate(translateMatrix, vec3(ptr->get_x(), ptr->get_y(), 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
-			translateMatrix = rotate(translateMatrix, radians(-map_rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
+			translateMatrix = rotate(translateMatrix, radians(-cam_rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
 			translateMatrix = translate(translateMatrix, vec3(-0.02, -0.03 + y, 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
 			transformMatrix = rotateMatrix * translateMatrix * scaleMatrix;  // 최종 변환
 			transmit();
@@ -183,7 +193,7 @@ public:
 			initTransform();
 			scaleMatrix = scale(scaleMatrix, vec3(0.3, 0.3, 0.0));
 			translateMatrix = translate(translateMatrix, vec3(ptr->get_x(), ptr->get_y(), 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
-			translateMatrix = rotate(translateMatrix, radians(-map_rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
+			translateMatrix = rotate(translateMatrix, radians(-cam_rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
 			translateMatrix = translate(translateMatrix, vec3(0.02, -0.03 - y, 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
 			transformMatrix = rotateMatrix * translateMatrix * scaleMatrix;  // 최종 변환
 			transmit();
@@ -194,6 +204,7 @@ public:
 		}
 	}
 	
+
 	void update() {
 		auto ptr = framework[layer_player][0];
 		
@@ -220,6 +231,7 @@ public:
 			}
 		}
 	}
+
 
 	Foot(int l) {
 		layer = l;

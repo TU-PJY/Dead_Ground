@@ -2,4 +2,4 @@
 #include "gl_header.h"
 
 GLfloat mx, my; // 커서 좌표
-GLfloat map_rotation;  // 맵 회전 각도
+GLfloat cam_rotation;  // 맵 회전 각도

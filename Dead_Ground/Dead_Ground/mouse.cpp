@@ -2,12 +2,12 @@
 
 void rotate_camera(int x) {
 	int delta = x - WIDTH / 2;
-	map_rotation += delta * 0.05;
+	cam_rotation += delta * 0.05;
 
-	if (map_rotation > 360)
-		map_rotation -= 360;
-	if (map_rotation < 0)
-		map_rotation += 360;
+	if (cam_rotation > 360)
+		cam_rotation -= 360;
+	if (cam_rotation < 0)
+		cam_rotation += 360;
 
 	glutWarpPointer(WIDTH / 2, HEIGHT / 2);
 }
