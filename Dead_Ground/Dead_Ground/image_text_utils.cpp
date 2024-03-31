@@ -42,7 +42,7 @@ void set_canvas(GLuint &VAO) {
 }
 
 
-void set_text(GLuint &VAO) {
+void set_text_canvas(GLuint &VAO) {
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 	glGenBuffers(1, &VBO);
@@ -94,7 +94,7 @@ void draw_image(unsigned int tex, GLuint VAO) {
 }
 
 
-GLvoid build_font(const char* fontName, int fontSize) {
+GLvoid build_font(const char* fontName, int fontSize, int type) {
 	HFONT   font;     // Windows Font ID
 	HFONT   oldfont;  // Used For Good House Keeping
 
@@ -104,7 +104,7 @@ GLvoid build_font(const char* fontName, int fontSize) {
 		0,              // Width Of Font
 		0,              // Angle Of Escapement
 		0,              // Orientation Angle
-		FW_NORMAL,        // Font Weight
+		type,        // Font Weight
 		FALSE,          // Italic     (취소선)
 		FALSE,          // Underline (밑줄)
 		FALSE,          // Strikeout (취소선)
@@ -122,8 +122,8 @@ GLvoid build_font(const char* fontName, int fontSize) {
 }
 
 
-GLvoid build_text(int fontSize) {
-	build_font("Arial", fontSize);
+GLvoid build_text(int fontSize, int type) {
+	build_font("Arial", fontSize, type);
 }
 
 
@@ -132,16 +132,16 @@ GLvoid kill_text(GLvoid) {                     // Delete The Font List
 }
 
 
-int set_text(int size) {                     // All Setup For OpenGL Goes Here
+int set_text(int size, int type) {                     // All Setup For OpenGL Goes Here
 	hDC = wglGetCurrentDC();            // 현재 openGL 윈도우의 hDC를 가져온다.
-	build_text(size);       // Build The Font
+	build_text(size, type);       // Build The Font
 
 	return TRUE;                        // Initialization Went OK
 }
 
 
-GLvoid draw_text(GLuint VAO, unsigned int tex, int size, const char* fmt, ...) { // Custom GL "Print" Routin
-	set_text(size);
+GLvoid draw_text(GLuint VAO, unsigned int tex, int size, const char* fmt, int type, ...) { // Custom GL "Print" Routin
+	set_text(size, type);
 
 	result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
 
@@ -162,6 +162,18 @@ GLvoid draw_text(GLuint VAO, unsigned int tex, int size, const char* fmt, ...) {
 
 	model_location = glGetUniformLocation(ID, "model"); // 버텍스 세이더에서 모델링 변환 위치 가져오기
 	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(result_matrix)); // 변환 값 적용하기
+
+	// 화면 좌표로 변환된 모델 중심 좌표 계산
+	glm::vec4 modelCenterScreen = projection * view * result_matrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+
+	if (modelCenterScreen.x < -0.95f ||
+		modelCenterScreen.x > 0.95f  ||
+		modelCenterScreen.y < -0.95f ||
+		modelCenterScreen.y > 0.95f) {
+
+		// 텍스트가 화면 모서리에 있는 경우 그리지 않음
+		return;
+	}
 
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, tex);

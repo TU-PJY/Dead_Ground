@@ -15,9 +15,8 @@ public:
 	void render() {
 		using namespace glm;
 		init_transform();
-		set_object_static(-1.7, -0.5);
-
-		draw_text(VAO, tex, 20, "Dead Ground Indev");
+		set_object_static(-1.68, 1.3);
+		draw_text(VAO, tex, 20, "Dead Ground Indev Test", FW_NORMAL);
 	}
 
 
@@ -27,7 +26,7 @@ public:
 	Text(int l) {
 		layer = l;
 
-		set_canvas(VAO);
-		set_texture(tex, "res//ui//text//text_skin.png", W, H, channel);
+		set_text_canvas(VAO);
+		set_texture(tex, "res//ui//text//text_skin_black.png", W, H, channel);
 	}
 };

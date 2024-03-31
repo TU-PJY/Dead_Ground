@@ -136,7 +136,7 @@
   <ItemGroup>
     <ClInclude Include="Compass.h" />
     <ClInclude Include="Ground.h" />
-    <ClInclude Include="buffer.h" />
+    <ClInclude Include="image_text_util.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="gl_header.h" />
     <ClInclude Include="header.h" />
@@ -151,7 +151,6 @@
     <ClInclude Include="Small.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Text.h" />
-    <ClInclude Include="texture.h" />
     <ClInclude Include="translate.h" />
     <ClInclude Include="Center.h" />
   </ItemGroup>
@@ -164,7 +163,7 @@
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="shader_config.cpp" />
-    <ClCompile Include="buffer.cpp" />
+    <ClCompile Include="image_text_utils.cpp" />
     <ClCompile Include="math_utils.cpp" />
     <ClCompile Include="view.cpp" />
   </ItemGroup>
