@@ -58,6 +58,9 @@
     <ClInclude Include="Compass.h">
       <Filter>%280%29___________________Objects\4%29 ------UI</Filter>
     </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>%280%29___________________Objects\4%29 ------UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="view.cpp">

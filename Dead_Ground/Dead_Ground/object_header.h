@@ -5,5 +5,6 @@
 #include "Center.h"
 
 #include "Compass.h"
+#include "Text.h"
 
 #include "Spawner.h"

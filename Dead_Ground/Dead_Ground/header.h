@@ -10,6 +10,8 @@
 #include <gl/glew.h>
 #include <gl/freeglut.h>
 #include <gl/freeglut_ext.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include "stb_image.h"
 
 #include <windows.h>
@@ -19,3 +21,4 @@
 #include <algorithm>
 #include <cmath>
 #include <random>
+#include <map>

@@ -15,12 +15,12 @@ void set_view() {  // 시점 세팅
     view = mat4(1.0f);
 
     cam_pos = vec3(0.0f, 0.0f, 1.0f);
-    cam_dir = -normalize(cam_pos);
+    cam_dir = vec3(0.0, 0.0, 0.0);//-normalize(cam_pos);
     cam_up = vec3(0.0f, 1.0f, 0.0f);
 
     projection = mat4(1.0f);
 
-    view = lookAt(cam_pos, cam_pos + cam_dir, cam_up);
+    view = lookAt(cam_pos, cam_dir, cam_up);
     view = translate(view, vec3(0.0, -0.4, 0.0));
    
     auto ptr = framework[layer_player][0];  // 플레이어는 항상 플레이어 레이어의 가장 첫 번째 인덱스

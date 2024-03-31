@@ -7,5 +7,9 @@ extern GLuint VBO;
 
 
 void set_canvas(GLuint &VAO);
+void set_text(GLuint &VAO);
+
 void set_texture(unsigned int &tex, const char* directory, int width, int height, int channel);
 void draw_image(unsigned int tex, GLuint VAO);
+
+void draw_text(void* font, char* string, unsigned int tex, GLuint VAO);

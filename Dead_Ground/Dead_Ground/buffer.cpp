@@ -13,6 +13,15 @@ GLfloat canvas[][48] = {  // 이미지 출력에 사용할 canvas
 	-0.1f, -0.1f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0
 };
 
+GLfloat canvas_text[][48] = {  // 텍스트 출력에 사용할 canvas
+	-0.0f, -0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0,
+	0.0f, -0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0, 0.0,
+	0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0, 1.0,
+	0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0, 1.0,
+	-0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 1.0,
+	-0.0f, -0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0
+};
+
 
 void set_canvas(GLuint &VAO) {
 	glGenVertexArrays(1, &VAO);
@@ -20,6 +29,19 @@ void set_canvas(GLuint &VAO) {
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(canvas), canvas, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)0); // 위치 속성
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat))); // 텍스처 좌표 속성 
+	glEnableVertexAttribArray(2);
+}
+
+
+void set_text(GLuint &VAO) {
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	glGenBuffers(1, &VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(canvas_text), canvas_text, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)0); // 위치 속성
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat))); // 텍스처 좌표 속성 
@@ -63,4 +85,36 @@ void draw_image(unsigned int tex, GLuint VAO) {
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, tex);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
+
+// 텍스트 출력 
+void draw_text(void* font, char* string, unsigned int tex, GLuint VAO) {
+	result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
+
+	transperancy_location = glGetUniformLocation(ID, "transparency");
+	glUniform1f(transperancy_location, transparent);
+
+	projection_location = glGetUniformLocation(ID, "projection");
+	glUniformMatrix4fv(projection_location, 1, GL_FALSE, &projection[0][0]);
+
+	view_location = glGetUniformLocation(ID, "view");
+	glUniformMatrix4fv(view_location, 1, GL_FALSE, &view[0][0]);
+
+	viewpos_location = glGetUniformLocation(ID, "viewPos"); // viewPos 값 전달: 카메라 위치
+	glUniform3f(viewpos_location, cam_pos.x, cam_pos.y, cam_pos.z);
+
+	object_color_location = glGetUniformLocation(ID, "objectColor");
+	glUniform3f(object_color_location, 1.0, 1.0, 1.0);
+
+	model_location = glGetUniformLocation(ID, "model"); // 버텍스 세이더에서 모델링 변환 위치 가져오기
+	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(result_matrix)); // 변환 값 적용하기
+
+	glBindVertexArray(VAO);
+	glBindTexture(GL_TEXTURE_2D, tex);
+
+	char* c;
+	//glRasterPos3f(0.0, 0.0, 0.0);
+	for (c = string; *c != '\0'; c++)
+		glutBitmapCharacter(font, *c);
 }

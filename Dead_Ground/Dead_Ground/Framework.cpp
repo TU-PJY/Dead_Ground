@@ -10,10 +10,6 @@ double ft;
 
 int mode = START_MODE;
 
-void check_collision(int layer1, int layer2) {
-
-}
-
 void fw_routine() {
 	for(int i = 0; i < framework.size(); i++) {
 		for (auto it = framework[i].begin(); it != framework[i].end();) {
