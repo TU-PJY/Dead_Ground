@@ -1,5 +1,4 @@
 ﻿#include "gl_header.h"
-#define DEFAULTFONTSIZE 40
 
 HDC hDC;              // Private GDI Device Context
 HGLRC hRC;            // Permanent Rendering Context
@@ -95,7 +94,7 @@ void draw_image(unsigned int tex, GLuint VAO) {
 }
 
 
-GLvoid BuildFont(const char* fontName, int fontSize) {
+GLvoid build_font(const char* fontName, int fontSize) {
 	HFONT   font;     // Windows Font ID
 	HFONT   oldfont;  // Used For Good House Keeping
 
@@ -105,7 +104,7 @@ GLvoid BuildFont(const char* fontName, int fontSize) {
 		0,              // Width Of Font
 		0,              // Angle Of Escapement
 		0,              // Orientation Angle
-		FW_BOLD,        // Font Weight
+		FW_NORMAL,        // Font Weight
 		FALSE,          // Italic     (취소선)
 		FALSE,          // Underline (밑줄)
 		FALSE,          // Strikeout (취소선)
@@ -123,17 +122,27 @@ GLvoid BuildFont(const char* fontName, int fontSize) {
 }
 
 
-GLvoid BuildFontWithEnum(int fontSize) {
-	BuildFont("Helvetica", fontSize);
+GLvoid build_text(int fontSize) {
+	build_font("Arial", fontSize);
 }
 
 
-GLvoid KillFont(GLvoid) {                     // Delete The Font List
+GLvoid kill_text(GLvoid) {                     // Delete The Font List
 	glDeleteLists(base, 96);                // Delete All 96 Characters
 }
 
 
-GLvoid glPrint(GLuint VAO, unsigned int tex, const char* fmt, ...) { // Custom GL "Print" Routin
+int set_text(int size) {                     // All Setup For OpenGL Goes Here
+	hDC = wglGetCurrentDC();            // 현재 openGL 윈도우의 hDC를 가져온다.
+	build_text(size);       // Build The Font
+
+	return TRUE;                        // Initialization Went OK
+}
+
+
+GLvoid draw_text(GLuint VAO, unsigned int tex, int size, const char* fmt, ...) { // Custom GL "Print" Routin
+	set_text(size);
+
 	result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
 
 	transperancy_location = glGetUniformLocation(ID, "transparency");
@@ -173,13 +182,4 @@ GLvoid glPrint(GLuint VAO, unsigned int tex, const char* fmt, ...) { // Custom G
 
 	glCallLists(strlen(text), GL_UNSIGNED_BYTE, text);  // Draws The Display List Text
 	glPopAttrib();                      // Pops The Display List Bits
-}
-
-
-int InitFont(GLvoid) {                     // All Setup For OpenGL Goes Here
-	glShadeModel(GL_SMOOTH);                // Enable Smooth Shading
-	hDC = wglGetCurrentDC();            // 현재 openGL 윈도우의 hDC를 가져온다.
-	BuildFontWithEnum(DEFAULTFONTSIZE);       // Build The Font
-
-	return TRUE;                        // Initialization Went OK
 }

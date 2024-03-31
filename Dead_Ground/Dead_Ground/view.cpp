@@ -44,6 +44,15 @@ void get_player_position() {
     }
 }
 
+// 오브젝트가 특정 위치에 계속 출력되도록 변환하는 함수
+void set_object_static(GLfloat x, GLfloat y) {
+    using namespace glm;
+
+    translate_matrix = translate(translate_matrix, vec3(cam_x, cam_y, 0.0));
+    translate_matrix = rotate(translate_matrix, radians(-cam_rotation), vec3(0.0, 0.0, 1.0));
+    translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
+}
+
 
 void init_transform() {  // 변환 초기화
     using namespace glm;

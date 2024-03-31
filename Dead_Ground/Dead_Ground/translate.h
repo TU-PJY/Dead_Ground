@@ -12,4 +12,5 @@ extern unsigned int projection_location, view_location, model_location, viewpos_
 
 void set_view();
 void get_player_position();
+void set_object_static(GLfloat x, GLfloat y);
 void init_transform();
