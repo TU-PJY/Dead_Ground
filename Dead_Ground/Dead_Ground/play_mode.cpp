@@ -21,4 +21,5 @@ void play_mode() {
 	// ui ·¹ÀÌ¾î
 	fw_add(new Compass(layer_ui), layer_ui);
 	fw_add(new Text(layer_ui), layer_ui);
+	fw_add(new Date(layer_ui), layer_ui);
 }

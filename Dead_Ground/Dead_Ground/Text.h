@@ -5,7 +5,6 @@
 class Text : public Framework {
 private:
 	GLuint VAO;
-	int W = 10, H = 10;
 	unsigned int tex;
 	int channel = 1;
 
@@ -16,7 +15,7 @@ public:
 		using namespace glm;
 		init_transform();
 		set_object_static(-1.68, 1.3);
-		draw_text(VAO, tex, 20, "Dead Ground Indev Test", FW_NORMAL);
+		draw_text(tex, VAO, 20, "Dead Ground Indev Test", FW_NORMAL);
 	}
 
 
@@ -27,6 +26,6 @@ public:
 		layer = l;
 
 		set_text_canvas(VAO);
-		set_texture(tex, "res//ui//text//text_skin_black.png", W, H, channel);
+		set_texture(tex, "res//ui//text//text_skin_black.png", 10, 10, 1);
 	}
 };

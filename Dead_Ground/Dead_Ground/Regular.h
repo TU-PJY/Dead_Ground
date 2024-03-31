@@ -5,9 +5,7 @@
 class Regular : public Framework {
 private:
 	GLuint VAO;
-	int W = 47, H = 47;
 	std::array<unsigned int, 3> tex{};
-	int channel = 1; 
 
 	GLfloat x, y;
 	GLfloat direction = 0, rotation = 0;
@@ -199,9 +197,9 @@ public:
 		std::uniform_int_distribution<int> tex_type(0, 5);
 
 		set_canvas(VAO);
-		set_texture(tex[0], "res//monster//spr_zombie_foot_left.png", 18, 18, channel);
-		set_texture(tex[1], "res//monster//spr_zombie_foot_right.png", 18, 18, channel);
+		set_texture(tex[0], "res//monster//spr_zombie_foot_left.png", 18, 18, 1);
+		set_texture(tex[1], "res//monster//spr_zombie_foot_right.png", 18, 18, 1);
 		// 0번에서 5번 이미지 경로 중 하나를 랜덤으로 선택한다
-		set_texture(tex[2], directory[tex_type(gen)], W, H, channel);
+		set_texture(tex[2], directory[tex_type(gen)], 47, 47, 1);
 	}
 };

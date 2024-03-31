@@ -16,4 +16,4 @@ GLvoid build_font(const char* fontName, int fontSize, int type);
 GLvoid build_text(int fontSize, int type);
 GLvoid kill_text(GLvoid);
 int set_text(int size, int type);
-GLvoid draw_text(GLuint VAO, unsigned int tex, int size, const char* fmt, int type, ...);
+GLvoid draw_text(unsigned int tex, GLuint VAO, int size, const char* fmt, int type, ...);

@@ -51,20 +51,21 @@ public:
 				y = rand_position_y(gen);
 			}
 			else if (rand_range(gen) == 4) {  //left
-				std::uniform_real_distribution<GLfloat> rand_position_x(-4.0, 4.0);
-				std::uniform_real_distribution<GLfloat> rand_position_y(3.0, 4.0);
+				std::uniform_real_distribution<GLfloat> rand_position_x(-4.0, -3.0);
+				std::uniform_real_distribution<GLfloat> rand_position_y(-4.0, 4.0);
 				x = rand_position_x(gen);
 				y = rand_position_y(gen);
 			}
 
 
 			// 몬스터 랜덤 스폰
-			if (rand_type(gen)) {
+			if (rand_type(gen) == 1) {
 				std::uniform_real_distribution<GLfloat> rand_speed(2.0, 5.0);
 				speed = rand_speed(gen) * 0.1;
 				fw_add(new Regular(x, y, speed, layer_monster), layer_monster);
 			}
-			else if (rand_type(gen)) {
+
+			else if (rand_type(gen) == 2) {
 				std::uniform_real_distribution<GLfloat> rand_speed(5.0, 7.0);
 				speed = rand_speed(gen) * 0.1;
 				fw_add(new Small(x, y, speed, layer_monster), layer_monster);

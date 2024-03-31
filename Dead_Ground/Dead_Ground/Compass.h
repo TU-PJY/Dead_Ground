@@ -5,11 +5,10 @@
 class Compass : public Framework {
 private:
 	GLuint VAO;
-	int W = 89, H = 89;
 	std::array<unsigned int, 3> tex{};
-	int channel = 1;
 	
 	GLfloat rotation = 0;
+
 	int layer;
 
 public:
@@ -54,8 +53,8 @@ public:
 		layer = l;
 
 		set_canvas(VAO);
-		set_texture(tex[0], "res//ui//compass//spr_ui_compass_0.png", W, H, channel);
-		set_texture(tex[1], "res//ui//compass//spr_ui_compass_1.png", W, H, channel);
-		set_texture(tex[2], "res//ui//compass////spr_center_icon.png", W, H, channel);
+		set_texture(tex[0], "res//ui//compass//spr_ui_compass_0.png", 89, 89, 1);
+		set_texture(tex[1], "res//ui//compass//spr_ui_compass_1.png", 89, 89, 1);
+		set_texture(tex[2], "res//ui//compass////spr_center_icon.png", 85, 85, 1);
 	}
 };

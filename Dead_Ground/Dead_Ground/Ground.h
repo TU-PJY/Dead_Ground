@@ -5,10 +5,7 @@
 class Ground : public Framework {
 private:
 	GLuint VAO;
-
-	int W = 1500, H = 1500;
 	unsigned int tex;
-	int channel = 1;
 
 	int layer;
 
@@ -29,7 +26,7 @@ public:
 		layer = l;
 
 		set_canvas(VAO);
-		set_texture(tex, "res//map//spr_ground.png", W, H, channel);
+		set_texture(tex, "res//map//spr_ground.png", 1500, 1500, 1);
 	}
 };
 
@@ -63,6 +60,6 @@ public:
 		layer = l;
 
 		set_canvas(VAO);
-		set_texture(tex, "res//map//spr_center_ground.png", W, H, channel);
+		set_texture(tex, "res//map//spr_center_ground.png", 1500, 1500, 1);
 	}
 };

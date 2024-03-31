@@ -5,10 +5,8 @@
 class Center : public Framework {
 private:
 	GLuint VAO;
-
-	int W = 85, H = 85;
 	unsigned int tex;
-	int channel = 1;
+
 	int layer;
 
 	int hp = 100;
@@ -32,6 +30,6 @@ public:
 		layer = l;
 
 		set_canvas(VAO);
-		set_texture(tex, "res//object//spr_center.png", W, H, channel);
+		set_texture(tex, "res//object//spr_center.png", 85, 85, 1);
 	}
 };

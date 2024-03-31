@@ -6,10 +6,7 @@
 class Player : public Framework {
 private:
 	GLuint VAO;
-
-	int W = 56, H = 56;  // image size
 	std::array<unsigned int, 3> tex{};
-	int channel = 1;
 	int layer;  // framework layer number
 
 	GLfloat walk_speed = 0.75;
@@ -160,8 +157,8 @@ public:
 		player_move_left = false;
 
 		set_canvas(VAO);
-		set_texture(tex[0], "res//player//spr_foot_left.png", 18, 18, channel);
-		set_texture(tex[1], "res//player//spr_foot_right.png", 18, 18, channel);
-		set_texture(tex[2], "res//player//spr_player_0.png", W, H, channel);
+		set_texture(tex[0], "res//player//spr_foot_left.png", 18, 18, 1);
+		set_texture(tex[1], "res//player//spr_foot_right.png", 18, 18, 1);
+		set_texture(tex[2], "res//player//spr_player_0.png", 56, 56, 1);
 	}
 };

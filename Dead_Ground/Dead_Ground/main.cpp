@@ -52,7 +52,6 @@ void main(int argc, char** argv) {
 		glEnable(GL_ALPHA_TEST);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glShadeModel(GL_SMOOTH);
 		stbi_set_flip_vertically_on_load(true);  // 이미지 뒤집힘 방지
 
 		set_shader();
