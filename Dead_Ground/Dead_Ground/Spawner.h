@@ -1,5 +1,4 @@
 #pragma once
-//#include <random>
 #include "gl_header.h"
 #include "Regular.h"
 #include "Small.h"
@@ -33,29 +32,27 @@ public:
 
 			range = rand_range(gen);
 
+			GLfloat size = map_size * 0.1;
+
 			// 몬스터 랜덤 위치 스폰
 			if (range == 1) {  // up
-				std::uniform_real_distribution<GLfloat> rand_position_x(-4.0, 4.0);
-				std::uniform_real_distribution<GLfloat> rand_position_y(3.5, 4.0);
+				std::uniform_real_distribution<GLfloat> rand_position_x(-size, size);
 				x = rand_position_x(gen);
-				y = rand_position_y(gen);
+				y = 4.5;
 			}
 			if (range == 2) {  // down
-				std::uniform_real_distribution<GLfloat> rand_position_x(-4.0, 4.0);
-				std::uniform_real_distribution<GLfloat> rand_position_y(-4.0, -3.5);
+				std::uniform_real_distribution<GLfloat> rand_position_x(-size, size);
 				x = rand_position_x(gen);
-				y = rand_position_y(gen);
+				y = -4.5;
 			}
 		    if (range == 3) {  // right
-				std::uniform_real_distribution<GLfloat> rand_position_x(3.5, 4.0);
-				std::uniform_real_distribution<GLfloat> rand_position_y(-4.0, 4.0);
-				x = rand_position_x(gen);
+				std::uniform_real_distribution<GLfloat> rand_position_y(-size, size);
+				x = 4.5;
 				y = rand_position_y(gen);
 			}
 			if (range == 4) {  //left
-				std::uniform_real_distribution<GLfloat> rand_position_x(-4.0, -3.5);
-				std::uniform_real_distribution<GLfloat> rand_position_y(-4.0, 4.0);
-				x = rand_position_x(gen);
+				std::uniform_real_distribution<GLfloat> rand_position_y(-size, size);
+				x = -4.5;
 				y = rand_position_y(gen);
 			}
 

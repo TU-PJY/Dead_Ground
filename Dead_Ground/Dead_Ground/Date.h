@@ -29,7 +29,7 @@ public:
 	}
 
 	void update() {
-		num += ft * 5;
+		num += ft * 10;
 
 		if (num > 60) {
 			num = 0;
