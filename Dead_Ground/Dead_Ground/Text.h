@@ -15,11 +15,11 @@ public:
 	void render() {
 		using namespace glm;
 		init_transform();
-		//translate_matrix = translate(translate_matrix, vec3(cam_x, cam_y, 0.0));
-		//translate_matrix = rotate(translate_matrix, radians(-cam_rotation), vec3(0.0, 0.0, 1.0));
-		//translate_matrix = translate(translate_matrix, vec3(-1.7, -0.5, 0.0));
+		translate_matrix = translate(translate_matrix, vec3(cam_x, cam_y, 0.0));
+		translate_matrix = rotate(translate_matrix, radians(-cam_rotation), vec3(0.0, 0.0, 1.0));
+		translate_matrix = translate(translate_matrix, vec3(-1.7, -0.5, 0.0));
 
-		draw_text((void*)font, (char*)"Dead Ground Indev", tex, VAO);
+		glPrint(VAO, tex, "Text Test");
 	}
 
 

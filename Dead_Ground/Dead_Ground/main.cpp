@@ -55,6 +55,8 @@ void main(int argc, char** argv) {
 		stbi_set_flip_vertically_on_load(true);  // 이미지 뒤집힘 방지
 
 		set_shader();
+
+		InitFont();
 	}
 
 	// 설정한 모드부터 실행, gl_header.h에 정의되어있음

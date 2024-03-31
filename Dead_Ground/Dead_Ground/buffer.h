@@ -12,4 +12,8 @@ void set_text(GLuint &VAO);
 void set_texture(unsigned int &tex, const char* directory, int width, int height, int channel);
 void draw_image(unsigned int tex, GLuint VAO);
 
-void draw_text(void* font, char* string, unsigned int tex, GLuint VAO);
+GLvoid BuildFont(const char* fontName, int fontSize);
+GLvoid BuildFontWithEnum(int fontSize);
+GLvoid KillFont(GLvoid);
+GLvoid glPrint(GLuint VAO, unsigned int tex, const char* fmt, ...);
+int InitFont(GLvoid);
