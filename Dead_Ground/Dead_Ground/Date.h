@@ -65,6 +65,7 @@ private:
 public:
 	Clock clock;
 
+
 	void render() {
 		using namespace glm;
 
@@ -82,8 +83,11 @@ public:
 			set_object_static(-1.0 * ratio + 0.135, -0.48);
 
 		draw_text(tex[1], VAO[1], 60, "%d", FW_BOLD, day);
-
 	}
+
+
+	void check_collision() {}
+
 
 	void update() {
 		clock.update();
@@ -94,6 +98,7 @@ public:
 			clock.plus_day = false;
 		}
 	}
+
 
 	Date(int l) {
 		layer = l;

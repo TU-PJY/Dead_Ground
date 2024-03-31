@@ -17,6 +17,7 @@ void fw_routine() {
 
 			if (ptr != nullptr) {
 				ptr->render();
+				ptr->check_collision();
 				ptr->update();
 
 				++it; 

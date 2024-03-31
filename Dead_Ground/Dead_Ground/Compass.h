@@ -44,6 +44,9 @@ public:
 	}
 
 
+	void check_collision() {}
+
+
 	void update() {
 		rotation = atan2(-cam_y, -cam_x) * 180 / 3.14 + 180;
 	}

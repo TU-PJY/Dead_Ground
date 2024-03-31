@@ -11,7 +11,11 @@ private:
 
 	int hp = 100;
 
+
 public:
+	std::array<GLfloat, 4> get_collision_area() const {return { -0.12, 0.12, -0.12, 0.12 };}
+
+
 	void render() {
 		using namespace glm;
 
@@ -21,6 +25,9 @@ public:
 
 		draw_image(tex, VAO);
 	}
+
+
+	void check_collision() {}
 
 
 	void update() {}

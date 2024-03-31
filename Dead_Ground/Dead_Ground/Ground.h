@@ -41,6 +41,7 @@ private:
 
 	int layer;
 
+
 public:
 	void render() {
 		using namespace glm;
@@ -51,6 +52,9 @@ public:
 
 		draw_image(tex, VAO);
 	}
+
+
+	void check_collision() {}
 
 
 	void update() {}

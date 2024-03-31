@@ -15,9 +15,21 @@ private:
 
 	GLfloat foot_y = 0;
 
-	GLfloat x = 0.0, y = -0.2;  // 충돌처리를 위한 변수
+	GLfloat x = 0.0, y = -0.4;  // 충돌처리를 위한 변수
+
+	GLfloat move_degree = 0;  // 플레이어 이동 방향에 사용되는 각도
+	GLfloat move_radian = 0;  // 플레이어 이동 라디안
+	GLfloat cam_radian = 0; // 카메라 회전 라디안
+
+	bool is_move = false;  // true 일시 플레이어 움직임
+
 
 public:
+	// 플레이어 현재 위치 리턴
+	GLfloat get_x() const { return x; }
+	GLfloat get_y() const { return y; }
+
+
 	void render() {
 		using namespace glm;
 
@@ -53,7 +65,7 @@ public:
 	// 플레이어 걷기 애니메이션
 	// 걷기를 멈추면 각도를 다시 복구한다
 	void animation_walk() {
-		if (player_move_up || player_move_down || player_move_right || player_move_left) {
+		if (is_move) {
 			num += ft * walk_speed * 10;
 			rotation = -sin(num) * 10;
 			foot_y = sin(num) / 20;
@@ -87,63 +99,148 @@ public:
 	}
 
 
-	void move() {
-		GLfloat degree = cam_rotation * 3.14 / 180;
-		GLfloat degree_vertical = (cam_rotation + 90) * 3.14 / 180;
+	// 맵 모서리 충돌 처리, 맵 밖으로 벗어날 수 없음
+	void check_map_collision() {
+		if (x > 4.0 || x < -4.0)
+			x += -sin(move_radian + cam_radian) * ft * walk_speed;
 
-		// 플레이어 이동
-		if (player_move_up) {
-			if (player_move_right || player_move_left) {
-				x += walk_speed * ft * sin(degree) / 1.414;
-				y += walk_speed * ft * cos(degree) / 1.414;
-			}
-			else {
-				x += walk_speed * ft * sin(degree);
-				y += walk_speed * ft * cos(degree);
-			}
-		}
+		if (y > 4.0 || y < -4.0) 
+			y += -cos(move_radian + cam_radian) * ft * walk_speed;
+			
+	}
 
-		if (player_move_down) {
-			if (player_move_right || player_move_left) {
-				x -= walk_speed * ft * sin(degree) / 1.414;
-				y -= walk_speed * ft * cos(degree) / 1.414;
-			}
-			else {
-				x -= walk_speed * ft * sin(degree);
-				y -= walk_speed * ft * cos(degree);
-			}
-		}
 
-		if (player_move_right) {
-			if (player_move_up || player_move_down) {
-				x += walk_speed * ft * sin(degree_vertical) / 1.414;
-				y += walk_speed * ft * cos(degree_vertical) / 1.414;
-			}
-			else {
-				x += walk_speed * ft * sin(degree_vertical);
-				y += walk_speed * ft * cos(degree_vertical);
-			}
-		}
+	//맵 오브젝트 충돌 처리
+	// layer_object 에 존재하는 모든 오브젝트로부터 경계 좌표를 얻어 충돌처리 한다.
+	void check_object_collision() {
+		for (int i = 0; i < framework[layer_map_object].size(); i++) {
+			auto ptr = framework[layer_map_object][i];
 
-		if (player_move_left) {
-			if (player_move_up || player_move_down) {
-				x -= walk_speed * ft * sin(degree_vertical) / 1.414;
-				y -= walk_speed * ft * cos(degree_vertical) / 1.414;
-			}
-			else {
-				x -= walk_speed * ft * sin(degree_vertical);
-				y -= walk_speed * ft * cos(degree_vertical);
+			if (ptr != nullptr) {
+				std::array<GLfloat, 4> b = ptr->get_collision_area();  // get objects's border
+
+				// 오브젝트 y+ 면
+				if (b[3] - 0.02 < y && y < b[3] && b[0] < x && x < b[1]) 
+					y += -cos(move_radian + cam_radian) * ft * walk_speed;
+				
+
+
+				// 오브젝트 y- 면
+				if (b[2] < y && y < b[2] + 0.02 && b[0] < x && x < b[1]) 
+					y += -cos(move_radian + cam_radian) * ft * walk_speed;
+				
+
+
+				// 오브젝트 x+ 면
+				if (b[1] - 0.02 < x && x < b[1] && b[2] < y && y < b[3]) {
+					x = b[1];
+					x += -sin(move_radian + cam_radian) * ft * walk_speed;
+				}
+
+
+				// 오브젝트 x- 면
+				if (b[0] < x && x < b[0] + 0.02 && b[2] < y && y < b[3]) {
+					x = b[0];
+					x += -sin(move_radian + cam_radian) * ft * walk_speed;
+				}
 			}
 		}
 	}
 
 
-	// 플레이어 현재 위치 리턴
-	GLfloat get_x() const { return x; }
-	GLfloat get_y() const { return y; }
+	void set_move_direction() {
+		// 위쪽 방향키 기준
+		if (player_move_up && player_move_right && !player_move_left && !player_move_down)
+			move_degree = 45;
+
+		else if (player_move_up && player_move_left && !player_move_right && !player_move_down)
+			move_degree = -45;
+
+		else if (player_move_up &&
+			(!player_move_left && !player_move_right && !player_move_down) ||
+			(player_move_left && player_move_right && !player_move_down))
+			move_degree = 0;
+
+
+		// 아래쪽 방향키 기준
+		else if (player_move_down && player_move_right && !player_move_left && !player_move_up)
+			move_degree = 135;
+
+		else if (player_move_down && player_move_left && !player_move_right && !player_move_up)
+			move_degree = -135;
+
+		else if (player_move_down &&
+			(!player_move_left && !player_move_right && !player_move_up) ||
+			(player_move_left && player_move_right && !player_move_up))
+			move_degree = 180;
+
+
+		// 오른쪽 방향키 기준
+		else if (player_move_right && player_move_up && !player_move_down && !player_move_left)
+			move_degree = 45;
+
+		else if (player_move_right && player_move_down && !player_move_up && !player_move_left)
+			move_degree = 135;
+
+		else if (player_move_right &&
+			(!player_move_up && !player_move_down && !player_move_left) ||
+			(player_move_up && player_move_down && !player_move_left))
+			move_degree= 90;
+
+
+		// 왼쪽 방향키 기준
+		else if (player_move_left && player_move_up && !player_move_down && !player_move_right)
+			move_degree = -45;
+
+		else if (player_move_left && player_move_down && !player_move_up && !player_move_right)
+			move_degree = -135;
+
+		else if (player_move_left &&
+			(!player_move_up && !player_move_down && !player_move_right) ||
+			(player_move_up && player_move_down && !player_move_right))
+			move_degree = -90;
+
+
+		move_radian = move_degree * 3.14 / 180;
+		cam_radian = cam_rotation * 3.14 / 180;
+	}
+
+
+	// 움직일 수 있는지 확인
+	void check_move() {
+		is_move = false;
+
+		// 특정 키 조합은 움직임을 활성화하지 않는다
+		// is_move가 false인 상태로 리턴하여 플레이어는 움직이지 않는다
+		if (!player_move_up && !player_move_right && !player_move_left && !player_move_down)
+			return;
+
+		else if (player_move_up && player_move_right && player_move_left && player_move_down)
+			return;
+
+		else if ((player_move_right && player_move_left && !player_move_up && !player_move_down) ||
+			(player_move_up && player_move_down && !player_move_left && !player_move_right))
+			return;
+
+		else {
+			x += sin(move_radian + cam_radian) * ft * walk_speed;
+			y += cos(move_radian + cam_radian) * ft * walk_speed;
+
+			// 움직일 수 있는 상태라면 true
+			is_move = true;
+		}
+	}
+
+
+	void check_collision() {
+		check_object_collision();
+		check_map_collision();
+	}
+
 
 	void update() {
-		move();
+		set_move_direction();
+		check_move();
 		animation_walk();
 	}
 

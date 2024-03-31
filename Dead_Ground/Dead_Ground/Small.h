@@ -34,6 +34,7 @@ private:
 		"res//monster//small//spr_zombie_6.png",
 	};
 
+
 public:
 	GLfloat get_x() const { return x; }
 	GLfloat get_y() const { return y; }
@@ -115,7 +116,7 @@ public:
 	}
 
 
-	void check_collision() {
+	void check_monster_collision() {
 		auto ptr = framework[layer_player][0];
 
 		// 플레이어와 닿으면 플레이어에게 대미지를 입힘
@@ -170,6 +171,7 @@ public:
 		}
 	}
 
+
 	void move() {
 		if (!hit_player && !hit_center) {
 			x += cos(direction) * ft * speed;
@@ -178,12 +180,17 @@ public:
 	}
 
 
+	void check_collision() {
+		check_monster_collision();
+	}
+
+
 	void update() {
 		if (!hit_center)
 			set_move_direction_and_rotation();
+
 		animation_walk();
 		move();
-		check_collision();
 	}
 
 

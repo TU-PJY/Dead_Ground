@@ -22,6 +22,9 @@ public:
 	void update() {}
 
 
+	void check_collision() {}
+
+
 	Text(int l) {
 		layer = l;
 

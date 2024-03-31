@@ -31,8 +31,13 @@ public:
 	virtual void check_collision() {}
 	virtual void update() {}
 
+	// 현재 x, y좌표 반환
 	virtual GLfloat get_x() const { return x; }
-	virtual  GLfloat get_y() const { return y; }
+	virtual GLfloat get_y() const { return y; }
+
+	// 충돌 처리 영역 배열 반환
+	// x_min, x_max, y_min, y_mx
+	virtual std::array<GLfloat, 4> get_collision_area() const { return {}; }
 };
 
 extern std::array<std::vector<Framework*>, LAYER> framework;
