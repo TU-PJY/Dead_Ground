@@ -141,6 +141,8 @@ int set_text(int size, int type) {                     // All Setup For OpenGL G
 
 
 GLvoid draw_text(unsigned int tex, GLuint VAO, int size, const char* fmt, int type, ...) { // Custom GL "Print" Routin
+	kill_text();
+
 	set_text(size, type);
 
 	result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환

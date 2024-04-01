@@ -32,7 +32,6 @@ void key_down(unsigned char KEY, int x, int y) {
 			ptr->player_move_left = true;
 		break;
 	///////////
-
 	}
 	
 	if (glutGetWindow() != 0)

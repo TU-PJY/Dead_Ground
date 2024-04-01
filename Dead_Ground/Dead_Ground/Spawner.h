@@ -21,9 +21,9 @@ public:
 
 	void spawn_monster() {
 		timer += ft * 10;
-		if (timer > 20) {
-			type = 1;  // 일단 1번 타입으로만 스폰시켜 본다
 
+		// 설정한 타이머 시간이 되면 몬스터를 랜덤 스폰한다
+		if (timer > 20) {
 			std::random_device rd;
 			std::mt19937 gen(rd());
 

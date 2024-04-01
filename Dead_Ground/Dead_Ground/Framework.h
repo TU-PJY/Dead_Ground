@@ -38,6 +38,11 @@ public:
 	// 충돌 처리 영역 배열 반환
 	// x_min, x_max, y_min, y_mx
 	virtual std::array<GLfloat, 4> get_collision_area() const { return {}; }
+
+
+	virtual ~Framework() {
+		//std::cout << "deleted fw" << std::endl;
+	}
 };
 
 extern std::array<std::vector<Framework*>, LAYER> framework;

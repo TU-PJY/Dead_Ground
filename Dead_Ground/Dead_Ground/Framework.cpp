@@ -12,6 +12,9 @@ int mode = START_MODE;
 
 void fw_routine() {
 	for(int i = 0; i < framework.size(); i++) {
+		if (framework[i].size() < framework[i].capacity())
+			framework[i].shrink_to_fit();
+
 		for (auto it = framework[i].begin(); it != framework[i].end();) {
 			auto& ptr = *it;
 
@@ -23,7 +26,7 @@ void fw_routine() {
 				++it; 
 			}
 
-			else
+			else 
 				it = framework[i].erase(it);
 		}
 	}

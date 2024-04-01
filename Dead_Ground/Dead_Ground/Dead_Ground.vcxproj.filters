@@ -7,9 +7,6 @@
     <ClInclude Include="gl_header.h">
       <Filter>[7]___________________headers\1%29 ------global</Filter>
     </ClInclude>
-    <ClInclude Include="buffer.h">
-      <Filter>[7]___________________headers\2%29 ------headers</Filter>
-    </ClInclude>
     <ClInclude Include="gl_func.h">
       <Filter>[7]___________________headers\2%29 ------headers</Filter>
     </ClInclude>
@@ -17,9 +14,6 @@
       <Filter>[7]___________________headers\2%29 ------headers</Filter>
     </ClInclude>
     <ClInclude Include="translate.h">
-      <Filter>[7]___________________headers\2%29 ------headers</Filter>
-    </ClInclude>
-    <ClInclude Include="texture.h">
       <Filter>[7]___________________headers\2%29 ------headers</Filter>
     </ClInclude>
     <ClInclude Include="object_header.h">
@@ -61,12 +55,13 @@
     <ClInclude Include="Text.h">
       <Filter>%280%29___________________Objects\4%29 ------UI</Filter>
     </ClInclude>
+    <ClInclude Include="image_text_util.h" />
+    <ClInclude Include="Date.h">
+      <Filter>%280%29___________________Objects\4%29 ------UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="view.cpp">
-      <Filter>[5]___________________view</Filter>
-    </ClCompile>
-    <ClCompile Include="buffer.cpp">
       <Filter>[5]___________________view</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -96,6 +91,7 @@
     <ClCompile Include="math_utils.cpp">
       <Filter>[9]___________________Math</Filter>
     </ClCompile>
+    <ClCompile Include="image_text_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="%280%29___________________Objects">
