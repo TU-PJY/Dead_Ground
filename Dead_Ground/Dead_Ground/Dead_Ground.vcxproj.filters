@@ -59,6 +59,9 @@
     <ClInclude Include="Date.h">
       <Filter>%280%29___________________Objects\4%29 ------UI</Filter>
     </ClInclude>
+    <ClInclude Include="Health.h">
+      <Filter>%280%29___________________Objects\4%29 ------UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="view.cpp">

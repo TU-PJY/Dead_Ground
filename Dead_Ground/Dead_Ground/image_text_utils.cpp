@@ -19,15 +19,6 @@ GLfloat canvas[][48] = {  // 이미지 출력에 사용할 canvas
 	-0.1f, -0.1f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0
 };
 
-GLfloat canvas_text[][48] = {  // 텍스트 출력에 사용할 canvas
-	-0.0f, -0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0,
-	0.0f, -0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0, 0.0,
-	0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0, 1.0,
-	0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0, 1.0,
-	-0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 1.0,
-	-0.0f, -0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0
-};
-
 
 void set_canvas(GLuint &VAO) {
 	glGenVertexArrays(1, &VAO);
@@ -42,20 +33,7 @@ void set_canvas(GLuint &VAO) {
 }
 
 
-void set_text_canvas(GLuint &VAO) {
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(canvas_text), canvas_text, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)0); // 위치 속성
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat))); // 텍스처 좌표 속성 
-	glEnableVertexAttribArray(2);
-}
-
-
-void set_texture(unsigned int &tex, const char* directory, int width, int height, int channel) {
+void set_texture(unsigned int& tex, const char* directory, int width, int height, int channel) {
 	glGenTextures(1, &tex);
 	glBindTexture(GL_TEXTURE_2D, tex);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -94,6 +72,27 @@ void draw_image(unsigned int tex, GLuint VAO) {
 }
 
 
+void set_text(unsigned int& tex, std::string type) {
+	glGenTextures(1, &tex);
+	glBindTexture(GL_TEXTURE_2D, tex);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	int width = 10, height = 10, channel = 1;
+
+	if (type == "black")
+		texture_data = stbi_load("res//ui//text//text_skin_black.png", &width, &height, &channel, 4);
+	else if (type == "white")
+		texture_data = stbi_load("res//ui//text//text_skin_white.png", &width, &height, &channel, 4);
+	else if (type == "red")
+		texture_data = stbi_load("res//ui//text//text_skin_red.png", &width, &height, &channel, 4);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
+}
+
+
 GLvoid build_font(const char* fontName, int fontSize, int type) {
 	HFONT   font;     // Windows Font ID
 	HFONT   oldfont;  // Used For Good House Keeping
@@ -123,16 +122,12 @@ GLvoid build_font(const char* fontName, int fontSize, int type) {
 
 
 GLvoid build_text(int fontSize, int type) {
+	hDC = wglGetCurrentDC();
 	build_font("Arial", fontSize, type);
 }
 
 
-GLvoid kill_text(GLvoid) {                     // Delete The Font List
-	glDeleteLists(base, 96);                // Delete All 96 Characters
-}
-
-
-int set_text(int size, int type) {                     // All Setup For OpenGL Goes Here
+int get_text(int size, int type) {                     // All Setup For OpenGL Goes Here
 	hDC = wglGetCurrentDC();            // 현재 openGL 윈도우의 hDC를 가져온다.
 	build_text(size, type);       // Build The Font
 
@@ -140,10 +135,15 @@ int set_text(int size, int type) {                     // All Setup For OpenGL G
 }
 
 
-GLvoid draw_text(unsigned int tex, GLuint VAO, int size, const char* fmt, int type, ...) { // Custom GL "Print" Routin
+// Delete The Font List
+// Delete All 96 Characters
+GLvoid kill_text(GLvoid) { glDeleteLists(base, 96); }
+
+
+GLvoid draw_text(unsigned int tex, GLuint VAO, int size, int type, const char* fmt, ...) { // Custom GL "Print" Routin
 	kill_text();
 
-	set_text(size, type);
+	get_text(size, type);
 
 	result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
 

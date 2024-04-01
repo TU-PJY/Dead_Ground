@@ -25,6 +25,8 @@ private:
 
 
 public:
+	bool hit = false;  // true
+
 	// 플레이어 현재 위치 리턴
 	GLfloat get_x() const { return x; }
 	GLfloat get_y() const { return y; }
@@ -124,12 +126,10 @@ public:
 					y += -cos(move_radian + cam_radian) * ft * walk_speed;
 				
 
-
 				// 오브젝트 y- 면
 				if (b[2] < y && y < b[2] + 0.02 && b[0] < x && x < b[1]) 
 					y += -cos(move_radian + cam_radian) * ft * walk_speed;
 				
-
 
 				// 오브젝트 x+ 면
 				if (b[1] - 0.02 < x && x < b[1] && b[2] < y && y < b[3]) {

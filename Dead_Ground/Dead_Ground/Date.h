@@ -5,8 +5,8 @@
 
 class Clock {
 private:
-	std::array<GLuint, 2> VAO{};
-	std::array<unsigned int, 2> tex{};
+	GLuint VAO, VAO_text;
+	unsigned int tex, text_tex;
 
 	GLfloat num = 0;
 
@@ -21,11 +21,11 @@ public:
 		init_transform();
 		scale_matrix = scale(scale_matrix, vec3(1.5, 1.5, 0.0));
 		set_object_static(-1.0 * ratio + 0.5, -0.4);
-		draw_image(tex[0], VAO[0]);
+		draw_image(tex, VAO);
 
 		init_transform();
 		set_object_static(-1.0 * ratio + 0.42, -0.42);
-		draw_text(tex[1], VAO[1], 30, "%02d:%02d", FW_BOLD, hour, minute); 
+		draw_text(text_tex, VAO_text,  30,  FW_BOLD, "%02d:%02d", hour, minute);
 	}
 
 	void update() {
@@ -44,19 +44,19 @@ public:
 	}
 
 	Clock() {
-		set_canvas(VAO[0]);
-		set_texture(tex[0], "res//ui/spr_ui_clock.png", 88, 88, 1);
+		set_canvas(VAO);
+		set_texture(tex, "res//ui//date//spr_ui_clock.png", 88, 88, 1);
 
-		set_text_canvas(VAO[1]);
-		set_texture(tex[1], "res//ui//text//text_skin_red.png", 10, 10, 1);
+		set_canvas(VAO_text);
+		set_text(text_tex, "red");
 	}
 };
 
 
 class Date : public Framework {
 private:
-	std::array<GLuint, 2> VAO{};
-	std::array<unsigned int, 2> tex{};
+	GLuint VAO, VAO_text;
+	unsigned int tex, text_tex;
 
 	int layer;
 	int day = 0;
@@ -74,7 +74,7 @@ public:
 		init_transform();
 		scale_matrix = scale(scale_matrix, vec3(1.5, 1.5, 0.0));
 		set_object_static(-1.0 * ratio + 0.2, -0.4);
-		draw_image(tex[0], VAO[0]);
+		draw_image(tex, VAO);
 
 		init_transform();
 		if(day < 10)
@@ -82,7 +82,7 @@ public:
 		if(10 < day && day < 100)
 			set_object_static(-1.0 * ratio + 0.135, -0.48);
 
-		draw_text(tex[1], VAO[1], 60, "%d", FW_BOLD, day);
+		draw_text(text_tex, VAO_text, 60, FW_BOLD, "%d", day);
 	}
 
 
@@ -103,10 +103,10 @@ public:
 	Date(int l) {
 		layer = l;
 
-		set_canvas(VAO[0]);
-		set_text_canvas(VAO[1]);
+		set_canvas(VAO);
+		set_texture(tex, "res//ui//date//spr_ui_day.png", 91, 91, 1);
 
-		set_texture(tex[0], "res//ui//spr_ui_day.png", 91, 91, 1);
-		set_texture(tex[1], "res//ui//text//text_skin_black.png", 10, 10, 1);
+		set_canvas(VAO_text);
+		set_text(text_tex, "black");
 	}
 };
