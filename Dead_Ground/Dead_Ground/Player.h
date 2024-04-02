@@ -23,6 +23,11 @@ private:
 
 	bool is_move = false;  // true 일시 플레이어 움직임
 
+	// 플레이어 충돌 처리 범위
+	std::array<GLfloat, 4> bound = { -0.12, 0.12, -0.12, 0.12 };
+
+	// 바운드 박스
+	unsigned int bound_box;
 
 public:
 	bool hit = false;  // true
@@ -30,6 +35,9 @@ public:
 	// 플레이어 현재 위치 리턴
 	GLfloat get_x() const { return x; }
 	GLfloat get_y() const { return y; }
+
+
+	virtual std::array<GLfloat, 4> get_collision_area() const { return bound; }
 
 
 	void render() {
@@ -61,6 +69,16 @@ public:
 		translate_matrix = rotate(translate_matrix, radians(-cam_rotation + rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
 
 		draw_image(tex[2], VAO);
+
+
+		// bound box
+		if (BOUND_BOX == 1) {
+			init_transform();
+			scale_matrix = scale(scale_matrix, vec3(0.6, 0.6, 0.0));
+			translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
+
+			draw_image(bound_box, VAO);
+		}
 	}
 
 
@@ -114,35 +132,80 @@ public:
 
 	//맵 오브젝트 충돌 처리
 	// layer_object 에 존재하는 모든 오브젝트로부터 경계 좌표를 얻어 충돌처리 한다.
-	void check_object_collision() {
+	void check_map_object_collision() {
 		for (int i = 0; i < framework[layer_map_object].size(); i++) {
 			auto ptr = framework[layer_map_object][i];
 
 			if (ptr != nullptr) {
 				std::array<GLfloat, 4> b = ptr->get_collision_area();  // get objects's border
 
-				// 오브젝트 y+ 면
-				if (b[3] - 0.02 < y && y < b[3] && b[0] < x && x < b[1]) 
-					y += -cos(move_radian + cam_radian) * ft * walk_speed;
-				
+				// 오브젝트 중심점을 기준으로 오브젝트로의 어느 방향에 있는지 판단한다
+				// 바라보는 방향, 이동 방향, 충돌 방향을 판단하여 충돌처리 한다
 
-				// 오브젝트 y- 면
-				if (b[2] < y && y < b[2] + 0.02 && b[0] < x && x < b[1]) 
-					y += -cos(move_radian + cam_radian) * ft * walk_speed;
-				
+				// 바운드 박스 중심점
+				GLfloat b_center = b[1] / 2;
 
-				// 오브젝트 x+ 면
-				if (b[1] - 0.02 < x && x < b[1] && b[2] < y && y < b[3]) {
-					x = b[1];
-					x += -sin(move_radian + cam_radian) * ft * walk_speed;
+				// 기준 방향은 바라보는 방향 (화면 상에서 위쪽)
+				// 좌측면
+				if (b[2] <= y && y <= b[3] && b[0] < x && x < b[0] + b_center) {
+					if (player_move_up && 0 < cam_rotation && cam_rotation < 180)
+						x -= sin(move_radian + cam_radian) * ft * walk_speed;
+
+					else if(player_move_down && 180 < cam_rotation && cam_rotation < 360)
+						x -= sin(move_radian + cam_radian) * ft * walk_speed;
+
+					else if(player_move_right && ((270 < cam_rotation && cam_rotation < 360) || 0 < cam_rotation && cam_rotation < 90))
+						x -= sin(move_radian + cam_radian) * ft * walk_speed;
+
+					else if(player_move_left && 90 < cam_rotation && cam_rotation < 270)
+						x -= sin(move_radian + cam_radian) * ft * walk_speed;
 				}
 
+				// 우측면
+				if (b[2] <= y && y <= b[3] && b[1] >= x && x > b[1] - b_center) {
+					if (player_move_up && 180 < cam_rotation && cam_rotation < 360)
+						x -= sin(move_radian + cam_radian) * ft * walk_speed;
 
-				// 오브젝트 x- 면
-				if (b[0] < x && x < b[0] + 0.02 && b[2] < y && y < b[3]) {
-					x = b[0];
-					x += -sin(move_radian + cam_radian) * ft * walk_speed;
+					else if(player_move_down && 0 < cam_rotation && cam_rotation < 180)
+						x -= sin(move_radian + cam_radian) * ft * walk_speed;
+
+					else if(player_move_right && 90 < cam_rotation && cam_rotation < 270)
+						x -= sin(move_radian + cam_radian) * ft * walk_speed;
+
+					else if(player_move_left && ((270 < cam_rotation && cam_rotation < 360) || 0 < cam_rotation && cam_rotation < 90))
+						x -= sin(move_radian + cam_radian) * ft * walk_speed;
 				}
+
+				//// 아랫면
+				if (b[2] <= y && y < b[2] + b_center && b[0] <= x && x <= b[1]) {
+					if (player_move_up && ((270 < cam_rotation && cam_rotation < 360) || 0 < cam_rotation && cam_rotation < 90))
+						y -= cos(move_radian + cam_radian) * ft * walk_speed;
+
+					else if(player_move_down && 90 < cam_rotation && cam_rotation < 270)
+						y -= cos(move_radian + cam_radian) * ft * walk_speed;
+
+					else if(player_move_right && 180 < cam_rotation && cam_rotation < 360)
+						y -= cos(move_radian + cam_radian) * ft * walk_speed;
+
+					else if(player_move_left && 0 < cam_rotation && cam_rotation < 180)
+						y -= cos(move_radian + cam_radian) * ft * walk_speed;
+				}
+
+				// 윗면
+				if (b[3] >= y && y > b[3] - b_center && b[0] <= x && x <= b[1]) {
+					if (player_move_up && 90 < cam_rotation && cam_rotation < 270)
+						y -= cos(move_radian + cam_radian) * ft * walk_speed;
+
+					else if(player_move_down && ((270 < cam_rotation && cam_rotation < 360) || 0 < cam_rotation && cam_rotation < 90))
+						y -= cos(move_radian + cam_radian) * ft * walk_speed;
+
+					else if(player_move_right && 0 < cam_rotation && cam_rotation < 180)
+						y -= cos(move_radian + cam_radian) * ft * walk_speed;
+
+					else if(player_move_left && 180 < cam_rotation && cam_rotation < 360)
+						y -= cos(move_radian + cam_radian) * ft * walk_speed;
+				}
+
 			}
 		}
 	}
@@ -233,7 +296,7 @@ public:
 
 
 	void check_collision() {
-		check_object_collision();
+		check_map_object_collision();
 		check_map_collision();
 	}
 
@@ -257,5 +320,8 @@ public:
 		set_texture(tex[0], "res//player//spr_foot_left.png", 18, 18, 1);
 		set_texture(tex[1], "res//player//spr_foot_right.png", 18, 18, 1);
 		set_texture(tex[2], "res//player//spr_player_0.png", 56, 56, 1);
+
+		if (BOUND_BOX == 1)  // 바운드 박스 활성화 시에만 세팅
+			set_bound_box(bound_box);
 	}
 };

@@ -45,6 +45,19 @@ void set_texture(unsigned int& tex, const char* directory, int width, int height
 }
 
 
+void set_bound_box(unsigned int& tex) {
+	glGenTextures(1, &tex);
+	glBindTexture(GL_TEXTURE_2D, tex);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int width = 100, height = 100, channel = 1;
+	texture_data = stbi_load("res//dev//bound_box.png", &width, &height, &channel, 4);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
+}
+
+
 void draw_image(unsigned int tex, GLuint VAO) {
 	result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
 
@@ -168,10 +181,10 @@ GLvoid draw_text(unsigned int tex, GLuint VAO, int size, int type, const char* f
 	// 화면 좌표로 변환된 모델 중심 좌표 계산
 	glm::vec4 modelCenterScreen = projection * view * result_matrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
-	if (modelCenterScreen.x < -0.95f ||
-		modelCenterScreen.x > 0.95f  ||
-		modelCenterScreen.y < -0.95f ||
-		modelCenterScreen.y > 0.95f) {
+	if (modelCenterScreen.x < -1.0f ||
+		modelCenterScreen.x > 1.0  ||
+		modelCenterScreen.y < -1.0 ||
+		modelCenterScreen.y > 1.0) {
 
 		// 텍스트가 화면 모서리에 있는 경우 그리지 않음
 		return;
