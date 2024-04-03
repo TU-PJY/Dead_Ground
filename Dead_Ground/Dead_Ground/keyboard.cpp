@@ -13,23 +13,23 @@ void key_down(unsigned char KEY, int x, int y) {
 	
 	// 플레이어 움직임
 	case 'w':
-		if(ptr != nullptr)
-			ptr->player_move_up = true;
+		if (ptr != nullptr)
+			ptr->set_state(0);
 		break;
 
 	case 's':
 		if (ptr != nullptr)
-			ptr->player_move_down = true;
+			ptr->set_state(1);
 		break;
 
 	case 'd':
 		if (ptr != nullptr)
-			ptr->player_move_right = true;
+			ptr->set_state(2);
 		break;
 
 	case 'a':
 		if (ptr != nullptr)
-			ptr->player_move_left = true;
+			ptr->set_state(3);
 		break;
 	///////////
 	}
@@ -46,22 +46,22 @@ void key_up(unsigned char KEY, int x, int y) {
 		// 플레이어 움직임
 	case 'w':
 		if (ptr != nullptr)
-			ptr->player_move_up = false;
+			ptr->set_state(4);
 		break;
 
 	case 's':
 		if (ptr != nullptr)
-			ptr->player_move_down = false;
+			ptr->set_state(5);
 		break;
 
 	case 'd':
 		if (ptr != nullptr)
-			ptr->player_move_right = false;
+			ptr->set_state(6);
 		break;
 
 	case 'a':
 		if (ptr != nullptr)
-			ptr->player_move_left = false;
+			ptr->set_state(7);
 		break;
 		///////////
 	}

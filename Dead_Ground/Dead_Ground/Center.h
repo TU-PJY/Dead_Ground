@@ -9,12 +9,13 @@ private:
 
 	int layer;
 
-	int hp = 100;
+	int hp = 1500;
 
 
 public:
 	std::array<GLfloat, 4> get_collision_area() const {return { -0.12, 0.12, -0.12, 0.12 };}
 
+	void update_index(int idx) {}
 
 	void render() {
 		using namespace glm;

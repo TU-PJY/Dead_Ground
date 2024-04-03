@@ -8,7 +8,7 @@
 #include "math_util.h"
 #include "image_text_util.h"
 #define START_MODE _play_
-#define BOUND_BOX 1  // 1: true, 0: false
+#define BOUND_BOX 0  // 1: true, 0: false
 
 extern int WIDTH, HEIGHT;  // 윈도우 사이즈
 

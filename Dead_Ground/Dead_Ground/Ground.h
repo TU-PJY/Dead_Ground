@@ -10,6 +10,8 @@ private:
 	int layer;
 
 public:
+	void update_index(int idx) {}
+
 	void render() {
 		using namespace glm;
 
@@ -43,6 +45,8 @@ private:
 
 
 public:
+	void update_index(int idx) {}
+
 	void render() {
 		using namespace glm;
 

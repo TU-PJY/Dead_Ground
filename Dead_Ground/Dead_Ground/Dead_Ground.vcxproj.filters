@@ -50,17 +50,23 @@
       <Filter>%280%29___________________Objects\3%29 ------Monster</Filter>
     </ClInclude>
     <ClInclude Include="Compass.h">
-      <Filter>%280%29___________________Objects\4%29 ------UI</Filter>
+      <Filter>%280%29___________________Objects\5%29 ------UI</Filter>
     </ClInclude>
     <ClInclude Include="Text.h">
-      <Filter>%280%29___________________Objects\4%29 ------UI</Filter>
+      <Filter>%280%29___________________Objects\5%29 ------UI</Filter>
     </ClInclude>
     <ClInclude Include="image_text_util.h" />
     <ClInclude Include="Date.h">
-      <Filter>%280%29___________________Objects\4%29 ------UI</Filter>
+      <Filter>%280%29___________________Objects\5%29 ------UI</Filter>
     </ClInclude>
     <ClInclude Include="Health.h">
-      <Filter>%280%29___________________Objects\4%29 ------UI</Filter>
+      <Filter>%280%29___________________Objects\5%29 ------UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Shadow.h">
+      <Filter>%280%29___________________Objects\4%29 ------Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Foot.h">
+      <Filter>%280%29___________________Objects\4%29 ------Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -139,9 +145,6 @@
     <Filter Include="%280%29___________________Objects\3%29 ------Monster">
       <UniqueIdentifier>{5747826e-4a82-4b9e-b391-69bb940a068e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="%280%29___________________Objects\4%29 ------UI">
-      <UniqueIdentifier>{cbc2e45b-ec46-4832-ac9a-c7706bf0e56c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[7]___________________headers\1%29 ------global">
       <UniqueIdentifier>{b3bf4b0c-d00f-4694-9411-cb7e320d0e48}</UniqueIdentifier>
     </Filter>
@@ -150,6 +153,12 @@
     </Filter>
     <Filter Include="[7]___________________headers\3%29 ------mode_headers">
       <UniqueIdentifier>{c5ee588c-2076-439c-8587-7896a094b0dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%280%29___________________Objects\5%29 ------UI">
+      <UniqueIdentifier>{cbc2e45b-ec46-4832-ac9a-c7706bf0e56c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%280%29___________________Objects\4%29 ------Entity">
+      <UniqueIdentifier>{04b6c31a-9789-4c1c-b5f6-43dd59b03a8d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

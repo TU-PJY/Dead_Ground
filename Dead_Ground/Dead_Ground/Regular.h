@@ -5,7 +5,8 @@
 class Regular : public Framework {
 private:
 	GLuint VAO;
-	std::array<unsigned int, 3> tex{};
+	unsigned int tex;
+	int layer;
 
 	GLfloat x, y;
 	GLfloat direction = 0, rotation = 0;
@@ -13,16 +14,17 @@ private:
 	GLfloat body_rotation = 0;
 	GLfloat speed = 0;
 
-	GLfloat foot_x = 0, foot_y = 0;
 	GLfloat num = 0;
 
-	int hp = 100;
-	int damage = 10;
-	int layer;
+	int hp = 250;
+	int damage = 55;
 
 	bool hit_player = false;  // 충돌 처리
 	bool hit_center = false;  // 충돌 처리
 	bool track_player = false; // 플레이어 추격 여부
+	bool is_move = false;  // 움직임 여부
+
+	int index;  // 인덱스 번호
 
 	// 랜덤으로 이미지 중 하나를 선택하여 텍스처 매핑
 	std::array<const char*, 6> directory = {
@@ -38,37 +40,20 @@ private:
 public:
 	GLfloat get_x() const { return x; }
 	GLfloat get_y() const { return y; }
+	GLfloat get_rotation() const{ return rotation2; }
+	GLfloat get_speed() const { return speed; }
+	bool get_state() const { return is_move;  }
 
 
 	void render() {
 		using namespace glm;
-
-		// left foot
-		init_transform();
-		scale_matrix = scale(scale_matrix, vec3(0.3, 0.3, 0.0));
-		translate_matrix = translate(translate_matrix, vec3(x, y, 0.0)); 
-		translate_matrix = rotate(translate_matrix, radians(rotation2 + 90), vec3(0.0, 0.0, 1.0)); 
-		translate_matrix = translate(translate_matrix, vec3(-0.02, -0.03 + foot_y, 0.0)); 
-
-		draw_image(tex[0], VAO);
-
-
-		// right foot
-		init_transform();
-		scale_matrix = scale(scale_matrix, vec3(0.3, 0.3, 0.0));
-		translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
-		translate_matrix = rotate(translate_matrix, radians(rotation2 + 90), vec3(0.0, 0.0, 1.0));
-		translate_matrix = translate(translate_matrix, vec3(0.02, -0.03 - foot_y, 0.0)); 
-
-		draw_image(tex[1], VAO);
-
 
 		// body
 		init_transform();
 		translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
 		translate_matrix = rotate(translate_matrix, radians(rotation2 + body_rotation), vec3(0.0, 0.0, 1.0));
 
-		draw_image(tex[2], VAO);
+		draw_image(tex, VAO);
 	}
 
 	
@@ -78,7 +63,7 @@ public:
 
 		if (ptr != nullptr) {
 			// 플레이어가 근처에 있으면 플레이어를 추격
-			if (calc_distance(ptr->get_x(), x, ptr->get_y(), y) < 0.8) {
+			if (calc_distance(ptr->get_x(), x, ptr->get_y(), y) < 0.9) {
 				direction = atan2(ptr->get_y() - y, ptr->get_x() - x);
 				track_player = true;
 			}
@@ -123,17 +108,30 @@ public:
 		// 대미지를 입히는 동안에는 움직이지 않음
 		if (track_player && !hit_center) {
 			if (ptr != nullptr) {
-				if (calc_distance(ptr->get_x(), x, ptr->get_y(), y) < 0.1)
+				if (calc_distance(ptr->get_x(), x, ptr->get_y(), y) < 0.1) {
 					hit_player = true;
-				else
+					ptr->give_damage(damage);  // 플레이어에게 35 대미지를 준다
+				}
+
+				else {
 					hit_player = false;
+				}
 			}
 		}
 
-		else {  // 한 번 센터를 공격하기 시작하면 계속 센터만 공격한다
-			if (calc_distance(0.0, x, 0.0, y) < 0.15)
+		else {  // 한 번 센터를 공격하기 시작하면 플레이어 감지 여부와 상관없이 계속 센터만 공격한다
+			if (calc_distance(0.0, x, 0.0, y) < 0.15) {
 				hit_center = true;
+			}
 		}
+	}
+
+
+	void set_move_state() {
+		if (!hit_player && !hit_center)
+			is_move = true;
+		else
+			is_move = false;
 	}
 
 
@@ -141,11 +139,11 @@ public:
 		if (!hit_center && !hit_player) {
 			num += ft * speed * 10;
 			body_rotation = -sin(num) * 10;
-			foot_y = sin(num) / 20;
 		}
 
 		else {
 			num = 0;
+
 			if (body_rotation > 0) {
 				body_rotation -= ft * 30;
 				if (body_rotation < 0)
@@ -155,18 +153,6 @@ public:
 				body_rotation += ft * 30;
 				if (body_rotation > 0)
 					body_rotation = 0;
-			}
-
-
-			if (foot_y > 0) {
-				foot_y -= ft / 2;
-				if (foot_y < 0)
-					foot_y = 0;
-			}
-			else if (foot_y < 0) {
-				foot_y += ft / 2;
-				if (foot_y > 0)
-					foot_y = 0;
 			}
 		}
 	}
@@ -186,27 +172,33 @@ public:
 
 
 	void update() {
+
 		if(!hit_center)
 			set_move_direction_and_rotation();
+		set_move_state();
+
 		animation_walk();
 		move();
+
+		if (hp < 0) {
+			fw_delete(this, layer);
+		}
 	}
 
 
-	Regular(GLfloat rand_x, GLfloat rand_y, GLfloat rand_speed, int l) {
+	Regular(GLfloat rand_x, GLfloat rand_y, GLfloat rand_speed, int l, int i) {
 		x = rand_x;
 		y = rand_y;
 		speed = rand_speed;
 		layer = l;
+		index = i;
 
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		std::uniform_int_distribution<int> tex_type(0, 5);
 
 		set_canvas(VAO);
-		set_texture(tex[0], "res//monster//spr_zombie_foot_left.png", 18, 18, 1);
-		set_texture(tex[1], "res//monster//spr_zombie_foot_right.png", 18, 18, 1);
 		// 0번에서 5번 이미지 경로 중 하나를 랜덤으로 선택한다
-		set_texture(tex[2], directory[tex_type(gen)], 47, 47, 1);
+		set_texture(tex, directory[tex_type(gen)], 47, 47, 1);
 	}
 };
