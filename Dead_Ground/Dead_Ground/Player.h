@@ -337,16 +337,6 @@ public:
 
 		set_move_direction();
 		check_move();
-
-		for (int i = 0; i < framework[layer_monster].size(); ++i) {
-			auto ptr = framework[layer_monster][i];
-			if (ptr != nullptr) {
-				if (calc_distance(x, ptr->get_x(), y, ptr->get_y()) < 0.1) {
-					fw_delete(ptr, layer_monster);
-				}
-					
-			}
-		}
 	}
 
 

@@ -1,11 +1,5 @@
 ﻿#include "gl_header.h"
 
-HDC hDC;              // Private GDI Device Context
-HGLRC hRC;            // Permanent Rendering Context
-HWND hWnd;            // Holds Our Window Handle
-HINSTANCE hInstance;  // Holds The Instance Of The Application
-GLuint  base;  // Base Display List For The Font Set
-
 GLuint VBO;
 unsigned char* texture_data;  // 텍스처 저장에 사용되는 임시 변수
 
@@ -106,7 +100,7 @@ void set_text(unsigned int& tex, std::string type) {
 }
 
 
-GLvoid build_font(const char* fontName, int fontSize, int type) {
+GLvoid build_font(const char* fontName, int fontSize, int type, GLuint& base, HDC& hDC) {
 	HFONT   font;     // Windows Font ID
 	HFONT   oldfont;  // Used For Good House Keeping
 
@@ -134,15 +128,9 @@ GLvoid build_font(const char* fontName, int fontSize, int type) {
 }
 
 
-GLvoid build_text(int fontSize, int type) {
-	hDC = wglGetCurrentDC();
-	build_font("Arial", fontSize, type);
-}
-
-
-int get_text(int size, int type) {                     // All Setup For OpenGL Goes Here
+int set_font(int size, int type, GLuint& base, HDC& hDC) {                     // All Setup For OpenGL Goes Here
 	hDC = wglGetCurrentDC();            // 현재 openGL 윈도우의 hDC를 가져온다.
-	build_text(size, type);       // Build The Font
+	build_font("Arial", size, type, base, hDC);
 
 	return TRUE;                        // Initialization Went OK
 }
@@ -150,14 +138,10 @@ int get_text(int size, int type) {                     // All Setup For OpenGL G
 
 // Delete The Font List
 // Delete All 96 Characters
-GLvoid kill_text(GLvoid) { glDeleteLists(base, 96); }
+GLvoid kill_text(GLuint base) { glDeleteLists(base, 96); }
 
 
-GLvoid draw_text(unsigned int tex, GLuint VAO, int size, int type, const char* fmt, ...) { // Custom GL "Print" Routin
-	kill_text();
-
-	get_text(size, type);
-
+GLvoid draw_text(unsigned int tex, GLuint VAO, GLuint base, const char* fmt, ...) { // Custom GL "Print" Routin
 	result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
 
 	transperancy_location = glGetUniformLocation(ID, "transparency");
@@ -181,6 +165,7 @@ GLvoid draw_text(unsigned int tex, GLuint VAO, int size, int type, const char* f
 	// 화면 좌표로 변환된 모델 중심 좌표 계산
 	glm::vec4 modelCenterScreen = projection * view * result_matrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
+
 	if (modelCenterScreen.x < -1.0f ||
 		modelCenterScreen.x > 1.0  ||
 		modelCenterScreen.y < -1.0 ||
@@ -192,7 +177,7 @@ GLvoid draw_text(unsigned int tex, GLuint VAO, int size, int type, const char* f
 
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, tex);
-	glRasterPos3f(0.0, 0.0, 0.0);
+	glRasterPos3f(modelCenterScreen.x, modelCenterScreen.y, 0.0);
 
 	char        text[256];          // Holds Our String
 	va_list     ap;                 // Pointer To List Of Arguments

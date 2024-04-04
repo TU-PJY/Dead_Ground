@@ -14,8 +14,7 @@ void set_bound_box(unsigned int& tex);
 void set_text(unsigned int& tex, std::string type);
 void draw_image(unsigned int tex, GLuint VAO);
 
-GLvoid build_font(const char* fontName, int fontSize, int type);
-GLvoid build_text(int fontSize, int type);
-GLvoid kill_text(GLvoid);
-int get_text(int size, int type);
-GLvoid draw_text(unsigned int tex, GLuint VAO, int size, int type, const char* fmt, ...);
+GLvoid build_font(const char* fontName, int fontSize, int type, GLuint& base, HDC& hDC);
+GLvoid kill_text(GLuint base);
+int set_font(int size, int type, GLuint& base, HDC& hDC);
+GLvoid draw_text(unsigned int tex, GLuint VAO, GLuint base, const char* fmt, ...);

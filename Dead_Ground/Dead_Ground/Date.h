@@ -7,6 +7,8 @@ class Clock {
 private:
 	GLuint VAO, VAO_text;
 	unsigned int tex, text_tex;
+	GLuint base;
+	HDC hDC;
 
 	GLfloat num = 0;
 
@@ -25,7 +27,7 @@ public:
 
 		init_transform();
 		set_object_static(-1.0 * ratio + 0.42, -0.42);
-		draw_text(text_tex, VAO_text,  30,  FW_BOLD, "%02d:%02d", hour, minute);
+		draw_text(text_tex, VAO_text, base, "%02d:%02d", hour, minute);
 	}
 
 	void update() {
@@ -49,6 +51,7 @@ public:
 
 		set_canvas(VAO_text);
 		set_text(text_tex, "red");
+		set_font(30, FW_NORMAL, base, hDC);
 	}
 };
 
@@ -57,6 +60,8 @@ class Date : public Framework {
 private:
 	GLuint VAO, VAO_text;
 	unsigned int tex, text_tex;
+	GLuint base;
+	HDC hDC;
 
 	int layer;
 	int day = 0;
@@ -82,7 +87,7 @@ public:
 		if(10 < day && day < 100)
 			set_object_static(-1.0 * ratio + 0.135, -0.48);
 
-		draw_text(text_tex, VAO_text, 60, FW_BOLD, "%d", day);
+		draw_text(text_tex, VAO_text, base, "%d", day);
 	}
 
 
@@ -108,5 +113,6 @@ public:
 
 		set_canvas(VAO_text);
 		set_text(text_tex, "black");
+		set_font(60, FW_BOLD, base, hDC);
 	}
 };
