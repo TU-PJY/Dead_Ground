@@ -35,16 +35,14 @@ private:
 	std::array<GLfloat, 4> bound = { -0.12, 0.12, -0.12, 0.12 };
 
 	// 바운드 박스
-	unsigned int bound_box;
+	unsigned int bound_box{};
 
-	GLuint VAO;
-	unsigned int tex;
-	int layer;  // framework layer number
+	GLuint VAO{};
+	unsigned int tex{};
+	int layer{};  // framework layer number
 
 
 public:
-	void update_index(int idx) {}
-
 	// 플레이어 현재 위치 리턴
 	GLfloat get_x() const { return x; }
 	GLfloat get_y() const { return y; }
@@ -57,6 +55,10 @@ public:
 
 	// 플레이어 이동 상태 리턴
 	bool get_state() const { return is_move; }
+
+
+	std::array<GLfloat, 4> get_collision_area() const { return bound; }
+
 
 	// 플레이어 이동 상태 설정
 	void set_state(int opt) {
@@ -80,9 +82,6 @@ public:
 			player_move_left = false;  break;
 		}
 	}
-
-
-	std::array<GLfloat, 4> get_collision_area() const { return bound; }
 
 
 	void render() {
