@@ -134,7 +134,12 @@ public:
 		if (damage > 0 && damage_delay == 0) {
 			// 플레이어가 대미지를 받으면 대미지 효과 이펙트를 추가한다
 			fw_add(new BloodEffect(layer_ui), layer_ui);
-			hp -= damage;
+
+			if (hp <= 0)
+				hp = 0;
+			else
+				hp -= damage;
+
 			damage_delay = 10;
 			damage = 0;
 		}

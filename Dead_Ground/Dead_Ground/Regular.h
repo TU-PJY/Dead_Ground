@@ -106,7 +106,7 @@ public:
 		// 대미지를 입히는 동안에는 움직이지 않음
 		if (track_player && !hit_center) {
 			if (ptr != nullptr) {
-				if (calc_distance(ptr->get_x(), x, ptr->get_y(), y) < 0.1) {
+				if (calc_distance(ptr->get_x(), x, ptr->get_y(), y) < 0.12) {
 					hit_player = true;
 					ptr->give_damage(damage);  // 플레이어에게 35 대미지를 준다
 				}
