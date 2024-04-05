@@ -5,12 +5,12 @@
 
 class Clock {
 private:
-	GLuint VAO, VAO_text;
-	unsigned int tex, text_tex;
-	GLuint base;
-	HDC hDC;
+	GLuint VAO{}, VAO_text{};
+	unsigned int tex{}, text_tex{};
+	GLuint base{};
+	HDC hDC{};
 
-	GLfloat num = 0;
+	GLfloat num{};
 
 
 public:
@@ -58,13 +58,13 @@ public:
 
 class Date : public Framework {
 private:
-	GLuint VAO, VAO_text;
-	unsigned int tex, text_tex;
-	GLuint base;
-	HDC hDC;
+	GLuint VAO{}, VAO_text{};
+	unsigned int tex{}, text_tex{};
+	GLuint base{};
+	HDC hDC{};
 
-	int layer;
-	int day = 0;
+	int layer{};
+	int day{};
 
 
 public:

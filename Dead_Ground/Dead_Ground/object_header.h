@@ -7,6 +7,5 @@
 #include "Compass.h"
 #include "Date.h"
 #include "Health.h"
-#include "Text.h"
 
 #include "Spawner.h"

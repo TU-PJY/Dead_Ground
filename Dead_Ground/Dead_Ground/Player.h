@@ -1,6 +1,7 @@
 // 플레이어 클래스
 #pragma once
 #include "gl_header.h"
+#include "BloodEffect.h"
 
 
 class Player : public Framework {
@@ -11,24 +12,24 @@ private:
 	GLfloat max_hp = 500;
 	GLfloat hp = max_hp;  // 플레이어 hp
 
-	GLfloat damage = 0;  // 플레이어가 받는 대미지
-	GLfloat damage_delay = 0;  // 대미지 받기 딜레이
+	GLfloat damage{};  // 플레이어가 받는 대미지
+	GLfloat damage_delay{};  // 대미지 받기 딜레이
 
-	GLfloat recovery_delay = 0;  // 체력 회복 딜레이
+	GLfloat recovery_delay{};  // 체력 회복 딜레이
 
-	bool is_move = false;  // true 일시 플레이어 움직임
 
-	GLfloat num = 0;
-	GLfloat rotation = 0;
+	GLfloat num{};
+	GLfloat rotation{};
 
-	GLfloat move_degree = 0;  // 플레이어 이동 방향에 사용되는 각도
-	GLfloat move_radian = 0;  // 플레이어 이동 라디안
-	GLfloat cam_radian = 0; // 카메라 회전 라디안
+	GLfloat move_degree{};  // 플레이어 이동 방향에 사용되는 각도
+	GLfloat move_radian{};  // 플레이어 이동 라디안
+	GLfloat cam_radian{}; // 카메라 회전 라디안
 
-	bool player_move_up = false;
-	bool player_move_down = false;
-	bool player_move_right = false;
-	bool player_move_left = false;
+	bool is_move{};  // true 일시 플레이어 움직임
+	bool player_move_up{};
+	bool player_move_down{};
+	bool player_move_right{};
+	bool player_move_left{};
 
 	// 플레이어 충돌 처리 범위
 	std::array<GLfloat, 4> bound = { -0.12, 0.12, -0.12, 0.12 };
@@ -131,6 +132,8 @@ public:
 	// 플레이어에게 대미지를 부여한다
 	void give_damage(GLfloat damage) {
 		if (damage > 0 && damage_delay == 0) {
+			// 플레이어가 대미지를 받으면 대미지 효과 이펙트를 추가한다
+			fw_add(new BloodEffect(layer_ui), layer_ui);
 			hp -= damage;
 			damage_delay = 10;
 			damage = 0;

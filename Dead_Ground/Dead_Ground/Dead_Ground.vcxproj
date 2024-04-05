@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BloodEffect.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Compass.h" />
     <ClInclude Include="Ground.h" />
@@ -154,7 +155,6 @@
     <ClInclude Include="Shadow.h" />
     <ClInclude Include="Small.h" />
     <ClInclude Include="Spawner.h" />
-    <ClInclude Include="Text.h" />
     <ClInclude Include="translate.h" />
     <ClInclude Include="Center.h" />
   </ItemGroup>

@@ -5,14 +5,14 @@
 class Foot : public Framework{
 private:
 	std::array<unsigned int, 2> tex{};
-	GLuint VAO;
+	GLuint VAO{};
 
 	// 발 위치를 나타내기 위한 변수
-	GLfloat num = 0, foot_y = 0;
-	std::string tag;
-	int layer, index;
+	GLfloat num{}, foot_y{};
+	std::string tag{};
+	int layer{}, index{};
 
-	Framework* p;
+	Framework* p{};
 
 
 public:

@@ -4,16 +4,12 @@
 
 class Shadow : public Framework {
 private:
-	GLuint VAO;
-	unsigned int tex;
-	int layer, index;
-	std::string tag;  // 태그에 따라 몬스터 또는 플레이어의 위치를 추적하여 그림자가 출력된다
+	GLuint VAO{};
+	unsigned int tex{};
+	int layer{}, index{};
+	std::string tag{};  // 태그에 따라 몬스터 또는 플레이어의 위치를 추적하여 그림자가 출력된다
 
 public:
-	void update_index(int idx) {
-		index = idx;
-	}
-
 	void render() {
 		using namespace glm;
 		if (tag == "monster") {

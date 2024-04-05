@@ -4,7 +4,7 @@
 
 class Health : public Framework {
 private:
-	GLuint VAO;
+	GLuint VAO{};
 	std::array<unsigned int, 3> tex{};
 
 	int layer;

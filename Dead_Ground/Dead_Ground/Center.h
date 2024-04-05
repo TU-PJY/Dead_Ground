@@ -4,10 +4,10 @@
 
 class Center : public Framework {
 private:
-	GLuint VAO;
-	unsigned int tex;
+	GLuint VAO{};
+	unsigned int tex{};
 
-	int layer;
+	int layer{};
 
 	int hp = 1500;
 
@@ -15,7 +15,6 @@ private:
 public:
 	std::array<GLfloat, 4> get_collision_area() const {return { -0.12, 0.12, -0.12, 0.12 };}
 
-	void update_index(int idx) {}
 
 	void render() {
 		using namespace glm;

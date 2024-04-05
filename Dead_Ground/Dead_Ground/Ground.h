@@ -4,13 +4,12 @@
 
 class Ground : public Framework {
 private:
-	GLuint VAO;
-	unsigned int tex;
+	GLuint VAO{};
+	unsigned int tex{};
 
-	int layer;
+	int layer{};
 
 public:
-	void update_index(int idx) {}
 
 	void render() {
 		using namespace glm;
@@ -38,14 +37,12 @@ private:
 	GLuint VAO;
 
 	int W = 1500, H = 1500;
-	unsigned int tex;
-	int channel = 1;
+	unsigned int tex{};
 
-	int layer;
+	int layer{};
 
 
 public:
-	void update_index(int idx) {}
 
 	void render() {
 		using namespace glm;

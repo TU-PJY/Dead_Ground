@@ -4,27 +4,25 @@
 
 class Small : public Framework {
 private:
-	GLuint VAO;
-	unsigned int tex;
-	int layer;
+	GLuint VAO{};
+	unsigned int tex{};
+	int layer{};
 
-	GLfloat x, y;
-	GLfloat direction = 0, rotation = 0;
-	GLfloat direction2 = 0, rotation2 = 0;
-	GLfloat body_rotation = 0;
-	GLfloat speed = 0;
+	GLfloat x{}, y{};
+	GLfloat direction{}, rotation{};
+	GLfloat direction2{}, rotation2{};
+	GLfloat body_rotation{};
+	GLfloat speed{};
 
-	GLfloat num = 0;
+	GLfloat num{};
 
 	int hp = 150;
 	int damage = 45;
 
-	bool hit_player = false;  // 충돌 처리
-	bool hit_center = false;
-	bool track_player = false;  // 플레이어 추격 여부
-	bool is_move = false;
-
-	int index;  // 인덱스 번호
+	bool hit_player{};  // 충돌 처리
+	bool hit_center{};
+	bool track_player{};  // 플레이어 추격 여부
+	bool is_move{};
 
 	// 랜덤으로 이미지 중 하나를 선택하여 텍스처 매핑
 	std::array<const char*, 7> directory = {
@@ -186,12 +184,11 @@ public:
 	}
 
 
-	Small (GLfloat rand_x, GLfloat rand_y, GLfloat rand_speed, int l, int i) {
+	Small (GLfloat rand_x, GLfloat rand_y, GLfloat rand_speed, int l) {
 		x = rand_x;
 		y = rand_y;
 		speed = rand_speed;
 		layer = l;
-		index = i;
 
 		std::random_device rd;
 		std::mt19937 gen(rd());

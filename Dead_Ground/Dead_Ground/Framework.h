@@ -1,6 +1,6 @@
 #pragma once
 #include "header.h"
-#define LAYER 8
+#define LAYER 7
 
 // 모드 열거형 모음
 enum Mods {
@@ -15,16 +15,16 @@ enum LAYERS {
 	layer_ground,
 	layer_entity,
 	layer_map_object,
-	layer_particle,
 	layer_player,
 	layer_monster,
+	layer_particle,
 	layer_ui,
 };
 
 class Framework {
 private:
-	GLfloat data;
-	bool state;
+	GLfloat data{};
+	bool state{};
 
 public:
 	virtual void render() {}

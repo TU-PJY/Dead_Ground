@@ -52,9 +52,6 @@
     <ClInclude Include="Compass.h">
       <Filter>%280%29___________________Objects\5%29 ------UI</Filter>
     </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>%280%29___________________Objects\5%29 ------UI</Filter>
-    </ClInclude>
     <ClInclude Include="image_text_util.h" />
     <ClInclude Include="Date.h">
       <Filter>%280%29___________________Objects\5%29 ------UI</Filter>
@@ -67,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="Foot.h">
       <Filter>%280%29___________________Objects\4%29 ------Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="BloodEffect.h">
+      <Filter>%280%29___________________Objects\5%29 ------UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

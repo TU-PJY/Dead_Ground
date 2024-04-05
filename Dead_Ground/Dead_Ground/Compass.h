@@ -4,12 +4,12 @@
 
 class Compass : public Framework {
 private:
-	GLuint VAO;
+	GLuint VAO{};
 	std::array<unsigned int, 3> tex{};
 	
-	GLfloat rotation = 0;
+	GLfloat rotation{};
 
-	int layer;
+	int layer{};
 
 public:
 	void render() {

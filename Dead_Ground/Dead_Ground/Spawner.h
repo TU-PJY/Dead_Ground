@@ -9,12 +9,12 @@
 class Spawner : public Framework {
 private:
 	GLfloat timer = 20;
-	bool spawn = false;
-	int type = 0, range = 0;
-	GLfloat x = 0, y = 0;
-	GLfloat speed = 0;
+	bool spawn{};
+	int type{}, range{};
+	GLfloat x{}, y{};
+	GLfloat speed{};
 
-	int layer;
+	int layer{};
 
 
 public:
@@ -64,7 +64,7 @@ public:
 			if (type == 1) {
 				std::uniform_real_distribution<GLfloat> rand_speed(2.0, 5.0);
 				speed = rand_speed(gen) * 0.1;
-				fw_add(new Regular(x, y, speed, layer_monster, framework[layer_monster].size()), layer_monster);
+				fw_add(new Regular(x, y, speed, layer_monster), layer_monster);
 				fw_add(new Shadow(layer_entity, framework[layer_monster].size() - 1, "monster"), layer_entity);
 				fw_add(new Foot(layer_entity, framework[layer_monster].size() - 1, "monster"), layer_entity);
 			}
@@ -72,7 +72,7 @@ public:
 			if (type == 2) {
 				std::uniform_real_distribution<GLfloat> rand_speed(5.0, 7.0);
 				speed = rand_speed(gen) * 0.1;
-				fw_add(new Small(x, y, speed, layer_monster, framework[layer_monster].size()), layer_monster);
+				fw_add(new Small(x, y, speed, layer_monster), layer_monster);
 				fw_add(new Shadow(layer_entity, framework[layer_monster].size() - 1, "monster"), layer_entity);
 				fw_add(new Foot(layer_entity, framework[layer_monster].size() - 1, "monster"), layer_entity);
 			}
