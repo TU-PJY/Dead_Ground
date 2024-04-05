@@ -67,9 +67,6 @@ void draw_image(unsigned int tex, GLuint VAO) {
 	viewpos_location = glGetUniformLocation(ID, "viewPos"); // viewPos 값 전달: 카메라 위치
 	glUniform3f(viewpos_location, cam_pos.x, cam_pos.y, cam_pos.z);
 
-	object_color_location = glGetUniformLocation(ID, "objectColor");
-	glUniform3f(object_color_location, 1.0, 1.0, 1.0);
-
 	model_location = glGetUniformLocation(ID, "model"); // 버텍스 세이더에서 모델링 변환 위치 가져오기
 	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(result_matrix)); // 변환 값 적용하기
 
@@ -155,9 +152,6 @@ GLvoid draw_text(unsigned int tex, GLuint VAO, GLuint base, const char* fmt, ...
 
 	viewpos_location = glGetUniformLocation(ID, "viewPos"); // viewPos 값 전달: 카메라 위치
 	glUniform3f(viewpos_location, cam_pos.x, cam_pos.y, cam_pos.z);
-
-	object_color_location = glGetUniformLocation(ID, "objectColor");
-	glUniform3f(object_color_location, 1.0, 1.0, 1.0);
 
 	model_location = glGetUniformLocation(ID, "model"); // 버텍스 세이더에서 모델링 변환 위치 가져오기
 	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(result_matrix)); // 변환 값 적용하기

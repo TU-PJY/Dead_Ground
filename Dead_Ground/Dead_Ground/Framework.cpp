@@ -11,8 +11,8 @@ double ft;
 int mode = START_MODE;
 
 void fw_routine() {
-	for(int i = 0; i < framework.size(); i++) {
-		if (framework[i].size() < framework[i].capacity() * 2)
+	for(int i = 0; i < LAYER; i++) {
+		if (framework[i].size() * 2 < framework[i].capacity())
 			framework[i].shrink_to_fit();
 
 		for (auto it = framework[i].begin(); it != framework[i].end();) {
