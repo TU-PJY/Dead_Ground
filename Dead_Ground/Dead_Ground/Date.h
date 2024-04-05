@@ -53,6 +53,10 @@ public:
 		set_text(text_tex, "red");
 		set_font(30, FW_NORMAL, base, hDC);
 	}
+
+	~Clock() {
+		kill_text(base);
+	}
 };
 
 
@@ -114,5 +118,9 @@ public:
 		set_canvas(VAO_text);
 		set_text(text_tex, "black");
 		set_font(60, FW_BOLD, base, hDC);
+	}
+
+	~Date() {
+		kill_text(base);
 	}
 };
