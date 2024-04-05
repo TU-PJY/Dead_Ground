@@ -111,9 +111,9 @@ GLvoid build_font(const char* fontName, int fontSize, int type, GLuint& base, HD
 		0,              // Angle Of Escapement
 		0,              // Orientation Angle
 		type,        // Font Weight
-		FALSE,          // Italic     (취소선)
-		FALSE,          // Underline (밑줄)
-		FALSE,          // Strikeout (취소선)
+		FALSE,          // Italic    
+		FALSE,          // Underline
+		FALSE,          // Strikeout
 		ANSI_CHARSET,   // Character Set Identifier
 		OUT_TT_PRECIS,  // Output Precision
 		CLIP_DEFAULT_PRECIS,        // Clipping Precision
@@ -164,16 +164,6 @@ GLvoid draw_text(unsigned int tex, GLuint VAO, GLuint base, const char* fmt, ...
 
 	// 화면 좌표로 변환된 모델 중심 좌표 계산
 	glm::vec4 modelCenterScreen = projection * view * result_matrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-
-
-	if (modelCenterScreen.x < -1.0f ||
-		modelCenterScreen.x > 1.0  ||
-		modelCenterScreen.y < -1.0 ||
-		modelCenterScreen.y > 1.0) {
-
-		// 텍스트가 화면 모서리에 있는 경우 그리지 않음
-		return;
-	}
 
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, tex);
