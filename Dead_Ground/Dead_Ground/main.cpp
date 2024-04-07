@@ -49,6 +49,13 @@ void main(int argc, char** argv) {
 
 		else std::cout << "GLEW Initialized" << std::endl;
 
+		// 시스템으로부터 GPU 정보를 얻는다
+		const GLubyte* vendor_info = glGetString(GL_VENDOR);
+		if (vendor_info) {
+			vendor = reinterpret_cast<const char*>(vendor_info);
+			//std::cout << "vendor: " << vendor << std::endl;
+		}
+
 		glEnable(GL_MULTISAMPLE);
 		glEnable(GL_ALPHA_TEST);
 		glEnable(GL_BLEND);

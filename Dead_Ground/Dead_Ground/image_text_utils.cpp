@@ -159,9 +159,29 @@ GLvoid draw_text(unsigned int tex, GLuint VAO, GLuint base, const char* fmt, ...
 	// 화면 좌표로 변환된 모델 중심 좌표 계산
 	glm::vec4 modelCenterScreen = projection * view * result_matrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
-	glBindVertexArray(VAO);
-	glBindTexture(GL_TEXTURE_2D, tex);
-	glRasterPos3f(modelCenterScreen.x, modelCenterScreen.y, 0.0);
+	// Nvidia GPU 코드
+	if (vendor == "NVIDIA Corporation") {
+		if (modelCenterScreen.x < -1.0f ||
+			modelCenterScreen.x > 1.0 ||
+			modelCenterScreen.y < -1.0 ||
+			modelCenterScreen.y > 1.0) {
+
+			// 텍스트가 화면 모서리에 있는 경우 그리지 않음
+			return;
+		}
+
+		glBindVertexArray(VAO);
+		glBindTexture(GL_TEXTURE_2D, tex);
+		glRasterPos3f(0.0, 0.0, 0.0);
+	}
+
+	// AMD GPU 코드
+	else if(vendor == "ATI Technologies Inc.") {
+		glBindVertexArray(VAO);
+		glBindTexture(GL_TEXTURE_2D, tex);
+		glRasterPos3f(modelCenterScreen.x, modelCenterScreen.y, 0.0);
+	}
+
 
 	char        text[256];          // Holds Our String
 	va_list     ap;                 // Pointer To List Of Arguments
