@@ -26,7 +26,7 @@ public:
 		draw_image(tex, VAO);
 
 		init_transform();
-		set_object_static(-1.0 * ratio + 0.42, -0.42);
+		set_object_static(-1.0 * ratio + 0.4, -0.42);
 		draw_text(text_tex, VAO_text, base, "%02d:%02d", hour, minute);
 	}
 
@@ -51,7 +51,7 @@ public:
 
 		set_canvas(VAO_text);
 		set_text(text_tex, "red");
-		set_font(30, FW_NORMAL, base, hDC);
+		set_font(32, FW_BOLD, base, hDC);
 	}
 
 	~Clock() {
@@ -86,10 +86,7 @@ public:
 		draw_image(tex, VAO);
 
 		init_transform();
-		if(day < 10)
-			set_object_static(-1.0 * ratio + 0.17, -0.48);
-		if(10 < day && day < 100)
-			set_object_static(-1.0 * ratio + 0.135, -0.48);
+		set_object_static(-1.0 * ratio + 0.1, -0.48);
 
 		draw_text(text_tex, VAO_text, base, "%d", day);
 	}
