@@ -14,7 +14,7 @@ public:
 		// 배경
 		init_transform();
 		scale_matrix *= scale_image(1.5, 1.5);
-		set_object_static(rectL + 0.75, -0.4);
+		fix_image_at(rectL + 0.75, -0.4);
 		draw_image(tex[0], VAO);
 
 		// 체력 표시
@@ -23,14 +23,14 @@ public:
 			int hp = ptr->get_hp();
 			init_transform();
 			scale_matrix *= scale_image(1.5, 1.5 * hp / 500);
-			set_object_static(rectL + 0.75, -0.4);
+			fix_image_at(rectL + 0.75, -0.4);
 			draw_image(tex[1], VAO);
 		}
 
 		// 프레임
 		init_transform();
 		scale_matrix *= scale_image(1.5, 1.5);
-		set_object_static(rectL + 0.75, -0.4);
+		fix_image_at(rectL + 0.75, -0.4);
 		draw_image(tex[2], VAO);
 	}
 

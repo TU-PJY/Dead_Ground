@@ -52,7 +52,7 @@ void set_bound_box(unsigned int& tex) {
 }
 
 
-void draw_image(unsigned int tex, GLuint VAO) {
+void transmit_translation() {
 	result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
 
 	transperancy_location = glGetUniformLocation(ID, "transparency");
@@ -69,6 +69,11 @@ void draw_image(unsigned int tex, GLuint VAO) {
 
 	model_location = glGetUniformLocation(ID, "model"); // 버텍스 세이더에서 모델링 변환 위치 가져오기
 	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(result_matrix)); // 변환 값 적용하기
+}
+
+
+void draw_image(unsigned int tex, GLuint VAO) {
+	transmit_translation();
 
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, tex);
@@ -139,22 +144,7 @@ GLvoid kill_text(GLuint base) { glDeleteLists(base, 96); }
 
 
 GLvoid draw_text(unsigned int tex, GLuint VAO, GLuint base, const char* fmt, ...) { // Custom GL "Print" Routin
-	result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
-
-	transperancy_location = glGetUniformLocation(ID, "transparency");
-	glUniform1f(transperancy_location, transparent);
-
-	projection_location = glGetUniformLocation(ID, "projection");
-	glUniformMatrix4fv(projection_location, 1, GL_FALSE, &projection[0][0]);
-
-	view_location = glGetUniformLocation(ID, "view");
-	glUniformMatrix4fv(view_location, 1, GL_FALSE, &view[0][0]);
-
-	viewpos_location = glGetUniformLocation(ID, "viewPos"); // viewPos 값 전달: 카메라 위치
-	glUniform3f(viewpos_location, cam_pos.x, cam_pos.y, cam_pos.z);
-
-	model_location = glGetUniformLocation(ID, "model"); // 버텍스 세이더에서 모델링 변환 위치 가져오기
-	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(result_matrix)); // 변환 값 적용하기
+	transmit_translation();
 
 	// 화면 좌표로 변환된 모델 중심 좌표 계산
 	glm::vec4 modelCenterScreen = projection * view * result_matrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);

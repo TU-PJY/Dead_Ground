@@ -20,11 +20,11 @@ public:
 	void render() {
 		init_transform();
 		scale_matrix *= scale_image(1.5, 1.5);
-		set_object_static(rectL + 0.5, -0.4);
+		fix_image_at(rectL + 0.5, -0.4);
 		draw_image(tex, VAO);
 
 		init_transform();
-		set_object_static(rectL + 0.4, -0.42);
+		fix_image_at(rectL + 0.4, -0.42);
 		draw_text(text_tex, VAO_text, base, "%02d:%02d", hour, minute);
 	}
 
@@ -78,11 +78,11 @@ public:
 
 		init_transform();
 		scale_matrix *= scale_image(1.5, 1.5);
-		set_object_static(rectL + 0.2, -0.4);
+		fix_image_at(rectL + 0.2, -0.4);
 		draw_image(tex, VAO);
 
 		init_transform();
-		set_object_static(rectL + 0.1, -0.48);
+		fix_image_at(rectL + 0.1, -0.48);
 
 		draw_text(text_tex, VAO_text, base, "%d", day);
 	}

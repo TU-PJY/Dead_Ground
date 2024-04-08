@@ -16,7 +16,7 @@ public:
 		// 나침반 몸체
 		init_transform();
 		scale_matrix *= scale_image(2.0, 2.0);
-		set_object_static(rectR - 0.3, -0.3);
+		fix_image_at(rectR - 0.3, -0.3);
 		translate_matrix *= rotate_image(cam_rotation);
 
 		draw_image(tex[0], VAO);
@@ -25,7 +25,7 @@ public:
 		// 나침반 침
 		init_transform();
 		scale_matrix *= scale_image(2.0, 2.0);
-		set_object_static(rectR - 0.3, -0.3);
+		fix_image_at(rectR - 0.3, -0.3);
 
 		draw_image(tex[1], VAO);
 
@@ -33,7 +33,7 @@ public:
 		// 센터 인디케이터
 		init_transform();
 		scale_matrix *= scale_image(0.4, 0.4);
-		set_object_static(rectR - 0.3, -0.3);
+		fix_image_at(rectR - 0.3, -0.3);
 		translate_matrix *= rotate_image(cam_rotation + rotation);
 		translate_matrix *= move_image(-0.23, -0.0);
 		translate_matrix *= rotate_image(-cam_rotation - rotation);

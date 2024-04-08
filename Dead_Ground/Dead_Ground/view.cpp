@@ -29,17 +29,18 @@ void set_view() {  // 시점 세팅
     view = translate(view, vec3(0.0, -0.4, 0.0));
    
     auto ptr = fw_set_tracking(layer_player, 0);  // 플레이어는 항상 플레이어 레이어의 가장 첫 번째 인덱스
-    if (ptr != nullptr) {  // 플레이어 클래스로부터 위치를 받아 카메라 위치 업데이트
+    if (ptr != nullptr)   // 플레이어 클래스로부터 위치를 받아 카메라 위치 업데이트
         get_player_position(ptr);
-        view = rotate(view, radians(cam_rotation), vec3(0.0, 0.0, 1.0));
-        view = translate(view, vec3(-cam_x, -cam_y, 0.0));
-    }
+
+    view = rotate(view, radians(cam_rotation), vec3(0.0, 0.0, 1.0));
+    view = translate(view, vec3(-cam_x, -cam_y, 0.0));
+    
 
     projection = ortho(-1.0 * ratio, 1.0 * ratio, -1.0, 1.0, -100.0, 100.0);
 }
 
 // 오브젝트가 특정 위치에 계속 출력되도록 변환하는 함수
-void set_object_static(GLfloat x, GLfloat y) {
+void fix_image_at(GLfloat x, GLfloat y) {
     using namespace glm;
 
     translate_matrix = translate(translate_matrix, vec3(cam_x, cam_y, 0.0));

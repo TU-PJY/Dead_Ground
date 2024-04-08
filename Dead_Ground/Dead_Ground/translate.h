@@ -13,7 +13,7 @@ extern unsigned int projection_location, view_location, model_location, viewpos_
 
 void set_view();
 void get_player_position(Framework* ptr);
-void set_object_static(GLfloat x, GLfloat y);
+void fix_image_at(GLfloat x, GLfloat y);
 
 glm::mat4 move_image(GLfloat x, GLfloat y);
 glm::mat4 rotate_image(GLfloat rad);
