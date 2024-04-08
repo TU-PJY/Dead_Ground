@@ -11,13 +11,12 @@ private:
 
 public:
 	void render() {
-		using namespace glm;
 		if (tag == "monster") {
 			auto ptr = fw_set_tracking(layer_monster, index);
 			if (ptr != nullptr) {
 				init_transform();
-				translate_matrix = translate(translate_matrix, vec3(ptr->get_x(), ptr->get_y(), 0.0));
-				translate_matrix = rotate(translate_matrix, radians(ptr->get_rotation()), vec3(0.0, 0.0, 1.0));
+				translate_matrix *= move_image(ptr->get_x(), ptr->get_y());
+				translate_matrix *= rotate_image(ptr->get_rotation());
 				transparent = 0.2f;
 
 				draw_image(tex, VAO);
@@ -28,8 +27,8 @@ public:
 			auto ptr = fw_set_tracking(layer_player, 0);
 			if (ptr != nullptr) {
 				init_transform();
-				translate_matrix = translate(translate_matrix, vec3(ptr->get_x(), ptr->get_y(), 0.0));
-				translate_matrix = rotate(translate_matrix, radians(-cam_rotation - 90), vec3(0.0, 0.0, 1.0));
+				translate_matrix *= move_image(ptr->get_x(), ptr->get_y());
+				translate_matrix *= rotate_image(-cam_rotation - 90);
 				transparent = 0.2f;
 
 				draw_image(tex, VAO);

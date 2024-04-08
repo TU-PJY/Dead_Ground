@@ -45,12 +45,9 @@ public:
 
 
 	void render() {
-		using namespace glm;
-
-		// body
 		init_transform();
-		translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
-		translate_matrix = rotate(translate_matrix, radians(rotation2 + body_rotation), vec3(0.0, 0.0, 1.0));
+		translate_matrix *= move_image(x, y);
+		translate_matrix *= rotate_image(rotation2 + body_rotation);
 
 		draw_image(tex, VAO);
 	}

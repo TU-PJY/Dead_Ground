@@ -7,6 +7,10 @@
 int WIDTH = GetSystemMetrics(SM_CXSCREEN);  // 화면 사이즈에 맞추어 창을 출력한다
 int HEIGHT = GetSystemMetrics(SM_CYSCREEN);
 
+GLfloat ratio = 1.0 * WIDTH / HEIGHT;  // 화면 종횡비
+GLfloat rectL = -1.0 * ratio; // 화면 좌우 가장자리
+GLfloat rectR = 1.0 * ratio; 
+
 
 GLvoid gl_main() {
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
@@ -14,7 +18,7 @@ GLvoid gl_main() {
 	glUseProgram(ID);
 	
 	set_view();
-	get_player_position();
+	//get_player_position();
 
 	// 프레임워크 루프
 	fw_routine();

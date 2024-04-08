@@ -17,8 +17,6 @@ private:
 
 public:
 	void render() {
-		using namespace glm;
-
 		if (tag == "monster") {
 			auto ptr = fw_set_tracking(layer_monster, index);
 
@@ -29,20 +27,20 @@ public:
 
 				// left foot
 				init_transform();
-				scale_matrix = scale(scale_matrix, vec3(0.3, 0.3, 0.0));
-				translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
-				translate_matrix = rotate(translate_matrix, radians(rotation + 90), vec3(0.0, 0.0, 1.0));
-				translate_matrix = translate(translate_matrix, vec3(-0.02, -0.03 + foot_y, 0.0));
+				scale_matrix *= scale_image(0.3, 0.3);
+				translate_matrix *= move_image(x, y);
+				translate_matrix *= rotate_image(rotation + 90);
+				translate_matrix *= move_image(-0.02, -0.03 + foot_y);
 
 				draw_image(tex[0], VAO);
 
 
 				// right foot
 				init_transform();
-				scale_matrix = scale(scale_matrix, vec3(0.3, 0.3, 0.0));
-				translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
-				translate_matrix = rotate(translate_matrix, radians(rotation + 90), vec3(0.0, 0.0, 1.0));
-				translate_matrix = translate(translate_matrix, vec3(0.02, -0.03 - foot_y, 0.0));
+				scale_matrix *= scale_image(0.3, 0.3);
+				translate_matrix *= move_image(x, y);
+				translate_matrix *= rotate_image (rotation + 90);
+				translate_matrix *= move_image(0.02, -0.03 - foot_y);
 
 				draw_image(tex[1], VAO);
 			}
@@ -57,20 +55,20 @@ public:
 
 				// left foot
 				init_transform();
-				scale_matrix = scale(scale_matrix, vec3(0.3, 0.3, 0.0));
-				translate_matrix = translate(translate_matrix, vec3(x, y, 0.0)); 
-				translate_matrix = rotate(translate_matrix, radians(-cam_rotation), vec3(0.0, 0.0, 1.0));  
-				translate_matrix = translate(translate_matrix, vec3(-0.02, -0.03 + foot_y, 0.0));
+				scale_matrix *= scale_image(0.3, 0.3);
+				translate_matrix *= move_image(x, y); 
+				translate_matrix *= rotate_image(-cam_rotation);  
+				translate_matrix *= move_image(-0.02, -0.03 + foot_y);
 
 				draw_image(tex[0], VAO);
 
 
 				// right foot
 				init_transform();
-				scale_matrix = scale(scale_matrix, vec3(0.3, 0.3, 0.0));
-				translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
-				translate_matrix = rotate(translate_matrix, radians(-cam_rotation), vec3(0.0, 0.0, 1.0));
-				translate_matrix = translate(translate_matrix, vec3(0.02, -0.03 - foot_y, 0.0));
+				scale_matrix *= scale_image(0.3, 0.3);
+				translate_matrix *= move_image(x, y);
+				translate_matrix *= rotate_image(-cam_rotation);
+				translate_matrix *= move_image(0.02, -0.03 - foot_y);
 
 				draw_image(tex[1], VAO);
 			}

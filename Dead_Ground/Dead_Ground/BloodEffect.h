@@ -11,10 +11,9 @@ private:
 
 public:
 	void render() {
-		using namespace glm;
 		init_transform();
 		set_object_static(0.0, 0.4);
-		translate_matrix = scale(translate_matrix, vec3(10.0 * ratio, 10.0, 0.0));
+		translate_matrix *= scale_image(10.0 * ratio, 10.0);
 		transparent = transparency;
 		draw_image(tex, VAO);
 	}

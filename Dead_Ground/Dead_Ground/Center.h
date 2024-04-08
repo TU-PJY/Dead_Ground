@@ -17,11 +17,9 @@ public:
 
 
 	void render() {
-		using namespace glm;
-
 		init_transform();
-		scale_matrix = scale(scale_matrix, vec3(1.5, 1.5, 0.0));
-		translate_matrix = translate(translate_matrix, vec3(0.0, 0.0, 0.0));
+		scale_matrix *= scale_image(1.5, 1.5);
+		translate_matrix *= move_image(0.0, 0.0);
 
 		draw_image(tex, VAO);
 	}

@@ -11,12 +11,10 @@ private:
 
 public:
 	void render() {
-		using namespace glm;
-
 		// 배경
 		init_transform();
-		scale_matrix = scale(scale_matrix, vec3(1.5, 1.5, 1.5));
-		set_object_static(-1.0 * ratio + 0.75, -0.4);
+		scale_matrix *= scale_image(1.5, 1.5);
+		set_object_static(rectL + 0.75, -0.4);
 		draw_image(tex[0], VAO);
 
 		// 체력 표시
@@ -24,15 +22,15 @@ public:
 		if (ptr != nullptr) {
 			int hp = ptr->get_hp();
 			init_transform();
-			scale_matrix = scale(scale_matrix, vec3(1.5, (1.5 * hp / 500), 1.5));
-			set_object_static(-1.0 * ratio + 0.75, -0.4);
+			scale_matrix *= scale_image(1.5, 1.5 * hp / 500);
+			set_object_static(rectL + 0.75, -0.4);
 			draw_image(tex[1], VAO);
 		}
 
 		// 프레임
 		init_transform();
-		scale_matrix = scale(scale_matrix, vec3(1.5, 1.5, 1.5));
-		set_object_static(-1.0 * ratio + 0.75, -0.4);
+		scale_matrix *= scale_image(1.5, 1.5);
+		set_object_static(rectL + 0.75, -0.4);
 		draw_image(tex[2], VAO);
 	}
 

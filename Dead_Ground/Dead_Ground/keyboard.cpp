@@ -4,7 +4,7 @@
 
 
 void key_down(unsigned char KEY, int x, int y) {
-	auto ptr = framework[layer_player][0];
+	auto ptr = fw_set_tracking(layer_player, 0);
 
 	switch (KEY) {
 	case 27:  // ESC
@@ -14,22 +14,22 @@ void key_down(unsigned char KEY, int x, int y) {
 	// 플레이어 움직임
 	case 'w':
 		if (ptr != nullptr)
-			ptr->set_state(0);
+			ptr->set_move_state(0);
 		break;
 
 	case 's':
 		if (ptr != nullptr)
-			ptr->set_state(1);
+			ptr->set_move_state(1);
 		break;
 
 	case 'd':
 		if (ptr != nullptr)
-			ptr->set_state(2);
+			ptr->set_move_state(2);
 		break;
 
 	case 'a':
 		if (ptr != nullptr)
-			ptr->set_state(3);
+			ptr->set_move_state(3);
 		break;
 	///////////
 	}
@@ -40,28 +40,28 @@ void key_down(unsigned char KEY, int x, int y) {
 
 
 void key_up(unsigned char KEY, int x, int y) {
-	auto ptr = framework[layer_player][0];
+	auto ptr = fw_set_tracking(layer_player, 0);
 
 	switch (KEY) {
 		// 플레이어 움직임
 	case 'w':
 		if (ptr != nullptr)
-			ptr->set_state(4);
+			ptr->set_move_state(4);
 		break;
 
 	case 's':
 		if (ptr != nullptr)
-			ptr->set_state(5);
+			ptr->set_move_state(5);
 		break;
 
 	case 'd':
 		if (ptr != nullptr)
-			ptr->set_state(6);
+			ptr->set_move_state(6);
 		break;
 
 	case 'a':
 		if (ptr != nullptr)
-			ptr->set_state(7);
+			ptr->set_move_state(7);
 		break;
 		///////////
 	}

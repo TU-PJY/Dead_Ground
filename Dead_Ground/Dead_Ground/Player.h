@@ -61,7 +61,7 @@ public:
 
 
 	// 플레이어 이동 상태 설정
-	void set_state(int opt) {
+	void set_move_state(int opt) {
 		switch (opt) {
 		case 0:
 			player_move_up = true;  break;
@@ -85,12 +85,10 @@ public:
 
 
 	void render() {
-		using namespace glm;
-
 		// body
 		init_transform();
-		translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
-		translate_matrix = rotate(translate_matrix, radians(-cam_rotation + rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
+		translate_matrix *= move_image(x, y);  // 플레이어는 카메라 위치에 영향을 받지 않는다
+		translate_matrix *= rotate_image(-cam_rotation + rotation);  // 플레이어는 카메라 회전에 영향을 받지 않는다
 
 		draw_image(tex, VAO);
 
@@ -98,8 +96,8 @@ public:
 		// bound box
 		if (BOUND_BOX == 1) {
 			init_transform();
-			scale_matrix = scale(scale_matrix, vec3(0.6, 0.6, 0.0));
-			translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
+			scale_matrix *= scale_image(0.6, 0.6);
+			translate_matrix *= move_image(x, y);
 
 			draw_image(bound_box, VAO);
 		}
@@ -204,7 +202,7 @@ public:
 
 				// 기준 방향은 바라보는 방향 (화면 상에서 위쪽)
 				// 좌측면
-				if (b[2] <= y && y <= b[3] && b[0] < x && x < b[0] + b_center) {
+				if (b[2] <= y && y <= b[3] && b[0] <= x && x <= b[0] + b_center) {
 					if ((player_move_right && ((270 < cam_rotation && cam_rotation < 360) || (0 < cam_rotation && cam_rotation < 90))) ||
 						(player_move_down && 180 < cam_rotation && cam_rotation < 360) ||
 						(player_move_left && 90 < cam_rotation && cam_rotation < 270) ||
@@ -214,7 +212,7 @@ public:
 				}
 
 				// 우측면
-				if (b[2] <= y && y <= b[3] && b[1] >= x && x > b[1] - b_center) {
+				if (b[2] <= y && y <= b[3] && b[1] >= x && x >= b[1] - b_center) {
 					if ((player_move_left && ((270 < cam_rotation && cam_rotation < 360) || (0 < cam_rotation && cam_rotation < 90))) ||
 						(player_move_right && 90 < cam_rotation && cam_rotation < 270) ||
 						(player_move_up && 180 < cam_rotation && cam_rotation < 360) ||
@@ -224,7 +222,7 @@ public:
 				}
 
 				//// 아랫면
-				if (b[2] <= y && y < b[2] + b_center && b[0] <= x && x <= b[1]) {
+				if (b[2] <= y && y <= b[2] + b_center && b[0] <= x && x <= b[1]) {
 					if ((player_move_up && ((270 < cam_rotation && cam_rotation < 360) || (0 < cam_rotation && cam_rotation < 90))) ||
 						(player_move_right && 180 < cam_rotation && cam_rotation < 360) ||
 						(player_move_down && 90 < cam_rotation && cam_rotation < 270) ||
@@ -234,7 +232,7 @@ public:
 				}
 
 				// 윗면
-				if (b[3] >= y && y > b[3] - b_center && b[0] <= x && x <= b[1]) {
+				if (b[3] >= y && y >= b[3] - b_center && b[0] <= x && x <= b[1]) {
 					if ((player_move_down && ((270 < cam_rotation && cam_rotation < 360) || (0 < cam_rotation && cam_rotation < 90))) ||
 						(player_move_left && 180 < cam_rotation && cam_rotation < 360) ||
 						(player_move_right && 0 < cam_rotation && cam_rotation < 180) ||

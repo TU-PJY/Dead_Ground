@@ -18,15 +18,13 @@ public:
 	bool plus_day = false; // true 일 시 Date 클래스에서 Day 수치가 증가
 
 	void render() {
-		using namespace glm;
-
 		init_transform();
-		scale_matrix = scale(scale_matrix, vec3(1.5, 1.5, 0.0));
-		set_object_static(-1.0 * ratio + 0.5, -0.4);
+		scale_matrix *= scale_image(1.5, 1.5);
+		set_object_static(rectL + 0.5, -0.4);
 		draw_image(tex, VAO);
 
 		init_transform();
-		set_object_static(-1.0 * ratio + 0.4, -0.42);
+		set_object_static(rectL + 0.4, -0.42);
 		draw_text(text_tex, VAO_text, base, "%02d:%02d", hour, minute);
 	}
 
@@ -76,17 +74,15 @@ public:
 
 
 	void render() {
-		using namespace glm;
-
 		clock.render();
 
 		init_transform();
-		scale_matrix = scale(scale_matrix, vec3(1.5, 1.5, 0.0));
-		set_object_static(-1.0 * ratio + 0.2, -0.4);
+		scale_matrix *= scale_image(1.5, 1.5);
+		set_object_static(rectL + 0.2, -0.4);
 		draw_image(tex, VAO);
 
 		init_transform();
-		set_object_static(-1.0 * ratio + 0.1, -0.48);
+		set_object_static(rectL + 0.1, -0.48);
 
 		draw_text(text_tex, VAO_text, base, "%d", day);
 	}

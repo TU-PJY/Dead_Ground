@@ -16,7 +16,7 @@ void play_mode() {
 	fw_add(new Center(layer_map_object), layer_map_object);
 
 	// 플레이어 레이어
-	fw_add(new Player(layer_player), layer_player);  // 클라이언트 플레이어는 반드시 laper_player 레이어에 위치시킬것
+	fw_add(new Player(layer_player), layer_player);  // 클라이언트 플레이어는 반드시 layer_player 레이어에 위치시킬것
 	fw_add(new Shadow(layer_entity, 0, "player"), layer_entity);
 	fw_add(new Foot(layer_entity, 0, "player"), layer_entity);
 	

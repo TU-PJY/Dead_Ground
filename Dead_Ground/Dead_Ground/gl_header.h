@@ -13,7 +13,9 @@
 extern int WIDTH, HEIGHT;  // 윈도우 사이즈
 
 extern GLfloat ratio;  // 윈도우 종횡비
+extern GLfloat rectL, rectR;  // 화면 좌우 가장자리
 extern GLfloat mx, my, cam_rotation, cam_x, cam_y;  // 마우스 위치, 화면 회전 각도, 카메라 위치
 extern GLfloat map_size;  // 맵 넓이
+extern GLfloat ratio, rectL, rectR;
 
 extern std::string vendor;  // 그래픽 카드 제조사 명

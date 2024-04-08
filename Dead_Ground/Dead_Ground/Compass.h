@@ -13,32 +13,30 @@ private:
 
 public:
 	void render() {
-		using namespace glm;
-
 		// 나침반 몸체
 		init_transform();
-		scale_matrix = scale(scale_matrix, vec3(2.0, 2.0, 0.0));
-		set_object_static(1.0 * ratio - 0.3, -0.3);
-		translate_matrix = rotate(translate_matrix, radians(cam_rotation), vec3(0.0, 0.0, 1.0));
+		scale_matrix *= scale_image(2.0, 2.0);
+		set_object_static(rectR - 0.3, -0.3);
+		translate_matrix *= rotate_image(cam_rotation);
 
 		draw_image(tex[0], VAO);
 
 
 		// 나침반 침
 		init_transform();
-		scale_matrix = scale(scale_matrix, vec3(2.0, 2.0, 0.0));
-		set_object_static(1.0 * ratio - 0.3, -0.3);
+		scale_matrix *= scale_image(2.0, 2.0);
+		set_object_static(rectR - 0.3, -0.3);
 
 		draw_image(tex[1], VAO);
 
 
 		// 센터 인디케이터
 		init_transform();
-		scale_matrix = scale(scale_matrix, vec3(0.4, 0.4, 0.0));
-		set_object_static(1.0 * ratio - 0.3, -0.3);
-		translate_matrix = rotate(translate_matrix, radians(cam_rotation + rotation), vec3(0.0, 0.0, 1.0));
-		translate_matrix = translate(translate_matrix, vec3(-0.23, -0.0, 0.0));
-		translate_matrix = rotate(translate_matrix, radians(-cam_rotation - rotation), vec3(0.0, 0.0, 1.0));
+		scale_matrix *= scale_image(0.4, 0.4);
+		set_object_static(rectR - 0.3, -0.3);
+		translate_matrix *= rotate_image(cam_rotation + rotation);
+		translate_matrix *= move_image(-0.23, -0.0);
+		translate_matrix *= rotate_image(-cam_rotation - rotation);
 
 		draw_image(tex[2], VAO);
 	}

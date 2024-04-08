@@ -32,7 +32,7 @@ public:
 	virtual void update() {}
 
 	// 플레이어 이동 상태 변경
-	virtual void set_state(int opt) {}
+	virtual void set_move_state(int opt) {}
 
 	// 객체 x, y좌표 리턴
 	virtual GLfloat get_x() const { return data; }
@@ -54,7 +54,7 @@ public:
 	virtual void give_damage(GLfloat damage) {}
 
 	// 충돌 처리 영역 배열 리턴
-	// x_min, x_max, y_min, y_mx
+	// x_min, x_max, y_min, y_max
 	virtual std::array<GLfloat, 4> get_collision_area() const { return {}; }
 
 	virtual ~Framework() {
