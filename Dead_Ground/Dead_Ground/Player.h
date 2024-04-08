@@ -54,7 +54,7 @@ public:
 	GLfloat get_speed() const { return walk_speed; }
 
 	// 플레이어 이동 상태 리턴
-	bool get_state() const { return is_move; }
+	bool get_move_state() const { return is_move; }
 
 
 	std::array<GLfloat, 4> get_collision_area() const { return bound; }
@@ -189,8 +189,8 @@ public:
 	//맵 오브젝트 충돌 처리
 	// layer_object 에 존재하는 모든 오브젝트로부터 경계 좌표를 얻어 충돌처리 한다.
 	void check_map_object_collision() {
-		for (int i = 0; i < framework[layer_map_object].size(); ++i) {
-			auto ptr = framework[layer_map_object][i];
+		for (int i = 0; i < fw_layer_size(layer_map_object); ++i) {
+			auto ptr = fw_set_tracking(layer_map_object, i);
 
 			if (ptr != nullptr) {
 				// 오브젝트가 return하는 바운드 범위를 가져온다

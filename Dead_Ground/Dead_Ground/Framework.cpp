@@ -11,7 +11,7 @@ double ft;
 int mode = START_MODE;
 
 void fw_routine() {
-	for(int i = 0; i < LAYER; i++) {
+	for(int i = 0; i < LAYER; ++i) {
 		if (framework[i].size() * 2 < framework[i].capacity())
 			framework[i].shrink_to_fit();
 
@@ -42,6 +42,27 @@ void fw_add(Framework*&& object, int layer) {
 }
 
 
+Framework* fw_set_tracking(int layer, int index) {
+	if (index >= framework[layer].size())
+		return nullptr;
+	else
+		return framework[layer][index];
+}
+
+
+bool fw_check_tracking_valid(int layer, int index) {
+	if (index >= framework[layer].size())
+		return false;
+	else
+		return true;
+}
+
+
+int fw_layer_size(int layer) {
+	return framework[layer].size();
+}
+
+
 void fw_delete(Framework* object, int layer) {
 	auto target = std::find(framework[layer].begin(), framework[layer].end(), object);
 
@@ -60,7 +81,7 @@ void fw_sweep_layer(int layer) {
 		delete* target;
 		*target = nullptr;
 
-		it++;
+		++it;
 	}
 }
 
@@ -74,7 +95,7 @@ void fw_sweep() {
 			delete* target;
 			*target = nullptr;
 
-			it++;
+			++it;
 		}
 	}
 }

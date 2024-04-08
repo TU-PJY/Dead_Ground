@@ -45,7 +45,7 @@ public:
 	virtual GLfloat get_hp() const { return data; }
 
 	// 객체 움직임 상태 리턴
-	virtual bool get_state() const { return state; }
+	virtual bool get_move_state() const { return state; }
 
 	// 객체 이동 속도 리턴
 	virtual GLfloat get_speed() const { return data; }
@@ -70,6 +70,9 @@ extern int mode;
 
 void fw_routine();
 void fw_add(Framework*&& object, int layer);
+Framework* fw_set_tracking(int layer, int index);
+bool fw_check_tracking_valid(int layer, int index);
+int fw_layer_size(int layer);
 void fw_delete(Framework* object, int layer);
 void fw_sweep_layer(int layer);
 void fw_sweep();

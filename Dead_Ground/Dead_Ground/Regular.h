@@ -40,7 +40,7 @@ public:
 	GLfloat get_y() const { return y; }
 	GLfloat get_rotation() const{ return rotation2; }
 	GLfloat get_speed() const { return speed; }
-	bool get_state() const { return is_move;  }
+	bool get_move_state() const { return is_move;  }
 
 
 	void render() {
@@ -100,7 +100,7 @@ public:
 
 
 	void check_monster_collision() {
-		auto ptr = framework[layer_player][0];
+		auto ptr = fw_set_tracking(layer_player, 0);
 
 		// 플레이어와 닿으면 플레이어에게 대미지를 입힘
 		// 대미지를 입히는 동안에는 움직이지 않음
@@ -111,16 +111,14 @@ public:
 					ptr->give_damage(damage);  // 플레이어에게 35 대미지를 준다
 				}
 
-				else {
+				else 
 					hit_player = false;
-				}
 			}
 		}
 
 		else {  // 한 번 센터를 공격하기 시작하면 플레이어 감지 여부와 상관없이 계속 센터만 공격한다
-			if (calc_distance(0.0, x, 0.0, y) < 0.15) {
+			if (calc_distance(0.0, x, 0.0, y) < 0.15)
 				hit_center = true;
-			}
 		}
 	}
 

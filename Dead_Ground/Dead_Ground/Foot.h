@@ -20,7 +20,7 @@ public:
 		using namespace glm;
 
 		if (tag == "monster") {
-			auto ptr = framework[layer_monster][index];
+			auto ptr = fw_set_tracking(layer_monster, index);
 
 			if (ptr != nullptr) {
 				GLfloat x = ptr->get_x();
@@ -49,7 +49,7 @@ public:
 		}
 
 		else if (tag == "player") {
-			auto ptr = framework[layer_player][0];
+			auto ptr = fw_set_tracking(layer_player, 0);
 
 			if (ptr != nullptr) {
 				GLfloat x = ptr->get_x();
@@ -58,9 +58,9 @@ public:
 				// left foot
 				init_transform();
 				scale_matrix = scale(scale_matrix, vec3(0.3, 0.3, 0.0));
-				translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
-				translate_matrix = rotate(translate_matrix, radians(-cam_rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
-				translate_matrix = translate(translate_matrix, vec3(-0.02, -0.03 + foot_y, 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
+				translate_matrix = translate(translate_matrix, vec3(x, y, 0.0)); 
+				translate_matrix = rotate(translate_matrix, radians(-cam_rotation), vec3(0.0, 0.0, 1.0));  
+				translate_matrix = translate(translate_matrix, vec3(-0.02, -0.03 + foot_y, 0.0));
 
 				draw_image(tex[0], VAO);
 
@@ -68,9 +68,9 @@ public:
 				// right foot
 				init_transform();
 				scale_matrix = scale(scale_matrix, vec3(0.3, 0.3, 0.0));
-				translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
-				translate_matrix = rotate(translate_matrix, radians(-cam_rotation), vec3(0.0, 0.0, 1.0));  // 플레이어는 카메라 회전에 영향을 받지 않는다
-				translate_matrix = translate(translate_matrix, vec3(0.02, -0.03 - foot_y, 0.0));  // 플레이어는 카메라 위치에 영향을 받지 않는다
+				translate_matrix = translate(translate_matrix, vec3(x, y, 0.0));
+				translate_matrix = rotate(translate_matrix, radians(-cam_rotation), vec3(0.0, 0.0, 1.0));
+				translate_matrix = translate(translate_matrix, vec3(0.02, -0.03 - foot_y, 0.0));
 
 				draw_image(tex[1], VAO);
 			}
@@ -79,23 +79,22 @@ public:
 
 	void update() {
 		if (tag == "monster") {
-			if (index >= framework[layer_monster].size())
-				fw_delete(this, layer);
+			if (fw_check_tracking_valid(layer_monster, index))
+				p = fw_set_tracking(layer_monster, index);
 			else
-				p = framework[layer_monster][index];
+				fw_delete(this, layer);
 		}
 
 		else if (tag == "player") {
-			if (index >= framework[layer_player].size())
-				fw_delete(this, layer);
+			if (fw_check_tracking_valid(layer_player, 0))
+				p = fw_set_tracking(layer_player, 0);
 			else
-				p = framework[layer_player][index];
+				fw_delete(this, layer);
 		}
-
 
 		if (p != nullptr) {
 			// 걸을 때는 발이 움직인다.
-			if (p->get_state()) {
+			if (p->get_move_state()) {
 				num += ft * p->get_speed() * 10;
 				foot_y = sin(num) / 20;
 			}

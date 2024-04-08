@@ -115,7 +115,7 @@ GLvoid build_font(const char* fontName, int fontSize, int type, GLuint& base, HD
 		OUT_TT_PRECIS,  // Output Precision
 		CLIP_DEFAULT_PRECIS,        // Clipping Precision
 		ANTIALIASED_QUALITY,        // Output Quality
-		FF_DONTCARE | DEFAULT_PITCH,  // Family And Pitch
+		FF_DONTCARE | VARIABLE_PITCH,  // Family And Pitch
 		fontName);         // Font Name
 
 	oldfont = (HFONT)SelectObject(hDC, font); // Selects The Font We Want
