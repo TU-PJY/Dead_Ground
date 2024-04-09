@@ -113,9 +113,11 @@ public:
 			}
 		}
 
-		else {  // 한 번 센터를 공격하기 시작하면 계속 센터만 공격한다
-			if (calc_distance(0.0, x, 0.0, y) < 0.15)
-				hit_center = true;
+		// 센터 근처에 다다르면 센터를 공격하기 시작한다.
+		// 한 번 센터를 공격하기 시작하면 센터만 공격한다.
+		if (calc_distance(0.0, x, 0.0, y) < 0.15) {
+			hit_center = true;
+			track_player = false;
 		}
 	}
 
