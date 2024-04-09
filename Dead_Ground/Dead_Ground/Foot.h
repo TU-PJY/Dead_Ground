@@ -27,20 +27,20 @@ public:
 
 				// left foot
 				init_transform();
-				scale_matrix *= scale_image(0.3, 0.3);
-				translate_matrix *= move_image(x, y);
-				translate_matrix *= rotate_image(rotation + 90);
-				translate_matrix *= move_image(-0.02, -0.03 + foot_y);
+				s_mat *= scale_image(0.3, 0.3);
+				t_mat *= move_image(x, y);
+				t_mat *= rotate_image(rotation + 90);
+				t_mat *= move_image(-0.02, -0.03 + foot_y);
 
 				draw_image(tex[0], VAO);
 
 
 				// right foot
 				init_transform();
-				scale_matrix *= scale_image(0.3, 0.3);
-				translate_matrix *= move_image(x, y);
-				translate_matrix *= rotate_image (rotation + 90);
-				translate_matrix *= move_image(0.02, -0.03 - foot_y);
+				s_mat *= scale_image(0.3, 0.3);
+				t_mat *= move_image(x, y);
+				t_mat *= rotate_image (rotation + 90);
+				t_mat *= move_image(0.02, -0.03 - foot_y);
 
 				draw_image(tex[1], VAO);
 			}
@@ -55,20 +55,20 @@ public:
 
 				// left foot
 				init_transform();
-				scale_matrix *= scale_image(0.3, 0.3);
-				translate_matrix *= move_image(x, y); 
-				translate_matrix *= rotate_image(-cam_rotation);  
-				translate_matrix *= move_image(-0.02, -0.03 + foot_y);
+				s_mat *= scale_image(0.3, 0.3);
+				t_mat *= move_image(x, y); 
+				t_mat *= rotate_image(-cam_rotation);  
+				t_mat *= move_image(-0.02, -0.03 + foot_y);
 
 				draw_image(tex[0], VAO);
 
 
 				// right foot
 				init_transform();
-				scale_matrix *= scale_image(0.3, 0.3);
-				translate_matrix *= move_image(x, y);
-				translate_matrix *= rotate_image(-cam_rotation);
-				translate_matrix *= move_image(0.02, -0.03 - foot_y);
+				s_mat *= scale_image(0.3, 0.3);
+				t_mat *= move_image(x, y);
+				t_mat *= rotate_image(-cam_rotation);
+				t_mat *= move_image(0.02, -0.03 - foot_y);
 
 				draw_image(tex[1], VAO);
 			}

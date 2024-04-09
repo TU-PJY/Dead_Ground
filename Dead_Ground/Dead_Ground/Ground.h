@@ -15,8 +15,8 @@ public:
 		using namespace glm;
 
 		init_transform();
-		scale_matrix = scale(scale_matrix, vec3(map_size, map_size, 0.0));
-		translate_matrix = translate(translate_matrix, vec3(0.0, 0.0, 0.0));
+		s_mat = scale(s_mat, vec3(map_size, map_size, 0.0));
+		t_mat = translate(t_mat, vec3(0.0, 0.0, 0.0));
 
 		draw_image(tex, VAO);
 	}
@@ -46,8 +46,8 @@ public:
 
 	void render() {
 		init_transform();
-		scale_matrix *= scale_image(5.0, 5.0);
-		translate_matrix *= move_image(0.0, 0.0);
+		s_mat *= scale_image(5.0, 5.0);
+		t_mat *= move_image(0.0, 0.0);
 
 		draw_image(tex, VAO);
 	}

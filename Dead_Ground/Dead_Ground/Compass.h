@@ -15,16 +15,16 @@ public:
 	void render() {
 		// 나침반 몸체
 		init_transform();
-		scale_matrix *= scale_image(2.0, 2.0);
+		s_mat *= scale_image(2.0, 2.0);
 		fix_image_at(rectR - 0.3, -0.3);
-		translate_matrix *= rotate_image(cam_rotation);
+		t_mat *= rotate_image(cam_rotation);
 
 		draw_image(tex[0], VAO);
 
 
 		// 나침반 침
 		init_transform();
-		scale_matrix *= scale_image(2.0, 2.0);
+		s_mat *= scale_image(2.0, 2.0);
 		fix_image_at(rectR - 0.3, -0.3);
 
 		draw_image(tex[1], VAO);
@@ -32,11 +32,11 @@ public:
 
 		// 센터 인디케이터
 		init_transform();
-		scale_matrix *= scale_image(0.4, 0.4);
+		s_mat *= scale_image(0.4, 0.4);
 		fix_image_at(rectR - 0.3, -0.3);
-		translate_matrix *= rotate_image(cam_rotation + rotation);
-		translate_matrix *= move_image(-0.23, -0.0);
-		translate_matrix *= rotate_image(-cam_rotation - rotation);
+		t_mat *= rotate_image(cam_rotation + rotation);
+		t_mat *= move_image(-0.23, -0.0);
+		t_mat *= rotate_image(-cam_rotation - rotation);
 
 		draw_image(tex[2], VAO);
 	}

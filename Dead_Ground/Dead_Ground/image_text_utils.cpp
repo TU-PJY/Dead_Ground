@@ -53,10 +53,10 @@ void set_bound_box(unsigned int& tex) {
 
 
 void transmit_translation() {
-	result_matrix = rotate_matrix * translate_matrix * scale_matrix;  // 최종 변환
+	result = r_mat * t_mat * s_mat;  // 최종 변환
 
 	transperancy_location = glGetUniformLocation(ID, "transparency");
-	glUniform1f(transperancy_location, transparent);
+	glUniform1f(transperancy_location, alpha);
 
 	projection_location = glGetUniformLocation(ID, "projection");
 	glUniformMatrix4fv(projection_location, 1, GL_FALSE, &projection[0][0]);
@@ -68,7 +68,7 @@ void transmit_translation() {
 	glUniform3f(viewpos_location, cam_pos.x, cam_pos.y, cam_pos.z);
 
 	model_location = glGetUniformLocation(ID, "model"); // 버텍스 세이더에서 모델링 변환 위치 가져오기
-	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(result_matrix)); // 변환 값 적용하기
+	glUniformMatrix4fv(model_location, 1, GL_FALSE, value_ptr(result)); // 변환 값 적용하기
 }
 
 
@@ -147,7 +147,7 @@ GLvoid draw_text(unsigned int tex, GLuint VAO, GLuint base, const char* fmt, ...
 	transmit_translation();
 
 	// 화면 좌표로 변환된 모델 중심 좌표 계산
-	glm::vec4 modelCenterScreen = projection * view * result_matrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	glm::vec4 modelCenterScreen = projection * view * result * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, tex);
@@ -170,8 +170,9 @@ GLvoid draw_text(unsigned int tex, GLuint VAO, GLuint base, const char* fmt, ...
 	else if(vendor == "ATI Technologies Inc.")
 		glRasterPos2f(modelCenterScreen.x, modelCenterScreen.y);
 
-	char        text[256];          // Holds Our String
-	va_list     ap;                 // Pointer To List Of Arguments
+
+	char text[256];          // Holds Our String
+	va_list ap;                 // Pointer To List Of Arguments
 
 	if (fmt == NULL)                // If There's No Text
 		return;                     // Do Nothing

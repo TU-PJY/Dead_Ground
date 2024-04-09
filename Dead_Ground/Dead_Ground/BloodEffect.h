@@ -13,8 +13,8 @@ public:
 	void render() {
 		init_transform();
 		fix_image_at(0.0, 0.4);
-		translate_matrix *= scale_image(10.0 * ratio, 10.0);
-		transparent = transparency;
+		t_mat *= scale_image(10.0 * ratio, 10.0);
+		alpha = transparency;
 		draw_image(tex, VAO);
 	}
 

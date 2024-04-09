@@ -45,8 +45,8 @@ public:
 
 	void render() {
 		init_transform();
-		translate_matrix *= move_image(x, y);
-		translate_matrix *= rotate_image(rotation2 + body_rotation);
+		t_mat *= move_image(x, y);
+		t_mat *= rotate_image(rotation2 + body_rotation);
 
 		draw_image(tex, VAO);
 	}

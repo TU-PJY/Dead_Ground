@@ -18,8 +18,8 @@ public:
 
 	void render() {
 		init_transform();
-		scale_matrix *= scale_image(1.5, 1.5);
-		translate_matrix *= move_image(0.0, 0.0);
+		s_mat *= scale_image(1.5, 1.5);
+		t_mat *= move_image(0.0, 0.0);
 
 		draw_image(tex, VAO);
 	}

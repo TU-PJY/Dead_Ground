@@ -13,7 +13,7 @@ public:
 	void render() {
 		// 배경
 		init_transform();
-		scale_matrix *= scale_image(1.5, 1.5);
+		s_mat *= scale_image(1.5, 1.5);
 		fix_image_at(rectL + 0.75, -0.4);
 		draw_image(tex[0], VAO);
 
@@ -22,14 +22,14 @@ public:
 		if (ptr != nullptr) {
 			int hp = ptr->get_hp();
 			init_transform();
-			scale_matrix *= scale_image(1.5, 1.5 * hp / 500);
+			s_mat *= scale_image(1.5, 1.5 * hp / 500);
 			fix_image_at(rectL + 0.75, -0.4);
 			draw_image(tex[1], VAO);
 		}
 
 		// 프레임
 		init_transform();
-		scale_matrix *= scale_image(1.5, 1.5);
+		s_mat *= scale_image(1.5, 1.5);
 		fix_image_at(rectL + 0.75, -0.4);
 		draw_image(tex[2], VAO);
 	}

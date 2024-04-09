@@ -15,9 +15,9 @@ public:
 			auto ptr = fw_set_tracking(layer_monster, index);
 			if (ptr != nullptr) {
 				init_transform();
-				translate_matrix *= move_image(ptr->get_x(), ptr->get_y());
-				translate_matrix *= rotate_image(ptr->get_rotation());
-				transparent = 0.2f;
+				t_mat *= move_image(ptr->get_x(), ptr->get_y());
+				t_mat *= rotate_image(ptr->get_rotation());
+				alpha = 0.2f;
 
 				draw_image(tex, VAO);
 			}
@@ -27,9 +27,9 @@ public:
 			auto ptr = fw_set_tracking(layer_player, 0);
 			if (ptr != nullptr) {
 				init_transform();
-				translate_matrix *= move_image(ptr->get_x(), ptr->get_y());
-				translate_matrix *= rotate_image(-cam_rotation - 90);
-				transparent = 0.2f;
+				t_mat *= move_image(ptr->get_x(), ptr->get_y());
+				t_mat *= rotate_image(-cam_rotation - 90);
+				alpha = 0.2f;
 
 				draw_image(tex, VAO);
 			}

@@ -87,8 +87,8 @@ public:
 	void render() {
 		// body
 		init_transform();
-		translate_matrix *= move_image(x, y);  // 플레이어는 카메라 위치에 영향을 받지 않는다
-		translate_matrix *= rotate_image(-cam_rotation + rotation);  // 플레이어는 카메라 회전에 영향을 받지 않는다
+		t_mat *= move_image(x, y);  // 플레이어는 카메라 위치에 영향을 받지 않는다
+		t_mat *= rotate_image(-cam_rotation + rotation);  // 플레이어는 카메라 회전에 영향을 받지 않는다
 
 		draw_image(tex, VAO);
 
@@ -96,8 +96,8 @@ public:
 		// bound box
 		if (BOUND_BOX == 1) {
 			init_transform();
-			scale_matrix *= scale_image(0.6, 0.6);
-			translate_matrix *= move_image(x, y);
+			s_mat *= scale_image(0.6, 0.6);
+			t_mat *= move_image(x, y);
 
 			draw_image(bound_box, VAO);
 		}

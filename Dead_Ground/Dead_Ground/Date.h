@@ -19,7 +19,7 @@ public:
 
 	void render() {
 		init_transform();
-		scale_matrix *= scale_image(1.5, 1.5);
+		s_mat *= scale_image(1.5, 1.5);
 		fix_image_at(rectL + 0.5, -0.4);
 		draw_image(tex, VAO);
 
@@ -77,7 +77,7 @@ public:
 		clock.render();
 
 		init_transform();
-		scale_matrix *= scale_image(1.5, 1.5);
+		s_mat *= scale_image(1.5, 1.5);
 		fix_image_at(rectL + 0.2, -0.4);
 		draw_image(tex, VAO);
 
