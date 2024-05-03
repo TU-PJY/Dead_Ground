@@ -106,9 +106,14 @@ GLvoid build_font(const char* fontName, int fontSize, int type, GLuint& base, HD
 	HFONT   font;     // Windows Font ID
 	HFONT   oldfont;  // Used For Good House Keeping
 
+	// calculate font size scale
+	int dpiX = GetDeviceCaps(hDC, LOGPIXELSX);
+	float scale = static_cast<float>(dpiX) / 96.0f;
+	int result_size = static_cast<int>(fontSize * scale);
+
 	base = glGenLists(96);  // Storage For 96 Characters
 
-	font = CreateFont(-fontSize, // Height Of Fonts
+	font = CreateFont(-result_size, // Height Of Fonts
 		0,              // Width Of Font
 		0,              // Angle Of Escapement
 		0,              // Orientation Angle
@@ -130,9 +135,9 @@ GLvoid build_font(const char* fontName, int fontSize, int type, GLuint& base, HD
 }
 
 
-int set_font(int size, int type, GLuint& base, HDC& hDC) {                     // All Setup For OpenGL Goes Here
+int set_font(const char* font_name, int size, int type, GLuint& base, HDC& hDC) {                     // All Setup For OpenGL Goes Here
 	hDC = wglGetCurrentDC();            // 현재 openGL 윈도우의 hDC를 가져온다.
-	build_font("Arial", size, type, base, hDC);
+	build_font(font_name, size, type, base, hDC);
 
 	return TRUE;                        // Initialization Went OK
 }

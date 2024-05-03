@@ -49,7 +49,7 @@ public:
 
 		set_canvas(VAO_text);
 		set_text(text_tex, "red");
-		set_font(32, FW_BOLD, base, hDC);
+		set_font("Bump It Up", 18, FW_BOLD, base, hDC);
 	}
 
 	~Clock() {
@@ -110,7 +110,7 @@ public:
 
 		set_canvas(VAO_text);
 		set_text(text_tex, "black");
-		set_font(60, FW_BOLD, base, hDC);
+		set_font("Bump It Up", 40, FW_BOLD, base, hDC);
 	}
 
 	~Date() {
